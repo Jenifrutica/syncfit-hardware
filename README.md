@@ -1,0 +1,59 @@
+# SyncFit Hardware
+
+Physical sensing layer and embedded firmware of SyncFit Edge. Captures biomechanical telemetry at the source and streams it over WebSocket.
+
+## Purpose
+
+Turn the body into data at the edge: optical pulse, skin thermal variation and isometric strength, sampled on-device and transmitted as compact JSON frames at low latency.
+
+## What belongs here
+
+- **Firmware** (`firmware/`): ESP32 using ESP-IDF / Arduino Core, I2C and SPI buses.
+- **Sensor drivers** (`drivers/`):
+  - MAX30102 optical PPG at 100 Hz.
+  - MLX90614 infrared thermal sensor.
+  - HX711 load-cell + ADC for isometric dynamometry.
+- **On-device processing** (`include/`, `lib/`): fixed-window Ring Buffer, basic filtering, frame validation.
+- **Hardware design** (`hardware/`): wiring diagrams, pinout, schematic and bill of materials (BOM).
+- **Form factors**: *Format A* fixed check-in station (mains/USB, maximum optical stability) and *Format B* wearable wrist band (LiPo battery, continuous warm-up monitoring).
+
+## What does NOT belong here
+
+- DSP beyond basic filtering, ML models or AI reasoning.
+- REST business logic, persistence or UI.
+
+## Data Structures
+
+| Structure | Complexity | Purpose |
+|-----------|:----------:|---------|
+| **Ring Buffer** | O(1) insert | Mandatory: continuous 100 Hz PPG stream in fixed static memory, avoiding RAM overload and heap fragmentation. |
+| **Lock-free SPSC queue** | O(1) | Recommended: ISR-to-task hand-off. |
+| **Fixed-capacity max-heap** | O(log n) | Recommended: on-device alert prioritization before transmitting. |
+
+The Ring Buffer is explicitly required by the technical document, which specifies it in both C++ and Python.
+
+## Suggested structure
+
+```
+syncfit-hardware/
+├── firmware/           # application entry point (ESP-IDF / Arduino)
+├── drivers/            # max30102, mlx90614, hx711
+├── include/
+│   └── ring_buffer.hpp
+├── lib/
+├── hardware/           # schematic, pinout, BOM
+├── platformio.ini
+└── README.md
+```
+
+## Stack
+
+C++ (ESP-IDF / Arduino Core), I2C / SPI, WebSocket client over Wi-Fi.
+
+## Related repositories
+
+- [`syncfit-contracts`](../syncfit-contracts) — telemetry frame schema.
+- [`syncfit-backend`](../syncfit-backend) — WebSocket ingestion endpoint.
+- [`syncfit-simulator`](../syncfit-simulator) — replaces this layer during software development.
+
+All code, comments, documentation and commits in this repository are written in English.

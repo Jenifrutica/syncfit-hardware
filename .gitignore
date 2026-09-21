@@ -1,0 +1,22 @@
+# PlatformIO / ESP-IDF
+.pio/
+.pioenvs/
+.piolibdeps/
+build/
+sdkconfig
+sdkconfig.old
+managed_components/
+dependencies.lock
+
+# Compiled objects
+*.o
+*.obj
+*.elf
+*.bin
+*.hex
+*.map
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
