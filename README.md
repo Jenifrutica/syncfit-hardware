@@ -50,6 +50,25 @@ syncfit-hardware/
 
 C++ (ESP-IDF / Arduino Core), I2C / SPI, WebSocket client over Wi-Fi.
 
+## Tasks
+
+> **Language: C++ (ESP-IDF / Arduino Core).** C++ is mandatory for the ESP32 firmware.
+
+### Requirements
+
+- [ ] Set up the ESP-IDF / Arduino project and build system.
+- [ ] Implement the MAX30102 optical PPG driver at 100 Hz.
+- [ ] Implement the MLX90614 infrared thermal driver.
+- [ ] Implement the HX711 load-cell driver for isometric dynamometry.
+- [ ] Implement the **Ring Buffer** with O(1) insertion in fixed static memory.
+- [ ] Implement the lock-free SPSC queue (ISR to task).
+- [ ] Implement the fixed-capacity max-heap for on-device alert prioritization.
+- [ ] Implement basic filtering and frame validation.
+- [ ] Implement the WebSocket client over Wi-Fi.
+- [ ] Validate emitted frames against `syncfit-contracts`.
+- [ ] Produce Format A artifacts: wiring diagram, pinout, schematic and BOM.
+- [ ] Produce Format B wearable design (enclosure and LiPo power).
+
 ## Related repositories
 
 - [`syncfit-contracts`](../syncfit-contracts) — telemetry frame schema.
