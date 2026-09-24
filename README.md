@@ -76,3 +76,20 @@ C++ (ESP-IDF / Arduino Core), I2C / SPI, WebSocket client over Wi-Fi.
 - [`syncfit-simulator`](../syncfit-simulator) — replaces this layer during software development.
 
 All code, comments, documentation and commits in this repository are written in English.
+
+## Context for a new session
+
+**What it is.** ESP32 firmware + sensing layer (skeleton). Emits contract-valid
+telemetry. Replaced by syncfit-simulator until built.
+
+**Stack.** C++ (ESP-IDF / Arduino Core), PlatformIO. Sensors: MAX30102 (PPG
+100 Hz, I2C), MLX90614 (thermal), HX711 (load cell).
+
+**Layout.** `platformio.ini` (esp32dev + native test env), `src/main.cpp`,
+`include/ring_buffer.hpp` (mandatory O(1) Ring Buffer), `drivers/`, `hardware/`
+(wiring/pinout/BOM, Formats A totem / B wearable), `test/` (Unity, host).
+
+**Goal.** Emit `TelemetryFrame` JSON over WebSocket to the backend; real captures
+drop into `syncfit-simulator/captures/`.
+
+**Run.** `pio run` / `pio test -e native`.
