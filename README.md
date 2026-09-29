@@ -77,6 +77,17 @@ C++ (ESP-IDF / Arduino Core), I2C / SPI, WebSocket client over Wi-Fi.
 
 All code, comments, documentation and commits in this repository are written in English.
 
+## Handoff for the team
+
+**Role.** Physical sensing + firmware (ESP32, MAX30102 PPG, MLX90614, HX711).
+
+**Run / test.** `pio run` · `pio test -e native`.
+
+**State.** Implemented: `include/ring_buffer.hpp` (O(1) fixed-memory buffer,
+host-tested). Scaffold: `src/main.cpp` simulates sampling; TODO real drivers,
+telemetry frame build and the WebSocket client. See `hardware/README.md` for the
+two form factors (totem / wearable).
+
 ## Context for a new session
 
 **What it is.** ESP32 firmware + sensing layer (skeleton). Emits contract-valid
