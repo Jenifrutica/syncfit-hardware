@@ -104,3 +104,12 @@ telemetry. Replaced by syncfit-simulator until built.
 drop into `syncfit-simulator/captures/`.
 
 **Run.** `pio run` / `pio test -e native`.
+
+## Roadmap · Qué falta (español)
+
+> Estado: **en fase** (solo el `RingBuffer` está implementado y probado).
+
+- **Drivers**: MAX30102 (PPG), MLX90614 (térmico), HX711 (fuerza).
+- Construir el **frame de telemetría** y enviarlo por **WebSocket** (hoy simulado).
+- Esquemático, BOM y montaje físico (Formatos A/B).
+- **CI** (`pio test`).
