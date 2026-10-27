@@ -16,6 +16,9 @@ dependencies.lock
 *.hex
 *.map
 
+# Local secrets (Wi-Fi credentials, WebSocket URL)
+include/secrets.hpp
+
 # OS / editors
 .DS_Store
 .idea/

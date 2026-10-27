@@ -35,11 +35,3 @@ void test_clear() {
   TEST_ASSERT_TRUE(ring.empty());
   TEST_ASSERT_EQUAL_UINT(0, ring.size());
 }
-
-int main(int, char**) {
-  UNITY_BEGIN();
-  RUN_TEST(test_push_and_size);
-  RUN_TEST(test_wraps_and_keeps_order);
-  RUN_TEST(test_clear);
-  return UNITY_END();
-}

@@ -56,17 +56,19 @@ C++ (ESP-IDF / Arduino Core), I2C / SPI, WebSocket client over Wi-Fi.
 
 ### Requirements
 
-- [ ] Set up the ESP-IDF / Arduino project and build system.
-- [ ] Implement the MAX30102 optical PPG driver at 100 Hz.
-- [ ] Implement the MLX90614 infrared thermal driver.
-- [ ] Implement the HX711 load-cell driver for isometric dynamometry.
-- [ ] Implement the **Ring Buffer** with O(1) insertion in fixed static memory.
-- [ ] Implement the lock-free SPSC queue (ISR to task).
-- [ ] Implement the fixed-capacity max-heap for on-device alert prioritization.
-- [ ] Implement basic filtering and frame validation.
-- [ ] Implement the WebSocket client over Wi-Fi.
-- [ ] Validate emitted frames against `syncfit-contracts`.
-- [ ] Produce Format A artifacts: wiring diagram, pinout, schematic and BOM.
+- [x] Set up the ESP-IDF / Arduino project and build system.
+- [x] Implement the MAX30102 optical PPG driver at 100 Hz.
+- [x] Implement the MLX90614 infrared thermal driver.
+- [x] Implement the HX711 load-cell driver for isometric dynamometry.
+- [x] Implement the **Ring Buffer** with O(1) insertion in fixed static memory.
+- [x] Implement the lock-free SPSC queue (ISR to task).
+- [x] Implement the fixed-capacity max-heap for on-device alert prioritization.
+- [x] Implement basic filtering and frame validation.
+- [x] Implement the WebSocket client over Wi-Fi.
+- [x] Validate emitted frames against `syncfit-contracts` (manual).
+- [ ] Add contract validation to CI.
+- [x] Produce Format A wiring diagram, pinout and BOM.
+- [ ] Produce the electrical schematic.
 - [ ] Produce Format B wearable design (enclosure and LiPo power).
 
 ## Related repositories
@@ -81,36 +83,55 @@ All code, comments, documentation and commits in this repository are written in 
 
 **Role.** Physical sensing + firmware (ESP32, MAX30102 PPG, MLX90614, HX711).
 
-**Run / test.** `pio run` · `pio test -e native`.
+**Run / test.**
 
-**State.** Implemented: `include/ring_buffer.hpp` (O(1) fixed-memory buffer,
-host-tested) and the Format A build sheet (`hardware/wiring.svg`, `wiring.png`,
-`pinout.md`, `bom.csv`). Scaffold: `src/main.cpp` simulates sampling; TODO real
-drivers, telemetry frame build and the WebSocket client. See
-`hardware/README.md` for the two form factors (totem / wearable).
+```bash
+pio test -e native              # host tests: filters, frame, queues, heap
+pio run -e esp32dev             # real sensors
+pio run -e esp32dev_mock        # synthetic sensors, no wiring needed
+pio run -e esp32dev_mock -t upload
+pio device monitor -b 115200
+```
+
+Copy `include/secrets.example.hpp` to `include/secrets.hpp` for local
+credentials (the real file is git-ignored). Runtime provisioning also works over
+serial: `HELP`, `STATUS`, `SET MODALITY GESTATIONAL`, `SET WEEK 16`,
+`SET WIFI <ssid>,<password>`,
+`SET WS ws://<laptop-ip>:8000/api/v1/ws/telemetry`, `TARE`, `CAL <kg>`.
+
+**State.** Implemented: ring buffer, SPSC queue, max-heap, filters, contract
+telemetry frame, MAX30102/MLX90614/HX711 drivers, FreeRTOS tasks, serial/NVS
+provisioning, Wi-Fi WebSocket client, mock-sensor build and Format A build sheet
+(`hardware/wiring.svg`, `wiring.png`, `pinout.md`, `bom.csv`). Pending:
+hardware-in-the-loop calibration, CI contract validation, electrical schematic
+and Format B. See `hardware/README.md` for both form factors.
 
 ## Context for a new session
 
-**What it is.** ESP32 firmware + sensing layer (skeleton). Emits contract-valid
-telemetry. Replaced by syncfit-simulator until built.
+**What it is.** ESP32 firmware + sensing layer. Emits contract-valid telemetry
+over WebSocket. Can run without sensors using `esp32dev_mock`.
 
-**Stack.** C++ (ESP-IDF / Arduino Core), PlatformIO. Sensors: MAX30102 (PPG
-100 Hz, I2C), MLX90614 (thermal), HX711 (load cell).
+**Stack.** C++ (Arduino Core), PlatformIO. Sensors: MAX30102 (PPG 100 Hz, I2C),
+MLX90614 (thermal, 1 Hz), HX711 (load cell, 10 SPS). Wi-Fi WebSocket client.
 
-**Layout.** `platformio.ini` (esp32dev + native test env), `src/main.cpp`,
-`include/ring_buffer.hpp` (mandatory O(1) Ring Buffer), `drivers/`, `hardware/`
-(wiring/pinout/BOM, Formats A totem / B wearable), `test/` (Unity, host).
+**Layout.** `platformio.ini` (`esp32dev`, `esp32dev_mock`, `native`),
+`src/main.cpp` (tasks), `src/drivers/`, `include/` (pins, config, filters, frame,
+queues), `test/` (Unity, host), `hardware/` (wiring, pinout, BOM).
 
-**Goal.** Emit `TelemetryFrame` JSON over WebSocket to the backend; real captures
+**Goal.** Emit `TelemetryFrame` JSON over WebSocket to the backend. Real captures
 drop into `syncfit-simulator/captures/`.
 
-**Run.** `pio run` / `pio test -e native`.
+**Run.** `pio run -e esp32dev_mock` for a sensorless smoke test; `pio run -e
+esp32dev` after wiring; `pio test -e native` for host tests.
 
 ## Roadmap · Qué falta (español)
 
-> Estado: **en fase** (solo el `RingBuffer` está implementado y probado).
+> Estado: **firmware v0.1 listo para banco**. Compila para ESP32, pasa pruebas
+> nativas y tiene modo mock. Falta validarlo con los sensores reales.
 
-- **Drivers**: MAX30102 (PPG), MLX90614 (térmico), HX711 (fuerza).
-- Construir el **frame de telemetría** y enviarlo por **WebSocket** (hoy simulado).
-- Esquemático, BOM y montaje físico (Formatos A/B).
+- **Calibración real**: TARE y `CAL <kg>` con la celda de 50 kg.
+- **Prueba I2C**: confirmar `0x57` (MAX30102) y `0x5A` (MLX90614).
+- **WebSocket local**: probar contra `ws://<laptop>:8000/api/v1/ws/telemetry`.
+- **Validación de contrato** automática en CI.
+- **Esquemático eléctrico** y **Format B** (banda con LiPo).
 - **CI** (`pio test`).
