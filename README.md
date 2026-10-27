@@ -84,9 +84,10 @@ All code, comments, documentation and commits in this repository are written in 
 **Run / test.** `pio run` · `pio test -e native`.
 
 **State.** Implemented: `include/ring_buffer.hpp` (O(1) fixed-memory buffer,
-host-tested). Scaffold: `src/main.cpp` simulates sampling; TODO real drivers,
-telemetry frame build and the WebSocket client. See `hardware/README.md` for the
-two form factors (totem / wearable).
+host-tested) and the Format A build sheet (`hardware/wiring.svg`, `wiring.png`,
+`pinout.md`, `bom.csv`). Scaffold: `src/main.cpp` simulates sampling; TODO real
+drivers, telemetry frame build and the WebSocket client. See
+`hardware/README.md` for the two form factors (totem / wearable).
 
 ## Context for a new session
 
