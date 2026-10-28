@@ -1373,6 +1373,7 @@
 <text x="60" y="112" font-family="DejaVu Sans, Arial, sans-serif" font-size="36" fill="#1f2340" text-anchor="start" font-weight="bold">Conexión en protoboard · sin soldadura</text>
 <text x="60" y="143" font-family="DejaVu Sans, Arial, sans-serif" font-size="16" fill="#5b6078" text-anchor="start" font-weight="bold">ESP32 DevKit V1 30 pines · USB-C · MAX30102 + MLX90614 + HX711 · celda 50 kg</text>
 <text x="60" y="174" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" fill="#8a4f63" text-anchor="start" font-weight="bold">Cada etiqueta = un jumper F-M al pin del ESP32 del mismo nombre · dentro de la protoboard, M-M</text>
+<text x="60" y="196" font-family="DejaVu Sans, Arial, sans-serif" font-size="10.8" fill="#5b6078" text-anchor="start" font-weight="bold">Módulos grandes: déjalos libres y conecta con M-F; la protoboard de 830 puntos es la recomendada.</text>
 <rect x="1490" y="38" width="250" height="34" rx="17.0" fill="#e8e2d5"/>
 <text x="1615.0" y="59.68" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" fill="#5b6078" text-anchor="middle" font-weight="bold">PROTOBOARD 830</text>
 <text x="1740" y="105" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" fill="#5b6078" text-anchor="end" font-weight="bold">A3 · 2026</text>
@@ -1988,7 +1989,7 @@
 <line x1="82" y1="1174" x2="112" y2="1174" stroke="#2f6fd0" stroke-width="5" stroke-linecap="round"/>
 <text x="124" y="1178" font-family="DejaVu Sans, Arial, sans-serif" font-size="10.5" fill="#1f2340" text-anchor="start" font-weight="bold">F-F: módulo ↔ módulo (no usado aquí)</text>
 <line x1="82" y1="1196" x2="112" y2="1196" stroke="#2e8b57" stroke-width="5" stroke-linecap="round"/>
-<text x="124" y="1200" font-family="DejaVu Sans, Arial, sans-serif" font-size="10.5" fill="#1f2340" text-anchor="start" font-weight="bold">Sin jumper: módulos clavados, bornera</text>
+<text x="124" y="1200" font-family="DejaVu Sans, Arial, sans-serif" font-size="10.5" fill="#1f2340" text-anchor="start" font-weight="bold">Sin jumper: módulos clavados (si caben), bornera</text>
 <rect x="865" y="1087" width="880" height="130" rx="14" fill="#000000" opacity="0.1"/>
 <rect x="860" y="1080" width="880" height="130" rx="14" fill="#ffffff" stroke="#d9d3c7" stroke-width="1.5"/>
 <text x="882" y="1107" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" fill="#1f2340" text-anchor="start" font-weight="bold">¿Necesito cautín?</text>

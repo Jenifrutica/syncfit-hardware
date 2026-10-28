@@ -34,7 +34,9 @@ Physical design artifacts for the two form factors.
   (M-M / M-F / F-F) and soldering-iron checklist.
 
 The ESP32 stays beside the breadboard; use **M-F** jumpers from its male pins to
-the breadboard. Modules with male headers plug directly into the breadboard.
+the breadboard. An **830-point** board is recommended. On a 400-point board, or
+when the module PCBs are large, leave the modules **free** beside the board and
+connect each pin with an **M-F** jumper; do not force them into the breadboard.
 The 50 kg load cell goes to the HX711 screw terminal (screwdriver, no solder).
 
 ## Final pinout (ESP32 DevKit V1, 30-pin)

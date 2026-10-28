@@ -1,7 +1,9 @@
 # SyncFit Edge — protoboard assembly (Format A)
 
 **Board:** ESP32 DevKit V1, generic 30-pin, USB-C.  
-**Assumption:** solderless breadboard (830 points) and modules with **pre-soldered male headers**.  
+**Assumption:** solderless breadboard and modules with **pre-soldered male headers**.  
+**Recommended breadboard:** **830 points**. A 400-point board only works if the
+sensor modules are left **free** beside it.  
 **Diagram:** [`protoboard.svg`](protoboard.svg) · [`protoboard.png`](protoboard.png)
 
 > If your modules have loose headers or you use a perfboard instead of a
@@ -13,20 +15,47 @@
 | Type | What it is | Where to use it |
 |---|---|---|
 | **M-M** | Male–male | Breadboard row to breadboard row, power rails, short bus links |
-| **M-F** | Male–female | ESP32 male pin → breadboard hole; module male pin → breadboard if the module is not plugged in |
+| **M-F** | Male–female | ESP32 male pin → breadboard hole; **free module** male pin → breadboard hole |
 | **F-F** | Female–female | Only module-to-module when both sides have male pins; not needed in this breadboard layout |
 
 In this build:
 
 - The **ESP32 stays beside the breadboard**. Use **M-F** jumpers: female end on
   the ESP32 male pin, male end into the breadboard.
-- The **MAX30102, MLX90614 and HX711 plug directly into the breadboard** using
-  their male headers. No jumper is needed at the module pin.
+- The **MAX30102, MLX90614 and HX711 can plug directly into the breadboard** if
+  they fit. For a 400-point board, or if the modules are physically large,
+  leave them **free** beside the board and connect each pin with an **M-F**
+  jumper. This is the recommended option for this build.
 - Use **M-M** jumpers to link breadboard rows, the I2C bus and the power rails.
 - The **50 kg load cell** goes to the HX711 screw terminal. No jumper and no
   soldering iron are required; use a small screwdriver.
 
-## 2. Breadboard layout
+## 2. 400 or 830 points?
+
+| Board | Verdict |
+|---|---|
+| **400 points** | Very tight. Only if the ESP32 and all sensor modules stay **free** and the breadboard is used just for power, I2C, button, LED and resistors. It may lack long power rails. |
+| **830 points** | Recommended. Enough rows for the power rails, I2C bus, button, LED, pull-ups and spare space. |
+
+The layout in the diagram uses 30 columns. It is designed for an **830-point**
+board; a 400-point board will require shortening the bus and moving the modules
+further away.
+
+## 3. Free modules (recommended if they do not fit)
+
+1. Do **not** force the sensor PCBs into the breadboard.
+2. Place the ESP32 and the three modules on the table, around the breadboard.
+3. Connect each module pin to the breadboard with an **M-F** jumper: female end
+   on the module's male header, male end into the breadboard row.
+4. Connect the ESP32 pins to the same net rows with **M-F** jumpers.
+5. Use **M-M** jumpers only inside the breadboard (power rails, SDA/SCL bus,
+   button to GND, LED resistor to GND, pull-ups).
+
+This avoids mechanical stress on the module headers and is the practical option
+for the 400-point board. The 830-point board is still recommended because it
+gives you room for the bus and the power rails.
+
+## 4. Breadboard layout
 
 ```
 Top power rail:  +3V3 (red)  ·  GND (black)
@@ -37,10 +66,12 @@ Bottom block:    HX711 (cols 1-4)
 Bottom power:    +3V3 / GND, linked to the top rails with M-M
 ```
 
-Place the modules so their pins sit in different columns. Each column's five
-holes (a–e above, f–j below) are internally connected.
+If the modules fit, place them so their pins sit in different columns. Each
+column's five holes (a–e above, f–j below) are internally connected. If they do
+not fit, leave them free and land their nets on the breadboard with M-F jumpers
+as described in section 3.
 
-## 3. Connection list
+## 5. Connection list
 
 ### ESP32 → breadboard (all M-F)
 
@@ -80,7 +111,7 @@ modules do not already include them. Do not duplicate pull-ups.
 **Load cell:** HX711 screw terminal `E+ / E- / A+ / A-` to the load-cell wires
 `red / black / green / white`. Use a screwdriver, not a soldering iron.
 
-## 4. Do I need a soldering iron?
+## 6. Do I need a soldering iron?
 
 ### No, for a pure breadboard build if:
 
@@ -104,7 +135,7 @@ modules do not already include them. Do not duplicate pull-ups.
 screwdriver for the HX711 terminal, USB-C cable, multimeter (recommended).
 **Optional:** 4.7 kΩ and 330 Ω resistors, button, LED.
 
-## 5. Bring-up order
+## 7. Bring-up order
 
 1. With USB-C disconnected, check for shorts between `3V3` and `GND`.
 2. Connect USB-C and measure ~3.3 V between the `3V3` and `GND` rails.
