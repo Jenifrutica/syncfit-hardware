@@ -385,6 +385,9 @@ void setup() {
 #endif
 
   g_hx711.begin();
+  // The tare button is optional. Pull-up keeps GPIO4 high when it is absent;
+  // use the serial command TARE instead.
+  pinMode(pins::kTareButton, INPUT_PULLUP);
   const auto& cfg = syncfit::deviceConfig();
   g_hx711.setOffset(cfg.hx_offset);
   g_hx711.setScale(cfg.hx_scale);

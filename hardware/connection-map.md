@@ -213,3 +213,26 @@ With the 400-point board as a bus, you do **not** need F-F:
 
 That is why the recommended build is the **400-point board as a bus**, with the
 ESP32 and modules left free.
+
+## 13. No tare button? Use the serial command
+
+The tare button is **optional**. If you do not have it, leave GPIO4 unconnected:
+the firmware enables the internal pull-up, so it will not trigger by itself.
+
+Connect the HX711 and load cell, open the serial monitor at **115200**, and use:
+
+```text
+TARE
+```
+
+with the load cell empty. Then put a **known weight** on the cell and type:
+
+```text
+CAL 5
+```
+
+(for a 5 kg reference; use `CAL 10` for 10 kg, etc.). The firmware saves the
+offset and scale in NVS. `STATUS` shows the current calibration.
+
+The 50 kg cell is the rated limit: use a known weight well below 50 kg and a
+mechanical stop. Do not stand on the cell.
