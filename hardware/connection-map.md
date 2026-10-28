@@ -190,3 +190,26 @@ No jumpers. Use the HX711 screw terminal and a small screwdriver.
    330 Ω resistor between columns 8 and 9, then column 9 to GND.
 9. Connect the load cell to the HX711 screw terminal.
 10. Before USB-C, check with a multimeter that `3V3` and `GND` are not shorted.
+
+## 12. Can I connect M-M and M-F without a breadboard?
+
+**No, not directly for ESP32 ↔ module.** Both the ESP32 and the sensor modules
+have **male headers**. A direct male-to-male connection needs **F-F** jumpers
+(female on both ends).
+
+- **M-M** has male pins on both ends: it cannot plug into a male header.
+- **M-F** has one male and one female end: the female end fits one module, but
+  the male end cannot plug into the other module's male header.
+- You can physically plug an M-M male end into the female end of an M-F, but the
+  other end is still male, so it does not solve the ESP32 ↔ module connection.
+- **F-F** is the correct cable for direct module-to-module or ESP32-to-module
+  wiring.
+
+With the 400-point board as a bus, you do **not** need F-F:
+
+- ESP32/module male pin → **M-F** → breadboard hole.
+- Breadboard row/rail → **M-M** → breadboard row/rail.
+- The breadboard joins the shared 3V3, GND, SDA and SCL lines.
+
+That is why the recommended build is the **400-point board as a bus**, with the
+ESP32 and modules left free.
