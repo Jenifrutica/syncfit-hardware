@@ -19,47 +19,49 @@ Do not feed `VIN` and USB-C at the same time. The HX711 is powered from **3.3 V*
 
 ## 2. ESP32 30-pin header map
 
-The board has 15 pins per side. Pin numbers below follow the physical order used in the diagram.
+The board has 15 pins per side. This is the **generic 30-pin ESP32 DevKit
+V1 with integrated USB-C**; the order below matches the labels printed on the
+board in the reference photo (USB at the bottom, antenna at the top).
 
-### Side A (pins 1–15)
-
-| Pin | GPIO | Use in v1 | Notes |
-|---:|---|---|---|
-| 1 | `3V3` | +3.3 V rail | Power for sensors |
-| 2 | `GND` | Ground rail | Common ground |
-| 3 | `GPIO15` | Reserved | Strapping pin; leave free |
-| 4 | `GPIO2` | Reserved | On-board LED / strapping |
-| 5 | `GPIO4` | Tare button | Input, internal pull-up, button to GND |
-| 6 | `GPIO16` | Reserved | Free |
-| 7 | `GPIO17` | Buzzer (optional) | Output through NPN transistor |
-| 8 | `GPIO5` | Reserved | Strapping pin; leave free |
-| 9 | `GPIO18` | Status LED | Output, 330 Ω to LED to GND |
-| 10 | `GPIO19` | Reserved | Free |
-| 11 | `GPIO21` | I2C SDA | 4.7 kΩ pull-up to 3V3 |
-| 12 | `GPIO3` | UART RX | Programming / console |
-| 13 | `GPIO1` | UART TX | Programming / console |
-| 14 | `GPIO22` | I2C SCL | 4.7 kΩ pull-up to 3V3 |
-| 15 | `GPIO23` | MAX30102 INT | Input, active low |
-
-### Side B (pins 16–30)
+### Side A (left, pins 1–15, top to bottom)
 
 | Pin | GPIO | Use in v1 | Notes |
 |---:|---|---|---|
-| 16 | `EN` | Reset | On-board reset button |
-| 17 | `GPIO36` | Reserved | Input only |
-| 18 | `GPIO39` | Reserved | Input only |
-| 19 | `GPIO34` | HX711 DT / DOUT | Input only |
-| 20 | `GPIO35` | Battery ADC | Input only; Format B divider |
-| 21 | `GPIO32` | Reserved | Free |
-| 22 | `GPIO33` | Reserved | Free |
-| 23 | `GPIO25` | HX711 SCK | Output |
-| 24 | `GPIO26` | Reserved | Free |
-| 25 | `GPIO27` | Reserved | Free |
-| 26 | `GPIO14` | Reserved | Strapping; leave free |
-| 27 | `GPIO12` | Reserved | Strapping; leave free |
-| 28 | `GPIO13` | Reserved | Free |
-| 29 | `GND` | Ground | Second ground pin |
-| 30 | `VIN` | +5 V input | Reserved; USB-C powers the board |
+| 1 | `EN` | Reset | On-board reset button |
+| 2 | `GPIO36` | Reserved | Input only (`VP`) |
+| 3 | `GPIO39` | Reserved | Input only (`VN`) |
+| 4 | `GPIO34` | HX711 DT / DOUT | Input only |
+| 5 | `GPIO35` | Battery ADC | Input only; Format B divider |
+| 6 | `GPIO32` | Reserved | Free |
+| 7 | `GPIO33` | Reserved | Free |
+| 8 | `GPIO25` | HX711 SCK | Output |
+| 9 | `GPIO26` | Reserved | Free |
+| 10 | `GPIO27` | Reserved | Free |
+| 11 | `GPIO14` | Reserved | Strapping; leave free |
+| 12 | `GPIO12` | Reserved | Strapping; leave free |
+| 13 | `GPIO13` | Reserved | Free |
+| 14 | `GND` | Ground | Common ground |
+| 15 | `VIN` | +5 V input | USB-C powers the board; do not feed externally |
+
+### Side B (right, pins 16–30, top to bottom)
+
+| Pin | GPIO | Use in v1 | Notes |
+|---:|---|---|---|
+| 16 | `GPIO23` | MAX30102 INT | Input, active low |
+| 17 | `GPIO22` | I2C SCL | 4.7 kΩ pull-up to 3V3 |
+| 18 | `GPIO1` | UART TX0 | Programming / console |
+| 19 | `GPIO3` | UART RX0 | Programming / console |
+| 20 | `GPIO21` | I2C SDA | 4.7 kΩ pull-up to 3V3 |
+| 21 | `GPIO19` | Reserved | Free |
+| 22 | `GPIO18` | Status LED | Output, 330 Ω to LED to GND |
+| 23 | `GPIO5` | Reserved | Strapping pin; leave free |
+| 24 | `GPIO17` | Buzzer (optional) | Output through NPN transistor |
+| 25 | `GPIO16` | Reserved | Free |
+| 26 | `GPIO4` | Tare button | Input, internal pull-up, button to GND |
+| 27 | `GPIO2` | Reserved | On-board LED / strapping |
+| 28 | `GPIO15` | Reserved | Strapping pin; leave free |
+| 29 | `GND` | Ground | Common ground |
+| 30 | `3V3` | +3.3 V rail | Power for sensors |
 
 ## 3. Module connections
 
