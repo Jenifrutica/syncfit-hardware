@@ -28,16 +28,27 @@ Physical design artifacts for the two form factors.
 
 ![SyncFit Edge protoboard layout](protoboard.png)
 
-- [`protoboard.svg`](protoboard.svg) — editable breadboard layout.
+- [`protoboard.svg`](protoboard.svg) — editable breadboard layout (modules on
+  board, if they fit).
 - [`protoboard.png`](protoboard.png) — high-resolution export.
+- [`protoboard-free.svg`](protoboard-free.svg) — 400-point board as a bus with
+  the modules **free** (recommended for the 400-point board).
+- [`protoboard-free.png`](protoboard-free.png) — high-resolution export.
 - [`protoboard.md`](protoboard.md) — net-by-net wiring list, jumper types
   (M-M / M-F / F-F) and soldering-iron checklist.
 
-The ESP32 stays beside the breadboard; use **M-F** jumpers from its male pins to
-the breadboard. An **830-point** board is recommended. On a 400-point board, or
-when the module PCBs are large, leave the modules **free** beside the board and
-connect each pin with an **M-F** jumper; do not force them into the breadboard.
-The 50 kg load cell goes to the HX711 screw terminal (screwdriver, no solder).
+### 400-point board, modules free (recommended)
+
+![SyncFit Edge free-module protoboard bus](protoboard-free.png)
+
+The ESP32 and the sensor modules stay **beside** the board. Use **M-F** jumpers
+from their male pins to the breadboard bus; use **M-M** only inside the board.
+You do **not** need F-F jumpers for this build. The 50 kg load cell goes to the
+HX711 screw terminal (screwdriver, no solder).
+
+An **830-point** board is more comfortable, but a **400-point** board is enough
+if the modules are free and the board is used only for power, I2C, button, LED
+and resistors.
 
 ## Final pinout (ESP32 DevKit V1, 30-pin)
 

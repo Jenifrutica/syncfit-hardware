@@ -4,7 +4,9 @@
 **Assumption:** solderless breadboard and modules with **pre-soldered male headers**.  
 **Recommended breadboard:** **830 points**. A 400-point board only works if the
 sensor modules are left **free** beside it.  
-**Diagram:** [`protoboard.svg`](protoboard.svg) · [`protoboard.png`](protoboard.png)
+**Diagram (modules on board, if they fit):** [`protoboard.svg`](protoboard.svg) · [`protoboard.png`](protoboard.png)  
+**Diagram (400-point board as a bus, modules free — recommended):**
+[`protoboard-free.svg`](protoboard-free.svg) · [`protoboard-free.png`](protoboard-free.png)
 
 > If your modules have loose headers or you use a perfboard instead of a
 > solderless breadboard, you need a soldering iron. See "Do I need a soldering
@@ -42,6 +44,8 @@ board; a 400-point board will require shortening the bus and moving the modules
 further away.
 
 ## 3. Free modules (recommended if they do not fit)
+
+![400-point breadboard as a bus with free modules](protoboard-free.png)
 
 1. Do **not** force the sensor PCBs into the breadboard.
 2. Place the ESP32 and the three modules on the table, around the breadboard.
