@@ -22,7 +22,8 @@ Physical design artifacts for the two form factors.
 - [`definitive.svg`](definitive.svg) — editable A3 vector diagram.
 - [`definitive.png`](definitive.png) — high-resolution export.
 - [`connection-map.md`](connection-map.md) — exact pin-to-hole map, two 3-wire
-  cells, LED, no tare button and serial calibration.
+  cells with their two 2-position blocks, LED, no tare button and serial
+  calibration.
 - [`pinout.md`](pinout.md) — full ESP32 pinout and bring-up checks.
 - [`bom.csv`](bom.csv) — bill of materials.
 
@@ -32,6 +33,8 @@ The definitive build uses:
 - **X = +3V3**, **Y = GND** (the board has only one pair of rails).
 - **Two identical 3-wire half-bridge load cells** in a full bridge:
   reds → `E+`, blacks → `E−`, whites → `A+` / `A−`.
+- **Two 2-position screw blocks** (one green, one black) as the cell junction:
+  green = `E+`/`E−`, black = `A+`/`A−`; one net per screw.
 - **No tare button**: GPIO4 is left free; use the serial command `TARE`.
 - **LED** on GPIO18 through a **330 Ω** resistor (220 Ω–1 kΩ acceptable).
 - **M-F** jumpers from components to the breadboard; **M-M** only inside the
@@ -45,7 +48,7 @@ The definitive build uses:
 | MAX30102 | INT | 23 |
 | MLX90614 | SDA / SCL | 21 / 22 (shared I2C) |
 | HX711 | DT / SCK | 34 / 25 |
-| Two 3-wire cells | reds `E+`, blacks `E−`, whites `A+`/`A−` | HX711 terminal block |
+| Two 3-wire cells | reds `E+`, blacks `E−`, whites `A+`/`A−` | 2-position blocks → HX711 |
 | Status LED | GPIO → 330 Ω → LED → Y | 18 |
 | Buzzer (optional) | GPIO → NPN | 17 |
 | Battery ADC (Format B) | divider 100k/100k | 35 |

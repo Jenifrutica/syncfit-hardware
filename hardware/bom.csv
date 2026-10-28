@@ -3,16 +3,16 @@ Item,Qty,Reference,Part / specification,Notes
 2,1,U2,MAX30102 PPG module,I2C 0x57; 3.3 V; 100 Hz
 3,1,U3,MLX90614ESF-BAA infrared thermometer,3.3 V variant; I2C 0x5A
 4,1,U4,HX711 24-bit load-cell amplifier module,3.3 V; 10 SPS; gain 128
-5,2,LC1-LC2,3-wire half-bridge load cell (identical pair),20-50 kg each; red/black ends, white center; verify with multimeter
-6,1,D1,LED 3 mm red,Status LED; anode to D18, cathode to 330 ohm
+5,2,LC1-LC2,3-wire half-bridge load cell (identical pair),20-50 kg each; red/black = ends; white = center; verify with multimeter
+6,1,D1,LED 3 mm red,Status LED; anode to D18; cathode to 330 ohm
 7,1,R1,Resistor 330 ohm,LED current limit; 220 ohm-1 kohm acceptable
 8,2,R2-R3,Resistor 4.7 kohm,I2C pull-ups to X (3V3) if modules lack them
 9,2,R4-R5,Resistor 100 kohm,Battery divider (Format B only)
 10,1,R6,Resistor 1 kohm,Optional buzzer base resistor
 11,1,Q1,2N2222 NPN transistor,Optional buzzer driver
 12,1,BZ1,Active buzzer 3.3 V,Optional; GPIO17
-13,1,TB1,4-position terminal block or Wago 221,Join the two red and two black cell wires; one wire per HX711 screw
-14,1,MECH,Mechanical bracket/beam for two cells,Rigid bar/plate, screws and mechanical stop; cells must flex in opposite directions
+13,2,TB1-TB2,2-position screw terminal block,"One green for E+/E-, one black for A+/A-; 3 wires per E screw (twist them) and 2 per A screw"
+14,1,MECH,Mechanical bracket/beam for two cells,Rigid bar/plate; screws and mechanical stop; cells must flex in opposite directions
 15,6,C1-C6,Capacitor 100 nF,Decoupling at each module
 16,4,C7-C10,Capacitor 10 uF,Bulk decoupling
 17,1,C11,Capacitor 100 uF,3.3 V rail

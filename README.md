@@ -106,8 +106,9 @@ provisioning, Wi-Fi WebSocket client, mock-sensor build and the definitive
 Format A build sheet (`hardware/definitive.svg`, `definitive.png`,
 `connection-map.md`, `pinout.md`, `bom.csv`). Pending: hardware-in-the-loop
 calibration, CI contract validation, electrical schematic and Format B. The
-definitive build uses two identical 3-wire half-bridge cells, no tare button,
-and the 400-point board as a bus. See `hardware/README.md`.
+definitive build uses two identical 3-wire half-bridge cells joined with two
+2-position screw blocks, no tare button, and the 400-point board as a bus. See
+`hardware/README.md`.
 
 ## Context for a new session
 

@@ -3,6 +3,7 @@
 **Board:** ESP32 DevKit V1, generic 30-pin, USB-C.  
 **Breadboard:** 400 points, used only as a bus; the ESP32 and modules stay free.  
 **Power rails:** only one pair, labeled **X** and **Y**.  
+**Cell join:** two 2-position screw blocks; green = `E+`/`E−`, black = `A+`/`A−`.  
 **Diagram:** [`definitive.svg`](definitive.svg) · [`definitive.png`](definitive.png)
 
 > **X = +3V3** · **Y = GND**  
@@ -139,10 +140,45 @@ final capacity depends on the mount: if the cells share the load, it can
 approach 2× the single-cell rating; if one takes the full load, it remains the
 single-cell rating.
 
-**Connecting the wires:** the HX711 screw terminal has one hole per terminal.
-Join the two reds and the two blacks with a small **terminal block / Wago** or a
-soldered pigtail, then insert one wire per HX711 terminal. Do not force two thick
-wires into one screw.
+### 7.1 Two 2-position terminal blocks
+
+The build uses **two screw terminal blocks of 2 positions**, one **green** and one
+**black**. Each block is two independent screws, so the four nets never touch:
+
+| Block | Screw | Net | What goes in the screw |
+|---|---|---|---|
+| **1 · green** | 1 | `E+` | cell A red + cell B red + wire to HX711 `E+` |
+| **1 · green** | 2 | `E−` | cell A black + cell B black + wire to HX711 `E−` |
+| **2 · black** | 1 | `A+` | cell A white + wire to HX711 `A+` |
+| **2 · black** | 2 | `A−` | cell B white + wire to HX711 `A−` |
+
+```text
+ red A ─┐
+ red B ─┼─► [1·1 green] ──► HX711 E+
+ wire  ─┘
+
+ blk A ─┐
+ blk B ─┼─► [1·2 green] ──► HX711 E−
+ wire  ─┘
+
+ wht A ─┐
+ wire  ─┴─► [2·1 black] ──► HX711 A+
+ wht B ─┐
+ wire  ─┴─► [2·2 black] ──► HX711 A−
+```
+
+**Three wires do not fit in one screw.** Twist the two cell wires together with
+the short wire that goes to the HX711 and tin the tip, so the bundle enters as a
+single conductor. The `A+`/`A−` screws only take two wires and need no twisting
+beyond keeping the pair short.
+
+Rules:
+
+- Colour-code the blocks: **green = excitation (`E`), black = signal (`A`)**.
+- **Never** put an `E` net and an `A` net in the same block.
+- If a block turns out to be a common busbar (every screw connected to every
+  other), it cannot carry two different nets. Use it for a single net only.
+- Two spare blocks are fine if you bought four; keep them as spares.
 
 ## 8. Tare and calibration without a button
 
@@ -169,7 +205,7 @@ CAL 5
 | **M-F** | ESP32 or free module male header → breadboard hole. Main cable. |
 | **M-M** | Only inside the breadboard: `9b` → `Y`, or joining a column/rail. |
 | **F-F** | Not needed. Only for two male headers directly without a breadboard. |
-| **No jumper** | Load cells → HX711 terminal block (screwdriver). |
+| **No jumper** | Load cells → 2-position blocks → HX711 (screwdriver only). |
 
 ## 10. Soldering
 
@@ -177,7 +213,8 @@ CAL 5
 
 - The ESP32 and sensor modules already have their male headers soldered.
 - You use the 400-point board as a bus and M-F/M-M jumpers.
-- The two load cells go to a terminal block/Wago and the HX711 screw terminal.
+- The two load cells go to the two 2-position blocks and then to the HX711
+  screw terminal.
 
 **You need a soldering iron** if:
 
@@ -190,7 +227,7 @@ CAL 5
 1. Disconnect USB-C. Check continuity: `X`–`Y` must not be shorted.
 2. Connect USB-C; measure about 3.3 V between X and Y.
 3. I2C scan: expect `0x57` (MAX30102) and `0x5A` (MLX90614).
-4. Connect the two cells to the HX711 terminal block; run `TARE`.
+4. Wire both cells to the two 2-position blocks, then to the HX711; run `TARE`.
 5. Add a known weight and run `CAL 5` or `CAL 10`.
 6. Test the LED: anode on column 7, cathode on column 8, 330 Ω to column 9,
    column 9 to Y with M-M.

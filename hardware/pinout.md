@@ -110,8 +110,19 @@ the center; red and black are the ends.
 | `A−` | Cell B white |
 
 If the reading goes negative when pressing, swap `A+` and `A−`, or rotate one
-cell 180°. Join the two reds and two blacks with a small terminal block/Wago or a
-soldered pigtail; the HX711 has only one hole per terminal.
+cell 180°. Join the two reds and the two blacks with **two 2-position screw
+blocks**: one green for `E+`/`E−` and one black for `A+`/`A−`. Twist the pair of
+cell wires together with the wire that goes to the HX711, because a single
+screw does not take three separate wires.
+
+| Block | Screw | Net |
+|---|---|---|
+| 1 · green | 1 | `E+` — cell A red + cell B red + wire to HX711 |
+| 1 · green | 2 | `E−` — cell A black + cell B black + wire to HX711 |
+| 2 · black | 1 | `A+` — cell A white + wire to HX711 |
+| 2 · black | 2 | `A−` — cell B white + wire to HX711 |
+
+Never put an `E` net and an `A` net in the same block.
 
 HX711 at **10 SPS**, gain 128, channel A. Keep the cell wires short and twisted.
 The final capacity depends on the mechanical mount: if the cells share the load,
@@ -142,6 +153,7 @@ resistor (220 Ω–1 kΩ is acceptable).
 | J3 | JST-XH 4-pin | 1: 3V3 · 2: GND · 3: SDA · 4: SCL |
 | J4 | JST-XH 4-pin | 1: 3V3 · 2: GND · 3: DT · 4: SCK |
 | J5 | 4-pin screw terminal | E+, E−, A+, A− (two 3-wire cells) |
+| TB1-TB2 | 2 × 2-position screw block | Green = E+/E−, black = A+/A− |
 | J6 | 2-pin header (optional) | GPIO4, GND — not used without a tare button |
 | J7 | JST-PH 2-pin | BAT+, GND (Format B) |
 | J8 | JST-XH 2-pin | GPIO18, GND |
@@ -157,8 +169,9 @@ resistor (220 Ω–1 kΩ is acceptable).
 1. Continuity: 3V3 and GND must not short.
 2. Power the board from USB-C only; measure 3.3 V on the sensor rail.
 3. I2C scan: expect `0x57` (MAX30102) and `0x5A` (MLX90614).
-4. HX711: connect the two 3-wire cells to a terminal block/Wago, then to `E+`,
-   `E−`, `A+`, `A−`. Run `TARE` and `CAL <kg>` from the serial monitor.
+4. HX711: wire both 3-wire cells to the two 2-position blocks (green `E+`/`E−`,
+   black `A+`/`A−`), then to the module. Run `TARE` and `CAL <kg>` from the serial
+   monitor.
 5. Verify the LED with the 330 Ω resistor before connecting it.
 6. Check that the two cells are mounted so they flex in opposite directions.
 7. Send telemetry to the local backend WebSocket, not production, until the hardware is validated.

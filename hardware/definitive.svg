@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1500" viewBox="0 0 2200 1500" role="img" aria-labelledby="title desc">
-<title id="title">SyncFit Edge - diagrama definitivo con dos celdas de 3 hilos</title>
-<desc id="desc">ESP32, MAX30102, MLX90614, HX711, LED and two 3-wire half-bridge cells on a 400-point breadboard.</desc>
-<rect x="0" y="0" width="2200" height="1500" rx="0" fill="#fbf9f4"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1575" viewBox="0 0 2200 1575" role="img" aria-labelledby="title desc">
+<title id="title">SyncFit Edge - diagrama definitivo con dos celdas de 3 hilos y dos bloques de 2 tornillos</title>
+<desc id="desc">ESP32, MAX30102, MLX90614, HX711, LED and two 3-wire half-bridge cells on a 400-point breadboard, joined with two 2-position screw terminal blocks.</desc>
+<rect x="0" y="0" width="2200" height="1575" rx="0" fill="#fbf9f4"/>
 <circle cx="40" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="40" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="40" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -40,6 +40,8 @@
 <circle cx="40" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="40" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="40" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="40" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="40" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="80" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="80" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="80" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -77,6 +79,8 @@
 <circle cx="80" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="80" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="80" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="80" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="80" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="120" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="120" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="120" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -114,6 +118,8 @@
 <circle cx="120" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="120" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="120" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="120" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="120" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="160" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="160" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="160" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -151,6 +157,8 @@
 <circle cx="160" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="160" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="160" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="160" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="160" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="200" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="200" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="200" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -188,6 +196,8 @@
 <circle cx="200" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="200" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="200" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="200" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="200" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="240" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="240" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="240" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -225,6 +235,8 @@
 <circle cx="240" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="240" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="240" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="240" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="240" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="280" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="280" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="280" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -262,6 +274,8 @@
 <circle cx="280" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="280" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="280" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="280" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="280" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="320" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="320" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="320" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -299,6 +313,8 @@
 <circle cx="320" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="320" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="320" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="320" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="320" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="360" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="360" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="360" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -336,6 +352,8 @@
 <circle cx="360" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="360" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="360" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="360" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="360" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="400" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="400" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="400" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -373,6 +391,8 @@
 <circle cx="400" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="400" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="400" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="400" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="400" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="440" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="440" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="440" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -410,6 +430,8 @@
 <circle cx="440" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="440" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="440" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="440" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="440" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="480" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="480" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="480" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -447,6 +469,8 @@
 <circle cx="480" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="480" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="480" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="480" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="480" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="520" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="520" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="520" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -484,6 +508,8 @@
 <circle cx="520" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="520" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="520" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="520" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="520" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="560" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="560" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="560" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -521,6 +547,8 @@
 <circle cx="560" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="560" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="560" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="560" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="560" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="600" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="600" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="600" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -558,6 +586,8 @@
 <circle cx="600" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="600" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="600" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="600" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="600" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="640" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="640" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="640" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -595,6 +625,8 @@
 <circle cx="640" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="640" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="640" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="640" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="640" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="680" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="680" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="680" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -632,6 +664,8 @@
 <circle cx="680" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="680" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="680" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="680" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="680" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="720" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="720" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="720" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -669,6 +703,8 @@
 <circle cx="720" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="720" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="720" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="720" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="720" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="760" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="760" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="760" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -706,6 +742,8 @@
 <circle cx="760" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="760" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="760" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="760" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="760" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="800" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="800" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="800" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -743,6 +781,8 @@
 <circle cx="800" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="800" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="800" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="800" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="800" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="840" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="840" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="840" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -780,6 +820,8 @@
 <circle cx="840" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="840" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="840" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="840" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="840" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="880" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="880" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="880" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -817,6 +859,8 @@
 <circle cx="880" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="880" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="880" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="880" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="880" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="920" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="920" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="920" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -854,6 +898,8 @@
 <circle cx="920" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="920" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="920" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="920" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="920" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="960" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="960" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="960" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -891,6 +937,8 @@
 <circle cx="960" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="960" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="960" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="960" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="960" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1000" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1000" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1000" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -928,6 +976,8 @@
 <circle cx="1000" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1000" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1000" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1000" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1000" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1040" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1040" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1040" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -965,6 +1015,8 @@
 <circle cx="1040" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1040" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1040" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1040" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1040" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1080" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1080" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1080" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1002,6 +1054,8 @@
 <circle cx="1080" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1080" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1080" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1080" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1080" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1120" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1120" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1120" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1039,6 +1093,8 @@
 <circle cx="1120" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1120" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1120" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1120" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1120" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1160" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1160" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1160" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1076,6 +1132,8 @@
 <circle cx="1160" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1160" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1160" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1160" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1160" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1200" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1200" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1200" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1113,6 +1171,8 @@
 <circle cx="1200" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1200" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1200" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1200" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1200" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1240" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1240" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1240" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1150,6 +1210,8 @@
 <circle cx="1240" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1240" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1240" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1240" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1240" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1280" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1280" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1280" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1187,6 +1249,8 @@
 <circle cx="1280" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1280" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1280" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1280" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1280" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1320" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1320" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1320" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1224,6 +1288,8 @@
 <circle cx="1320" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1320" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1320" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1320" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1320" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1360" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1360" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1360" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1261,6 +1327,8 @@
 <circle cx="1360" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1360" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1360" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1360" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1360" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1400" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1400" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1400" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1298,6 +1366,8 @@
 <circle cx="1400" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1400" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1400" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1400" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1400" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1440" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1440" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1440" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1335,6 +1405,8 @@
 <circle cx="1440" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1440" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1440" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1440" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1440" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1480" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1480" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1480" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1372,6 +1444,8 @@
 <circle cx="1480" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1480" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1480" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1480" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1480" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1520" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1520" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1520" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1409,6 +1483,8 @@
 <circle cx="1520" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1520" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1520" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1520" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1520" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1560" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1560" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1560" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1446,6 +1522,8 @@
 <circle cx="1560" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1560" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1560" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1560" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1560" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1600" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1600" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1600" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1483,6 +1561,8 @@
 <circle cx="1600" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1600" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1600" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1600" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1600" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1640" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1640" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1640" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1520,6 +1600,8 @@
 <circle cx="1640" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1640" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1640" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1640" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1640" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1680" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1680" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1680" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1557,6 +1639,8 @@
 <circle cx="1680" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1680" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1680" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1680" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1680" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1720" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1720" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1720" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1594,6 +1678,8 @@
 <circle cx="1720" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1720" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1720" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1720" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1720" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1760" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1760" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1760" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1631,6 +1717,8 @@
 <circle cx="1760" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1760" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1760" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1760" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1760" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1800" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1800" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1800" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1668,6 +1756,8 @@
 <circle cx="1800" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1800" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1800" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1800" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1800" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1840" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1840" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1840" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1705,6 +1795,8 @@
 <circle cx="1840" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1840" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1840" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1840" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1840" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1880" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1880" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1880" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1742,6 +1834,8 @@
 <circle cx="1880" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1880" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1880" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1880" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1880" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1920" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1920" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1920" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1779,6 +1873,8 @@
 <circle cx="1920" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1920" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1920" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1920" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1920" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1960" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1960" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1960" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1816,6 +1912,8 @@
 <circle cx="1960" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1960" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="1960" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1960" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="1960" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2000" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2000" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2000" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1853,6 +1951,8 @@
 <circle cx="2000" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2000" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2000" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="2000" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="2000" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2040" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2040" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2040" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1890,6 +1990,8 @@
 <circle cx="2040" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2040" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2040" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="2040" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="2040" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2080" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2080" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2080" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1927,6 +2029,8 @@
 <circle cx="2080" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2080" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2080" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="2080" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="2080" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2120" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2120" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2120" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -1964,6 +2068,8 @@
 <circle cx="2120" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2120" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2120" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="2120" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="2120" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2160" cy="40" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2160" cy="80" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2160" cy="120" r="1.1" fill="#e7e0d4" opacity="0.55"/>
@@ -2001,11 +2107,13 @@
 <circle cx="2160" cy="1400" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2160" cy="1440" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <circle cx="2160" cy="1480" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="2160" cy="1520" r="1.1" fill="#e7e0d4" opacity="0.55"/>
+<circle cx="2160" cy="1560" r="1.1" fill="#e7e0d4" opacity="0.55"/>
 <rect x="0" y="0" width="2200" height="10" rx="0" fill="#f1ccde"/>
 <rect x="60" y="38" width="250" height="34" rx="17.0" fill="#f1ccde"/>
 <text x="185.0" y="60.4" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" fill="#1f2340" text-anchor="middle" font-weight="bold">SYNCFIT EDGE</text>
 <text x="60" y="112" font-family="DejaVu Sans, Arial, sans-serif" font-size="34" fill="#1f2340" text-anchor="start" font-weight="bold">Diagrama definitivo · Formato A · protoboard</text>
-<text x="60" y="143" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" fill="#5b6078" text-anchor="start" font-weight="bold">ESP32 + MAX30102 + MLX90614 + HX711 + LED · dos celdas de 3 hilos · sin botón de tare</text>
+<text x="60" y="143" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" fill="#5b6078" text-anchor="start" font-weight="bold">ESP32 + MAX30102 + MLX90614 + HX711 + LED · dos celdas de 3 hilos · 2 bloques de 2 tornillos · sin botón</text>
 <rect x="1880" y="38" width="260" height="34" rx="17.0" fill="#e8e2d5"/>
 <text x="2010.0" y="59.68" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" fill="#5b6078" text-anchor="middle" font-weight="bold">DEFINITIVO</text>
 <text x="2140" y="105" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" fill="#5b6078" text-anchor="end" font-weight="bold">A3 · 2026</text>
@@ -2438,67 +2546,113 @@
 <text x="1099.2" y="603.5" font-family="DejaVu Sans Mono, monospace" font-size="9" fill="#5b6078" text-anchor="middle" font-weight="bold">8b</text>
 <rect x="1135" y="590" width="28.4" height="20" rx="5" fill="#fbf9f4" stroke="#242424" stroke-width="1.4"/>
 <text x="1149.2" y="603.5" font-family="DejaVu Sans Mono, monospace" font-size="9" fill="#242424" text-anchor="middle" font-weight="bold">9a</text>
-<rect x="65" y="1087" width="1100" height="280" rx="16" fill="#000000" opacity="0.1"/>
-<rect x="60" y="1080" width="1100" height="280" rx="16" fill="#ffffff" stroke="#d9d3c7" stroke-width="1.5"/>
-<text x="82" y="1110" font-family="DejaVu Sans, Arial, sans-serif" font-size="16" fill="#1f2340" text-anchor="start" font-weight="bold">Dos celdas de 3 hilos (idénticas) → bornera HX711</text>
-<text x="82" y="1134" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.8" fill="#5b6078" text-anchor="start" font-weight="bold">Rojo/negro = extremos; blanco = centro. Rojos juntos a E+; negros juntos a E−; un blanco a A+ y el otro a A−.</text>
-<rect x="105" y="1167" width="150" height="55" rx="10" fill="#000000" opacity="0.1"/>
-<rect x="100" y="1160" width="150" height="55" rx="10" fill="#c9ced8" stroke="#7c8594" stroke-width="2"/>
-<text x="175" y="1192" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#1f2340" text-anchor="middle" font-weight="bold">Celda A</text>
-<circle cx="135" cy="1215" r="5" fill="#d9b44a" stroke="#7a6420" stroke-width="1.2"/>
-<line x1="135" y1="1215" x2="135" y2="1235" stroke="#d64545" stroke-width="2.5" stroke-linecap="round"/>
-<circle cx="175" cy="1215" r="5" fill="#d9b44a" stroke="#7a6420" stroke-width="1.2"/>
-<line x1="175" y1="1215" x2="175" y2="1235" stroke="#242424" stroke-width="2.5" stroke-linecap="round"/>
-<circle cx="215" cy="1215" r="5" fill="#d9b44a" stroke="#7a6420" stroke-width="1.2"/>
-<line x1="215" y1="1215" x2="215" y2="1235" stroke="#5b6078" stroke-width="2.5" stroke-linecap="round"/>
-<rect x="325" y="1167" width="150" height="55" rx="10" fill="#000000" opacity="0.1"/>
-<rect x="320" y="1160" width="150" height="55" rx="10" fill="#c9ced8" stroke="#7c8594" stroke-width="2"/>
-<text x="395" y="1192" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#1f2340" text-anchor="middle" font-weight="bold">Celda B</text>
-<circle cx="355" cy="1215" r="5" fill="#d9b44a" stroke="#7a6420" stroke-width="1.2"/>
-<line x1="355" y1="1215" x2="355" y2="1235" stroke="#d64545" stroke-width="2.5" stroke-linecap="round"/>
-<circle cx="395" cy="1215" r="5" fill="#d9b44a" stroke="#7a6420" stroke-width="1.2"/>
-<line x1="395" y1="1215" x2="395" y2="1235" stroke="#242424" stroke-width="2.5" stroke-linecap="round"/>
-<circle cx="435" cy="1215" r="5" fill="#d9b44a" stroke="#7a6420" stroke-width="1.2"/>
-<line x1="435" y1="1215" x2="435" y2="1235" stroke="#5b6078" stroke-width="2.5" stroke-linecap="round"/>
-<circle cx="700" cy="1240" r="9" fill="#c9ced8" stroke="#d64545" stroke-width="3"/>
-<text x="720" y="1244" font-family="DejaVu Sans Mono, monospace" font-size="10.5" fill="#d64545" text-anchor="start" font-weight="bold">E+</text>
-<circle cx="700" cy="1270" r="9" fill="#c9ced8" stroke="#242424" stroke-width="3"/>
-<text x="720" y="1274" font-family="DejaVu Sans Mono, monospace" font-size="10.5" fill="#242424" text-anchor="start" font-weight="bold">E−</text>
-<circle cx="700" cy="1300" r="9" fill="#c9ced8" stroke="#2e8b57" stroke-width="3"/>
-<text x="720" y="1304" font-family="DejaVu Sans Mono, monospace" font-size="10.5" fill="#2e8b57" text-anchor="start" font-weight="bold">A+</text>
-<circle cx="700" cy="1330" r="9" fill="#c9ced8" stroke="#5b6078" stroke-width="3"/>
-<text x="720" y="1334" font-family="DejaVu Sans Mono, monospace" font-size="10.5" fill="#5b6078" text-anchor="start" font-weight="bold">A−</text>
-<text x="700" y="1218" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#1f2340" text-anchor="middle" font-weight="bold">BORNERA / WAGO</text>
-<path d="M 135 1235 L 135 1240 L 700 1240" fill="none" stroke="#d64545" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<path d="M 355 1235 L 355 1252 L 690 1252 L 690 1240" fill="none" stroke="#d64545" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<path d="M 175 1235 L 175 1270 L 700 1270" fill="none" stroke="#242424" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<path d="M 395 1235 L 395 1258 L 680 1258 L 680 1270" fill="none" stroke="#242424" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<path d="M 215 1235 L 215 1300 L 700 1300" fill="none" stroke="#5b6078" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<path d="M 435 1235 L 435 1330 L 700 1330" fill="none" stroke="#5b6078" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="760" y="1244" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#d64545" text-anchor="start" font-weight="bold">→ HX711 E+</text>
-<text x="760" y="1274" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#242424" text-anchor="start" font-weight="bold">→ HX711 E−</text>
-<text x="760" y="1304" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#2e8b57" text-anchor="start" font-weight="bold">→ HX711 A+</text>
-<text x="760" y="1334" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#5b6078" text-anchor="start" font-weight="bold">→ HX711 A−</text>
-<text x="760" y="1360" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#d64545" text-anchor="start" font-weight="bold">HX711 a 3.3 V · no 5 V</text>
-<text x="82" y="1360" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.2" fill="#5b6078" text-anchor="start" font-weight="bold">Si la lectura sale negativa, intercambia A+ y A−. Usa bornera/Wago para unir los dos rojos y los dos negros.</text>
-<rect x="1205" y="1087" width="940" height="260" rx="16" fill="#000000" opacity="0.1"/>
-<rect x="1200" y="1080" width="940" height="260" rx="16" fill="#ffffff" stroke="#d9d3c7" stroke-width="1.5"/>
-<text x="1222" y="1110" font-family="DejaVu Sans, Arial, sans-serif" font-size="16" fill="#1f2340" text-anchor="start" font-weight="bold">Sin botón de tare · LED · rieles</text>
-<circle cx="1226" cy="1134" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
-<text x="1238" y="1138" font-family="DejaVu Sans, Arial, sans-serif" font-size="10.0" fill="#3d4256" text-anchor="start" font-weight="bold">No hay botón de tare: deja GPIO4 sin conectar. Usa el comando serial TARE.</text>
-<circle cx="1226" cy="1159" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
-<text x="1238" y="1163" font-family="DejaVu Sans, Arial, sans-serif" font-size="10.0" fill="#3d4256" text-anchor="start" font-weight="bold">LED: ánodo largo → 7b; cátodo corto → 8a; 330 Ω entre 8b y 9a; 9b → Y con M-M.</text>
-<circle cx="1226" cy="1184" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
-<text x="1238" y="1188" font-family="DejaVu Sans, Arial, sans-serif" font-size="10.0" fill="#3d4256" text-anchor="start" font-weight="bold">Sin resistencia 330 Ω no conectes el LED. Usa 220 Ω–1 kΩ o un módulo LED.</text>
-<circle cx="1226" cy="1209" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
-<text x="1238" y="1213" font-family="DejaVu Sans, Arial, sans-serif" font-size="10.0" fill="#3d4256" text-anchor="start" font-weight="bold">X = +3V3, Y = GND. La placa tiene solo un par de rieles.</text>
-<circle cx="1226" cy="1234" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
-<text x="1238" y="1238" font-family="DejaVu Sans, Arial, sans-serif" font-size="10.0" fill="#3d4256" text-anchor="start" font-weight="bold">TARE con la celda vacía; CAL 5 con un peso conocido de 5 kg.</text>
-<circle cx="1226" cy="1259" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
-<text x="1238" y="1263" font-family="DejaVu Sans, Arial, sans-serif" font-size="10.0" fill="#3d4256" text-anchor="start" font-weight="bold">Las dos celdas deben estar montadas para flexionar en sentidos opuestos.</text>
-<circle cx="1226" cy="1284" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
-<text x="1238" y="1288" font-family="DejaVu Sans, Arial, sans-serif" font-size="10.0" fill="#3d4256" text-anchor="start" font-weight="bold">Capacidad final: depende del montaje; si comparten carga, puede acercarse a 2×.</text>
-<line x1="60" y1="1390" x2="2140" y2="1390" stroke="#d9d3c7" stroke-width="1.5" stroke-linecap="round"/>
-<text x="60" y="1412" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#5b6078" text-anchor="start" font-weight="bold">SyncFit Edge · Hardware v1.0 · Definitivo · 2 celdas 3 hilos · 2026</text>
-<text x="2140" y="1412" font-family="DejaVu Sans Mono, monospace" font-size="10.5" fill="#5b6078" text-anchor="end" font-weight="normal">syncfit-hardware/hardware/definitive.svg</text>
+<rect x="65" y="1047" width="1180" height="430" rx="16" fill="#000000" opacity="0.1"/>
+<rect x="60" y="1040" width="1180" height="430" rx="16" fill="#ffffff" stroke="#d9d3c7" stroke-width="1.5"/>
+<rect x="1265" y="1047" width="880" height="430" rx="16" fill="#000000" opacity="0.1"/>
+<rect x="1260" y="1040" width="880" height="430" rx="16" fill="#ffffff" stroke="#d9d3c7" stroke-width="1.5"/>
+<text x="82" y="1074" font-family="DejaVu Sans, Arial, sans-serif" font-size="16.5" fill="#1f2340" text-anchor="start" font-weight="bold">Dos celdas de 3 hilos -&gt; 2 bloques de 2 tornillos</text>
+<text x="82" y="1096" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.8" fill="#5b6078" text-anchor="start" font-weight="bold">Cada tornillo es una conexion independiente. Bloque 1 (verde) = E+/E-  ·  Bloque 2 (negro) = A+/A-.</text>
+<rect x="105" y="1113" width="150" height="72" rx="10" fill="#000000" opacity="0.1"/>
+<rect x="100" y="1106" width="150" height="72" rx="10" fill="#c9ced8" stroke="#7c8594" stroke-width="2"/>
+<text x="175" y="1128" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#1f2340" text-anchor="middle" font-weight="bold">Celda A</text>
+<circle cx="138" cy="1146" r="4" fill="#d64545" stroke="#7c8594" stroke-width="1"/>
+<text x="138" y="1164" font-family="DejaVu Sans Mono, monospace" font-size="7.0" fill="#1f2340" text-anchor="middle" font-weight="bold">rojo</text>
+<line x1="138" y1="1178" x2="138" y2="1196" stroke="#d64545" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="138" cy="1180" r="5" fill="#d9b44a" stroke="#7a6420" stroke-width="1.2"/>
+<circle cx="175" cy="1146" r="4" fill="#242424" stroke="#7c8594" stroke-width="1"/>
+<text x="175" y="1164" font-family="DejaVu Sans Mono, monospace" font-size="7.0" fill="#1f2340" text-anchor="middle" font-weight="bold">negro</text>
+<line x1="175" y1="1178" x2="175" y2="1196" stroke="#242424" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="175" cy="1180" r="5" fill="#d9b44a" stroke="#7a6420" stroke-width="1.2"/>
+<circle cx="212" cy="1146" r="4" fill="#b9b2a6" stroke="#7c8594" stroke-width="1"/>
+<text x="212" y="1164" font-family="DejaVu Sans Mono, monospace" font-size="7.0" fill="#1f2340" text-anchor="middle" font-weight="bold">blanco</text>
+<line x1="212" y1="1178" x2="212" y2="1196" stroke="#b9b2a6" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="212" cy="1180" r="5" fill="#d9b44a" stroke="#7a6420" stroke-width="1.2"/>
+<rect x="305" y="1113" width="150" height="72" rx="10" fill="#000000" opacity="0.1"/>
+<rect x="300" y="1106" width="150" height="72" rx="10" fill="#c9ced8" stroke="#7c8594" stroke-width="2"/>
+<text x="375" y="1128" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#1f2340" text-anchor="middle" font-weight="bold">Celda B</text>
+<circle cx="338" cy="1146" r="4" fill="#d64545" stroke="#7c8594" stroke-width="1"/>
+<text x="338" y="1164" font-family="DejaVu Sans Mono, monospace" font-size="7.0" fill="#1f2340" text-anchor="middle" font-weight="bold">rojo</text>
+<line x1="338" y1="1178" x2="338" y2="1196" stroke="#d64545" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="338" cy="1180" r="5" fill="#d9b44a" stroke="#7a6420" stroke-width="1.2"/>
+<circle cx="375" cy="1146" r="4" fill="#242424" stroke="#7c8594" stroke-width="1"/>
+<text x="375" y="1164" font-family="DejaVu Sans Mono, monospace" font-size="7.0" fill="#1f2340" text-anchor="middle" font-weight="bold">negro</text>
+<line x1="375" y1="1178" x2="375" y2="1196" stroke="#242424" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="375" cy="1180" r="5" fill="#d9b44a" stroke="#7a6420" stroke-width="1.2"/>
+<circle cx="412" cy="1146" r="4" fill="#b9b2a6" stroke="#7c8594" stroke-width="1"/>
+<text x="412" y="1164" font-family="DejaVu Sans Mono, monospace" font-size="7.0" fill="#1f2340" text-anchor="middle" font-weight="bold">blanco</text>
+<line x1="412" y1="1178" x2="412" y2="1196" stroke="#b9b2a6" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="412" cy="1180" r="5" fill="#d9b44a" stroke="#7a6420" stroke-width="1.2"/>
+<rect x="705" y="1159" width="190" height="108" rx="10" fill="#000000" opacity="0.1"/>
+<rect x="700" y="1152" width="190" height="108" rx="10" fill="#2f7d4f" stroke="#17502c" stroke-width="2"/>
+<text x="714" y="1173" font-family="DejaVu Sans Mono, monospace" font-size="9.2" fill="#ffffff" text-anchor="start" font-weight="bold">BLOQUE 1  ·  E+ / E-</text>
+<circle cx="726" cy="1190" r="8.5" fill="#dfe3ea" stroke="#6d7686" stroke-width="1.6"/>
+<line x1="726" y1="1190" x2="714" y2="1190" stroke="#6d7686" stroke-width="2" stroke-linecap="round"/>
+<text x="748" y="1195" font-family="DejaVu Sans Mono, monospace" font-size="12.5" fill="#ffffff" text-anchor="start" font-weight="bold">E+</text>
+<circle cx="726" cy="1234" r="8.5" fill="#dfe3ea" stroke="#6d7686" stroke-width="1.6"/>
+<line x1="726" y1="1234" x2="714" y2="1234" stroke="#6d7686" stroke-width="2" stroke-linecap="round"/>
+<text x="748" y="1239" font-family="DejaVu Sans Mono, monospace" font-size="12.5" fill="#ffffff" text-anchor="start" font-weight="bold">E-</text>
+<rect x="705" y="1283" width="190" height="108" rx="10" fill="#000000" opacity="0.1"/>
+<rect x="700" y="1276" width="190" height="108" rx="10" fill="#2b2f33" stroke="#14171a" stroke-width="2"/>
+<text x="714" y="1297" font-family="DejaVu Sans Mono, monospace" font-size="9.2" fill="#ffffff" text-anchor="start" font-weight="bold">BLOQUE 2  ·  A+ / A-</text>
+<circle cx="726" cy="1314" r="8.5" fill="#dfe3ea" stroke="#6d7686" stroke-width="1.6"/>
+<line x1="726" y1="1314" x2="714" y2="1314" stroke="#6d7686" stroke-width="2" stroke-linecap="round"/>
+<text x="748" y="1319" font-family="DejaVu Sans Mono, monospace" font-size="12.5" fill="#ffffff" text-anchor="start" font-weight="bold">A+</text>
+<circle cx="726" cy="1358" r="8.5" fill="#dfe3ea" stroke="#6d7686" stroke-width="1.6"/>
+<line x1="726" y1="1358" x2="714" y2="1358" stroke="#6d7686" stroke-width="2" stroke-linecap="round"/>
+<text x="748" y="1363" font-family="DejaVu Sans Mono, monospace" font-size="12.5" fill="#ffffff" text-anchor="start" font-weight="bold">A-</text>
+<rect x="965" y="1157" width="200" height="240" rx="12" fill="#000000" opacity="0.1"/>
+<rect x="960" y="1150" width="200" height="240" rx="12" fill="#2e7d4f" stroke="#1b4d31" stroke-width="2"/>
+<text x="1060" y="1178" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="bold">HX711</text>
+<circle cx="982" cy="1190" r="7" fill="#dfe3ea" stroke="#6d7686" stroke-width="1.4"/>
+<text x="1000" y="1195" font-family="DejaVu Sans Mono, monospace" font-size="9.5" fill="#ffffff" text-anchor="start" font-weight="bold">E+</text>
+<circle cx="982" cy="1234" r="7" fill="#dfe3ea" stroke="#6d7686" stroke-width="1.4"/>
+<text x="1000" y="1239" font-family="DejaVu Sans Mono, monospace" font-size="9.5" fill="#ffffff" text-anchor="start" font-weight="bold">E-</text>
+<circle cx="982" cy="1314" r="7" fill="#dfe3ea" stroke="#6d7686" stroke-width="1.4"/>
+<text x="1000" y="1319" font-family="DejaVu Sans Mono, monospace" font-size="9.5" fill="#ffffff" text-anchor="start" font-weight="bold">A+</text>
+<circle cx="982" cy="1358" r="7" fill="#dfe3ea" stroke="#6d7686" stroke-width="1.4"/>
+<text x="1000" y="1363" font-family="DejaVu Sans Mono, monospace" font-size="9.5" fill="#ffffff" text-anchor="start" font-weight="bold">A-</text>
+<text x="1060" y="1375" font-family="DejaVu Sans Mono, monospace" font-size="9.5" fill="#ffe0a3" text-anchor="middle" font-weight="bold">3.3 V</text>
+<path d="M 135 1180 L 135 1190 L 694 1190" fill="none" stroke="#d64545" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 335 1180 L 335 1190 L 694 1190" fill="none" stroke="#d64545" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 175 1180 L 175 1234 L 694 1234" fill="none" stroke="#242424" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 375 1180 L 375 1234 L 694 1234" fill="none" stroke="#242424" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="335" cy="1190" r="4.6" fill="#d64545"/>
+<circle cx="375" cy="1234" r="4.6" fill="#242424"/>
+<path d="M 215 1180 L 215 1314 L 694 1314" fill="none" stroke="#fbf9f4" stroke-width="12.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 215 1180 L 215 1314 L 694 1314" fill="none" stroke="#9a9388" stroke-width="5.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 215 1180 L 215 1314 L 694 1314" fill="none" stroke="#ffffff" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 415 1180 L 415 1358 L 694 1358" fill="none" stroke="#fbf9f4" stroke-width="12.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 415 1180 L 415 1358 L 694 1358" fill="none" stroke="#9a9388" stroke-width="5.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 415 1180 L 415 1358 L 694 1358" fill="none" stroke="#ffffff" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="890" y1="1190" x2="976" y2="1190" stroke="#cfc8ba" stroke-width="3.0" stroke-linecap="round"/>
+<line x1="890" y1="1234" x2="976" y2="1234" stroke="#cfc8ba" stroke-width="3.0" stroke-linecap="round"/>
+<line x1="890" y1="1314" x2="976" y2="1314" stroke="#cfc8ba" stroke-width="3.0" stroke-linecap="round"/>
+<line x1="890" y1="1358" x2="976" y2="1358" stroke="#cfc8ba" stroke-width="3.0" stroke-linecap="round"/>
+<text x="82" y="1408" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.4" fill="#3d4256" text-anchor="start" font-weight="bold">E+ y E-: entran 3 cables (los 2 de las celdas + el puente al HX711). Rétuercelos y estaña la punta.</text>
+<text x="82" y="1430" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.4" fill="#3d4256" text-anchor="start" font-weight="bold">A+ y A-: entran 2 cables (el blanco de una celda + el cable al HX711).</text>
+<text x="82" y="1452" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.2" fill="#5b6078" text-anchor="start" font-weight="bold">No cruces E con A en el mismo bloque. Si compraste 4 bloques, los otros 2 sobran.</text>
+<text x="1282" y="1074" font-family="DejaVu Sans, Arial, sans-serif" font-size="16.5" fill="#1f2340" text-anchor="start" font-weight="bold">Reglas del montaje</text>
+<circle cx="1286" cy="1106" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
+<text x="1298" y="1110" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">Cada bloque de 2 tornillos = 2 conexiones separadas. Usas 2 bloques.</text>
+<circle cx="1286" cy="1136" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
+<text x="1298" y="1140" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">Bloque 1 (verde): tornillo 1 = E+ · tornillo 2 = E-.</text>
+<circle cx="1286" cy="1166" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
+<text x="1298" y="1170" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">Bloque 2 (negro): tornillo 1 = A+ · tornillo 2 = A-.</text>
+<circle cx="1286" cy="1196" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
+<text x="1298" y="1200" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">Verifica colores: rojo-blanco ~ R, negro-blanco ~ R, rojo-negro ~ 2R.</text>
+<circle cx="1286" cy="1226" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
+<text x="1298" y="1230" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">Si no se cumple, el blanco no es el centro: no conectes todavía.</text>
+<circle cx="1286" cy="1256" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
+<text x="1298" y="1260" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">Lectura negativa al presionar: intercambia A+ y A- (o gira una celda).</text>
+<circle cx="1286" cy="1286" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
+<text x="1298" y="1290" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">Sin botón de tare: GPIO4 libre. Usa TARE y CAL 5 por serial a 115200.</text>
+<circle cx="1286" cy="1316" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
+<text x="1298" y="1320" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">LED: ánodo a 7b · cátodo a 8a · 330 Ω entre 8b y 9a · 9b a Y con M-M.</text>
+<circle cx="1286" cy="1346" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
+<text x="1298" y="1350" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">Las celdas deben flexionar en sentidos opuestos o las señales se cancelan.</text>
+<circle cx="1286" cy="1376" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
+<text x="1298" y="1380" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">HX711 a 3.3 V, nunca 5 V. X = +3V3, Y = GND.</text>
+<line x1="60" y1="1512" x2="2140" y2="1512" stroke="#d9d3c7" stroke-width="1.5" stroke-linecap="round"/>
+<text x="60" y="1536" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#5b6078" text-anchor="start" font-weight="bold">SyncFit Edge · Hardware v1.0 · Definitivo · 2 celdas 3 hilos · 2 bloques de 2 tornillos · 2026</text>
+<text x="2140" y="1536" font-family="DejaVu Sans Mono, monospace" font-size="10.5" fill="#5b6078" text-anchor="end" font-weight="normal">syncfit-hardware/hardware/definitive.svg</text>
 </svg>
