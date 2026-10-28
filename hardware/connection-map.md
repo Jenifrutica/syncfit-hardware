@@ -3,7 +3,8 @@
 **Board:** ESP32 DevKit V1, generic 30-pin, USB-C.  
 **Breadboard:** 400 points, used only as a bus. The ESP32 and the sensor modules
 stay **free** beside it.  
-**Diagram:** [`protoboard-columns.svg`](protoboard-columns.svg) · [`protoboard-columns.png`](protoboard-columns.png)
+**Exact hole map:** [`protoboard-holes.svg`](protoboard-holes.svg) · [`protoboard-holes.png`](protoboard-holes.png)  
+**Column map:** [`protoboard-columns.svg`](protoboard-columns.svg) · [`protoboard-columns.png`](protoboard-columns.png)
 
 ## 1. How the breadboard is wired
 
@@ -26,6 +27,35 @@ That is why this map uses **one column per signal**:
 | **9** | `GND*` | 330 Ω leg 2 → M-M to the black `GND` rail |
 | **Red rail** | `+3V3` | ESP32 `3V3` + all module `VIN/VCC` |
 | **Black rail** | `GND` | ESP32 `GND` + all module `GND` + button leg 2 |
+
+### Exact hole assignment
+
+Use the **top half** of the 400-point board (rows `a`–`e`). The first nine
+columns are enough. Count columns from left to right, 1–30; rows are `a`–`e`
+above the center channel.
+
+| Hole | Connects to | Jumper |
+|---|---|---|
+| `1a` | ESP32 `D21` | M-F |
+| `1b` | MAX30102 `SDA` | M-F |
+| `1c` | MLX90614 `SDA` | M-F |
+| `2a` | ESP32 `D22` | M-F |
+| `2b` | MAX30102 `SCL` | M-F |
+| `2c` | MLX90614 `SCL` | M-F |
+| `3a` | ESP32 `D23` | M-F |
+| `3b` | MAX30102 `INT` | M-F |
+| `4a` | ESP32 `D34` | M-F |
+| `4b` | HX711 `DT` | M-F |
+| `5a` | ESP32 `D25` | M-F |
+| `5b` | HX711 `SCK` | M-F |
+| `6a` | ESP32 `D4` | M-F |
+| `6b` | button leg 1 | M-F |
+| `7a` | ESP32 `D18` | M-F |
+| `7b` | LED anode (+, long leg) | M-F |
+| `8a` | LED cathode (−, short leg) | M-F or direct |
+| `8b` | 330 Ω leg 1 | direct |
+| `9a` | 330 Ω leg 2 | direct |
+| `9b` | black `GND` rail | M-M |
 
 Use different holes of the same column for multiple wires. For example, column 1
 has three connections: put the ESP32 wire in hole `1a`, the MAX30102 wire in
