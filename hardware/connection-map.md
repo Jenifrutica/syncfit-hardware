@@ -3,6 +3,8 @@
 **Board:** ESP32 DevKit V1, generic 30-pin, USB-C.  
 **Breadboard:** 400 points, used only as a bus. The ESP32 and the sensor modules
 stay **free** beside it.  
+**Tag diagram (every component and port):**
+[`protoboard-tags.svg`](protoboard-tags.svg) · [`protoboard-tags.png`](protoboard-tags.png)  
 **Exact hole map:** [`protoboard-holes.svg`](protoboard-holes.svg) · [`protoboard-holes.png`](protoboard-holes.png)  
 **Column map:** [`protoboard-columns.svg`](protoboard-columns.svg) · [`protoboard-columns.png`](protoboard-columns.png)
 

@@ -34,8 +34,10 @@ Physical design artifacts for the two form factors.
 - [`protoboard-free.svg`](protoboard-free.svg) — 400-point board as a bus with
   the modules **free** (recommended for the 400-point board).
 - [`protoboard-free.png`](protoboard-free.png) — high-resolution export.
-- [`protoboard-holes.svg`](protoboard-holes.svg) — exact hole-by-hole map
-  (`1a`, `1b`, `2a`, …).
+- [`protoboard-tags.svg`](protoboard-tags.svg) — every component and port drawn,
+  with each short cable ending in its exact hole tag (`1a`, `1b`, …).
+- [`protoboard-tags.png`](protoboard-tags.png) — high-resolution export.
+- [`protoboard-holes.svg`](protoboard-holes.svg) — exact hole-by-hole map.
 - [`protoboard-holes.png`](protoboard-holes.png) — high-resolution export.
 - [`protoboard-columns.svg`](protoboard-columns.svg) — pin-to-column summary.
 - [`protoboard-columns.png`](protoboard-columns.png) — high-resolution export.
