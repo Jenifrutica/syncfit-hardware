@@ -143,6 +143,20 @@ If the LED and resistor are free, use M-F jumpers for the LED legs and short
 M-M jumpers for the resistor legs. Do not connect the LED directly across 3V3
 and GND without the 330 Ω resistor.
 
+**What are 9a and 9b?** They are two holes in the **same column 9**, so they are
+internally connected. `9a` holds the second leg of the 330 Ω resistor; `9b` is
+just the hole used for the **M-M** jumper to the `Y` (GND) rail. You can use any
+free hole in column 9 for that M-M jumper. If you do not have the resistor yet,
+leave column 9 unused.
+
+**No 330 Ω resistor?** Do **not** connect a bare LED directly. Use a resistor
+between **220 Ω and 1 kΩ** (330 Ω is the recommended value), or a **LED module
+with a built-in resistor**. A bare LED on 3.3 V can draw too much current and
+damage the LED or the ESP32 pin.
+
+With a 3-pin LED module (VCC/GND/S), connect `S` → `D18` (column 7), `GND` → `Y`,
+and `VCC` → `X`; the module already includes the resistor.
+
 ## 8. 50 kg load cell → HX711
 
 No jumpers. Use the HX711 screw terminal and a small screwdriver.
@@ -153,6 +167,9 @@ No jumpers. Use the HX711 screw terminal and a small screwdriver.
 | Black | `E−` |
 | Green | `A+` |
 | White | `A−` |
+
+If your load cell has a fifth **shield** wire, connect it to `GND` on the HX711
+side only. The HX711 must be powered from **3.3 V**, not 5 V.
 
 ## 9. Cable types
 
