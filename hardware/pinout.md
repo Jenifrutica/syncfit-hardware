@@ -2,7 +2,7 @@
 
 **Board:** ESP32 DevKit V1, 30-pin, USB-C integrated.  
 **Logic / sensors:** 3.3 V.  
-**Diagram:** [`wiring.svg`](wiring.svg) · [`wiring.png`](wiring.png)  
+**Diagram:** [`definitive.svg`](definitive.svg) · [`definitive.png`](definitive.png)  
 **BOM:** [`bom.csv`](bom.csv)
 
 > The diagram labels are in Spanish for the printed build sheet. This document keeps the repository's English convention.
@@ -12,10 +12,12 @@
 | Rail | Source | Consumers |
 |---|---|---|
 | `+5V` | USB-C integrated | ESP32 DevKit only |
-| `+3V3` | ESP32 DevKit regulator | MAX30102, MLX90614, HX711 |
-| `GND` | USB-C / DevKit | All modules and sensors |
+| `X` (`+3V3`) | ESP32 DevKit regulator | MAX30102, MLX90614, HX711 |
+| `Y` (`GND`) | USB-C / DevKit | All modules and sensors |
 
-Do not feed `VIN` and USB-C at the same time. The HX711 is powered from **3.3 V**, not 5 V, so `DT`/`SCK` remain 3.3 V logic.
+The 400-point board has **one pair of rails, X and Y**. Do not feed `VIN` and
+USB-C at the same time. The HX711 is powered from **3.3 V**, not 5 V, so
+`DT`/`SCK` remain 3.3 V logic.
 
 ## 2. ESP32 30-pin header map
 
@@ -57,7 +59,7 @@ board in the reference photo (USB at the bottom, antenna at the top).
 | 23 | `GPIO5` | Reserved | Strapping pin; leave free |
 | 24 | `GPIO17` | Buzzer (optional) | Output through NPN transistor |
 | 25 | `GPIO16` | Reserved | Free |
-| 26 | `GPIO4` | Tare button | Input, internal pull-up, button to GND |
+| 26 | `GPIO4` | Reserved | No tare button in the definitive build; leave free |
 | 27 | `GPIO2` | Reserved | On-board LED / strapping |
 | 28 | `GPIO15` | Reserved | Strapping pin; leave free |
 | 29 | `GND` | Ground | Common ground |
@@ -88,33 +90,44 @@ I2C address: **0x57**. Sample rate: **100 Hz**. Use 3.3 V only.
 
 I2C address: **0x5A**. Use the **3.3 V** variant. Read object and ambient temperature.
 
-### HX711 — 50 kg load cell
+### HX711 — two 3-wire half-bridge cells
 
 | Module pin | ESP32 | Wire colour |
 |---|---|---|
-| `VCC` | `3V3` | Red |
-| `GND` | `GND` | Black |
+| `VCC` | `X` (`3V3`) | Red |
+| `GND` | `Y` (`GND`) | Black |
 | `DT` | `GPIO34` | Green |
 | `SCK` | `GPIO25` | Green |
 
-Load-cell terminal:
+Use **two identical 3-wire cells**. Each cell is a half-bridge: the white wire is
+the center; red and black are the ends.
 
-| Terminal | Load-cell wire |
+| HX711 terminal | Cell wires |
 |---|---|
-| `E+` | Red |
-| `E-` | Black |
-| `A+` | Green |
-| `A-` | White |
+| `E+` | Cell A red + Cell B red |
+| `E−` | Cell A black + Cell B black |
+| `A+` | Cell A white |
+| `A−` | Cell B white |
 
-HX711 at **10 SPS**, gain 128, channel A. Keep the load-cell wires short and twisted; connect the shield to GND on the HX711 side only. The 50 kg cell is the rated limit: use a mechanical stop and do not perform maximum grip tests without it.
+If the reading goes negative when pressing, swap `A+` and `A−`, or rotate one
+cell 180°. Join the two reds and two blacks with a small terminal block/Wago or a
+soldered pigtail; the HX711 has only one hole per terminal.
 
-### Button and LED
+HX711 at **10 SPS**, gain 128, channel A. Keep the cell wires short and twisted.
+The final capacity depends on the mechanical mount: if the cells share the load,
+it can approach 2× the single-cell rating; if one takes the full load, it stays
+at the single-cell rating. Use a mechanical stop.
+
+### LED
 
 | Signal | ESP32 | Wiring |
 |---|---|---|
-| Tare button | `GPIO4` | Button between GPIO4 and GND; internal pull-up |
-| Status LED | `GPIO18` | GPIO18 → 330 Ω → LED anode → LED cathode → GND |
-| Buzzer (optional) | `GPIO17` | GPIO17 → 1 kΩ → 2N2222 base; buzzer between +3V3 and collector |
+| Status LED | `GPIO18` | LED anode (long) → column 7; LED cathode (short) → column 8; 330 Ω between 8b and 9a; 9b → Y with M-M |
+| Buzzer (optional) | `GPIO17` | GPIO17 → 1 kΩ → 2N2222 base; buzzer between X and collector |
+
+There is **no tare button** in the definitive build. Leave GPIO4 unconnected;
+use the serial command `TARE`. Do not connect a bare LED without the 330 Ω
+resistor (220 Ω–1 kΩ is acceptable).
 
 ### Battery monitor (Format B only)
 
@@ -128,8 +141,8 @@ HX711 at **10 SPS**, gain 128, channel A. Keep the load-cell wires short and twi
 | J2 | JST-XH 5-pin | 1: 3V3 · 2: GND · 3: SDA · 4: SCL · 5: INT |
 | J3 | JST-XH 4-pin | 1: 3V3 · 2: GND · 3: SDA · 4: SCL |
 | J4 | JST-XH 4-pin | 1: 3V3 · 2: GND · 3: DT · 4: SCK |
-| J5 | 4-pin screw terminal | E+, E−, A+, A− |
-| J6 | JST-XH 2-pin | GPIO4, GND |
+| J5 | 4-pin screw terminal | E+, E−, A+, A− (two 3-wire cells) |
+| J6 | 2-pin header (optional) | GPIO4, GND — not used without a tare button |
 | J7 | JST-PH 2-pin | BAT+, GND (Format B) |
 | J8 | JST-XH 2-pin | GPIO18, GND |
 | J9 | JST-XH 2-pin | GPIO17, GND (optional buzzer) |
@@ -144,7 +157,8 @@ HX711 at **10 SPS**, gain 128, channel A. Keep the load-cell wires short and twi
 1. Continuity: 3V3 and GND must not short.
 2. Power the board from USB-C only; measure 3.3 V on the sensor rail.
 3. I2C scan: expect `0x57` (MAX30102) and `0x5A` (MLX90614).
-4. HX711: read raw values with no load, then with known weights; run `TARE` and `CAL <kg>`.
-5. Verify the LED and tare button before connecting the load cell.
-6. Connect the load cell only after the HX711 readings are stable.
+4. HX711: connect the two 3-wire cells to a terminal block/Wago, then to `E+`,
+   `E−`, `A+`, `A−`. Run `TARE` and `CAL <kg>` from the serial monitor.
+5. Verify the LED with the 330 Ω resistor before connecting it.
+6. Check that the two cells are mounted so they flex in opposite directions.
 7. Send telemetry to the local backend WebSocket, not production, until the hardware is validated.

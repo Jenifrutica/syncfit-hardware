@@ -3,16 +3,16 @@ Item,Qty,Reference,Part / specification,Notes
 2,1,U2,MAX30102 PPG module,I2C 0x57; 3.3 V; 100 Hz
 3,1,U3,MLX90614ESF-BAA infrared thermometer,3.3 V variant; I2C 0x5A
 4,1,U4,HX711 24-bit load-cell amplifier module,3.3 V; 10 SPS; gain 128
-5,1,LC1,Load cell 50 kg with grip handle,4-wire; E+ E- A+ A-
-6,1,SW1,Tactile push button,Normally open; tare
-7,1,D1,LED 3 mm red,Status LED
-8,1,R1,Resistor 330 ohm,LED current limit
-9,2,R2-R3,Resistor 4.7 kohm,I2C pull-ups to 3V3
-10,2,R4-R5,Resistor 100 kohm,Battery divider (Format B only)
-11,1,R6,Resistor 10 kohm,Optional external pull-up for tare button
-12,1,R7,Resistor 1 kohm,Optional buzzer base resistor
-13,1,Q1,2N2222 NPN transistor,Optional buzzer driver
-14,1,BZ1,Active buzzer 3.3 V,Optional; GPIO17
+5,2,LC1-LC2,3-wire half-bridge load cell (identical pair),20-50 kg each; red/black ends, white center; verify with multimeter
+6,1,D1,LED 3 mm red,Status LED; anode to D18, cathode to 330 ohm
+7,1,R1,Resistor 330 ohm,LED current limit; 220 ohm-1 kohm acceptable
+8,2,R2-R3,Resistor 4.7 kohm,I2C pull-ups to X (3V3) if modules lack them
+9,2,R4-R5,Resistor 100 kohm,Battery divider (Format B only)
+10,1,R6,Resistor 1 kohm,Optional buzzer base resistor
+11,1,Q1,2N2222 NPN transistor,Optional buzzer driver
+12,1,BZ1,Active buzzer 3.3 V,Optional; GPIO17
+13,1,TB1,4-position terminal block or Wago 221,Join the two red and two black cell wires; one wire per HX711 screw
+14,1,MECH,Mechanical bracket/beam for two cells,Rigid bar/plate, screws and mechanical stop; cells must flex in opposite directions
 15,6,C1-C6,Capacitor 100 nF,Decoupling at each module
 16,4,C7-C10,Capacitor 10 uF,Bulk decoupling
 17,1,C11,Capacitor 100 uF,3.3 V rail
@@ -21,15 +21,14 @@ Item,Qty,Reference,Part / specification,Notes
 20,1,J2,JST-XH 5-pin connector,MAX30102
 21,1,J3,JST-XH 4-pin connector,MLX90614
 22,1,J4,JST-XH 4-pin connector,HX711
-23,1,J5,4-pin screw terminal,Load cell
-24,1,J6,JST-XH 2-pin connector,Tare button
-25,1,J8,JST-XH 2-pin connector,Status LED
-26,1,J9,JST-XH 2-pin connector,Optional buzzer
-27,1,J10,4-pin header,UART / debug
-28,1,PCB,Perfboard or custom PCB,Format A
-29,1,ENC,Enclosure / stand,Format A totem
-30,1,TP,Test-point pins,3V3 5V GND SDA SCL HX_DT HX_SCK BAT_ADC MAX_INT LED
-31,1,BAT1,LiPo 3.7 V 1200 mAh with JST-PH,Format B only
-32,1,U5,TP4056 + DW01 protected charger,Format B only
-33,1,U6,3.3 V buck-boost module 1 A,Format B only
-34,1,SW2,Power switch,Format B only
+23,1,J5,4-pin screw terminal,Two 3-wire cells: E+ E- A+ A-
+24,1,J8,JST-XH 2-pin connector,Status LED
+25,1,J9,JST-XH 2-pin connector,Optional buzzer
+26,1,J10,4-pin header,UART / debug
+27,1,PCB,Perfboard or custom PCB,Format A
+28,1,ENC,Enclosure / stand,Format A totem
+29,1,TP,Test-point pins,X Y SDA SCL HX_DT HX_SCK MAX_INT LED
+30,1,BAT1,LiPo 3.7 V 1200 mAh with JST-PH,Format B only
+31,1,U5,TP4056 + DW01 protected charger,Format B only
+32,1,U6,3.3 V buck-boost module 1 A,Format B only
+33,1,SW2,Power switch,Format B only

@@ -102,12 +102,12 @@ serial: `HELP`, `STATUS`, `SET MODALITY GESTATIONAL`, `SET WEEK 16`,
 
 **State.** Implemented: ring buffer, SPSC queue, max-heap, filters, contract
 telemetry frame, MAX30102/MLX90614/HX711 drivers, FreeRTOS tasks, serial/NVS
-provisioning, Wi-Fi WebSocket client, mock-sensor build and Format A build sheet
-(`hardware/wiring.svg`, `wiring.png`, `pinout.md`, `bom.csv`). Pending:
-hardware-in-the-loop calibration, CI contract validation, electrical schematic
-and Format B. Format A also has a solderless protoboard layout
-(`hardware/protoboard.svg`) with a per-net jumper list. See
-`hardware/README.md` for both form factors.
+provisioning, Wi-Fi WebSocket client, mock-sensor build and the definitive
+Format A build sheet (`hardware/definitive.svg`, `definitive.png`,
+`connection-map.md`, `pinout.md`, `bom.csv`). Pending: hardware-in-the-loop
+calibration, CI contract validation, electrical schematic and Format B. The
+definitive build uses two identical 3-wire half-bridge cells, no tare button,
+and the 400-point board as a bus. See `hardware/README.md`.
 
 ## Context for a new session
 
@@ -132,7 +132,7 @@ esp32dev` after wiring; `pio test -e native` for host tests.
 > Estado: **firmware v0.1 listo para banco**. Compila para ESP32, pasa pruebas
 > nativas y tiene modo mock. Falta validarlo con los sensores reales.
 
-- **Calibración real**: TARE y `CAL <kg>` con la celda de 50 kg.
+- **Calibración real**: TARE y `CAL <kg>` con las dos celdas de 3 hilos.
 - **Prueba I2C**: confirmar `0x57` (MAX30102) y `0x5A` (MLX90614).
 - **WebSocket local**: probar contra `ws://<laptop>:8000/api/v1/ws/telemetry`.
 - **Validación de contrato** automática en CI.

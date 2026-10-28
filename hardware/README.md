@@ -15,49 +15,27 @@ Physical design artifacts for the two form factors.
   during dynamic warm-up, with a coupling for the grip dynamometer.
 - LiPo battery; continuous monitoring.
 
-## Format A wiring (ESP32 DevKit V1, 30-pin, USB-C)
+## Definitive Format A diagram
 
-![SyncFit Edge Format A wiring diagram](wiring.png)
+![SyncFit Edge definitive Format A diagram](definitive.png)
 
-- [`wiring.svg`](wiring.svg) — editable vector diagram (A3).
-- [`wiring.png`](wiring.png) — high-resolution export for reports.
-- [`pinout.md`](pinout.md) — full pinout, connectors and bring-up checks.
-- [`bom.csv`](bom.csv) — bill of materials, including the 50 kg load cell.
+- [`definitive.svg`](definitive.svg) — editable A3 vector diagram.
+- [`definitive.png`](definitive.png) — high-resolution export.
+- [`connection-map.md`](connection-map.md) — exact pin-to-hole map, two 3-wire
+  cells, LED, no tare button and serial calibration.
+- [`pinout.md`](pinout.md) — full ESP32 pinout and bring-up checks.
+- [`bom.csv`](bom.csv) — bill of materials.
 
-## Protoboard build (solderless)
+The definitive build uses:
 
-![SyncFit Edge protoboard layout](protoboard.png)
-
-- [`protoboard.svg`](protoboard.svg) — editable breadboard layout (modules on
-  board, if they fit).
-- [`protoboard.png`](protoboard.png) — high-resolution export.
-- [`protoboard-free.svg`](protoboard-free.svg) — 400-point board as a bus with
-  the modules **free** (recommended for the 400-point board).
-- [`protoboard-free.png`](protoboard-free.png) — high-resolution export.
-- [`protoboard-tags.svg`](protoboard-tags.svg) — every component and port drawn,
-  with each short cable ending in its exact hole tag (`1a`, `1b`, …).
-- [`protoboard-tags.png`](protoboard-tags.png) — high-resolution export.
-- [`protoboard-holes.svg`](protoboard-holes.svg) — exact hole-by-hole map.
-- [`protoboard-holes.png`](protoboard-holes.png) — high-resolution export.
-- [`protoboard-columns.svg`](protoboard-columns.svg) — pin-to-column summary.
-- [`protoboard-columns.png`](protoboard-columns.png) — high-resolution export.
-- [`connection-map.md`](connection-map.md) — the exact “connect this to that”
-  table, including button, LED and load cell.
-- [`protoboard.md`](protoboard.md) — net-by-net wiring list, jumper types
-  (M-M / M-F / F-F) and soldering-iron checklist.
-
-### 400-point board, modules free (recommended)
-
-![SyncFit Edge free-module protoboard bus](protoboard-free.png)
-
-The ESP32 and the sensor modules stay **beside** the board. Use **M-F** jumpers
-from their male pins to the breadboard bus; use **M-M** only inside the board.
-You do **not** need F-F jumpers for this build. The 50 kg load cell goes to the
-HX711 screw terminal (screwdriver, no solder).
-
-An **830-point** board is more comfortable, but a **400-point** board is enough
-if the modules are free and the board is used only for power, I2C, button, LED
-and resistors.
+- **400-point breadboard** as a bus; the ESP32 and modules stay **free**.
+- **X = +3V3**, **Y = GND** (the board has only one pair of rails).
+- **Two identical 3-wire half-bridge load cells** in a full bridge:
+  reds → `E+`, blacks → `E−`, whites → `A+` / `A−`.
+- **No tare button**: GPIO4 is left free; use the serial command `TARE`.
+- **LED** on GPIO18 through a **330 Ω** resistor (220 Ω–1 kΩ acceptable).
+- **M-F** jumpers from components to the breadboard; **M-M** only inside the
+  board. **F-F** is not needed.
 
 ## Final pinout (ESP32 DevKit V1, 30-pin)
 
@@ -67,18 +45,19 @@ and resistors.
 | MAX30102 | INT | 23 |
 | MLX90614 | SDA / SCL | 21 / 22 (shared I2C) |
 | HX711 | DT / SCK | 34 / 25 |
-| Load cell | E+ / E- / A+ / A- | HX711 terminal |
-| Tare button | GPIO to GND | 4 |
-| Status LED | GPIO → 330 Ω → LED | 18 |
+| Two 3-wire cells | reds `E+`, blacks `E−`, whites `A+`/`A−` | HX711 terminal block |
+| Status LED | GPIO → 330 Ω → LED → Y | 18 |
 | Buzzer (optional) | GPIO → NPN | 17 |
 | Battery ADC (Format B) | divider 100k/100k | 35 |
 | USB-C | 5 V / programming | integrated |
 
-**Notes.** HX711 runs at 3.3 V. The 50 kg load cell is the rated limit: use a
-mechanical stop and avoid maximum grip tests without it. I2C pull-ups are
-4.7 kΩ to 3V3 only when the modules do not already include them.
+**Notes.** HX711 runs at 3.3 V. The two cells must be mechanically mounted so they
+flex in opposite directions; otherwise their signals cancel. The final capacity
+depends on the mount (shared load can approach 2× the single-cell rating). Use a
+mechanical stop. I2C pull-ups are 4.7 kΩ to X only when the modules do not
+already include them.
 
 ## Still to add
 
-- [ ] Schematic (electrical, not only wiring)
+- [ ] Electrical schematic (not only the wiring/assembly diagram)
 - [ ] Enclosure drawings for Formats A and B

@@ -1,255 +1,197 @@
-# SyncFit Edge — exact connection map (400-point breadboard)
+# SyncFit Edge — definitive connection map (Format A)
 
 **Board:** ESP32 DevKit V1, generic 30-pin, USB-C.  
-**Breadboard:** 400 points, used only as a bus. The ESP32 and the sensor modules
-stay **free** beside it.  
-**Tag diagram (every component and port):**
-[`protoboard-tags.svg`](protoboard-tags.svg) · [`protoboard-tags.png`](protoboard-tags.png)  
-**Exact hole map:** [`protoboard-holes.svg`](protoboard-holes.svg) · [`protoboard-holes.png`](protoboard-holes.png)  
-**Column map:** [`protoboard-columns.svg`](protoboard-columns.svg) · [`protoboard-columns.png`](protoboard-columns.png)
+**Breadboard:** 400 points, used only as a bus; the ESP32 and modules stay free.  
+**Power rails:** only one pair, labeled **X** and **Y**.  
+**Diagram:** [`definitive.svg`](definitive.svg) · [`definitive.png`](definitive.png)
 
-## 1. How the breadboard is wired
+> **X = +3V3** · **Y = GND**  
+> The red/black rails in the diagram are X and Y.
 
-On a standard breadboard, the **five holes in one column** (a–e above the center
-channel, f–j below) are connected internally. The **rows are not connected**.
-The two long power rails are connected along their length.
+## 1. Breadboard columns
 
-That is why this map uses **one column per signal**:
+The five holes in one column (`a`–`e` above the center channel) are internally
+connected. The rows are **not** connected across columns. Use only the top half
+of the 400-point board.
 
-| Breadboard column | Net | What connects there |
+| Column | Net | What connects there |
 |---:|---|---|
 | **1** | `SDA` | ESP32 `D21` + MAX30102 `SDA` + MLX90614 `SDA` |
 | **2** | `SCL` | ESP32 `D22` + MAX30102 `SCL` + MLX90614 `SCL` |
-| **3** | `D23 / INT` | ESP32 `D23` + MAX30102 `INT` |
-| **4** | `D34 / HX_DT` | ESP32 `D34` + HX711 `DT` |
-| **5** | `D25 / HX_SCK` | ESP32 `D25` + HX711 `SCK` |
-| **6** | `D4 / TARE` | ESP32 `D4` + button leg 1 |
-| **7** | `D18 / LED` | ESP32 `D18` + LED anode |
+| **3** | `D23` | ESP32 `D23` + MAX30102 `INT` |
+| **4** | `D34` | ESP32 `D34` + HX711 `DT` |
+| **5** | `D25` | ESP32 `D25` + HX711 `SCK` |
+| **6** | spare | not used (no tare button) |
+| **7** | `D18` | ESP32 `D18` + LED anode |
 | **8** | `LED−` | LED cathode + 330 Ω leg 1 |
-| **9** | `GND*` | 330 Ω leg 2 → M-M to the `Y` rail (`GND`) |
-| **X rail** | `+3V3` | ESP32 `3V3` + all module `VIN/VCC` |
-| **Y rail** | `GND` | ESP32 `GND` + all module `GND` + button leg 2 |
+| **9** | `GND*` | 330 Ω leg 2 → **Y** with an M-M jumper |
 
-### Exact hole assignment
-
-Use the **top half** of the 400-point board (rows `a`–`e`). The first nine
-columns are enough. Count columns from left to right, 1–30; rows are `a`–`e`
-above the center channel.
-
-| Hole | Connects to | Jumper |
-|---|---|---|
-| `1a` | ESP32 `D21` | M-F |
-| `1b` | MAX30102 `SDA` | M-F |
-| `1c` | MLX90614 `SDA` | M-F |
-| `2a` | ESP32 `D22` | M-F |
-| `2b` | MAX30102 `SCL` | M-F |
-| `2c` | MLX90614 `SCL` | M-F |
-| `3a` | ESP32 `D23` | M-F |
-| `3b` | MAX30102 `INT` | M-F |
-| `4a` | ESP32 `D34` | M-F |
-| `4b` | HX711 `DT` | M-F |
-| `5a` | ESP32 `D25` | M-F |
-| `5b` | HX711 `SCK` | M-F |
-| `6a` | ESP32 `D4` | M-F |
-| `6b` | button leg 1 | M-F |
-| `7a` | ESP32 `D18` | M-F |
-| `7b` | LED anode (+, long leg) | M-F |
-| `8a` | LED cathode (−, short leg) | M-F or direct |
-| `8b` | 330 Ω leg 1 | direct |
-| `9a` | 330 Ω leg 2 | direct |
-| `9b` | `Y` rail (`GND`) | M-M |
-
-Use different holes of the same column for multiple wires. For example, column 1
-has three connections: put the ESP32 wire in hole `1a`, the MAX30102 wire in
-`1b` and the MLX90614 wire in `1c`. All three are already joined inside the
-breadboard; no M-M jumper is needed for that column.
-
-`GND*` in column 9 is the return from the 330 Ω resistor. Link column 9 to the
-`Y` rail (`GND`) with an **M-M** jumper.
+Use different holes of the same column for multiple wires. Example: column 1
+has `1a` = ESP32 `D21`, `1b` = MAX30102 `SDA`, `1c` = MLX90614 `SDA`.
 
 ## 2. ESP32 connections
 
 All of these are **M-F jumpers**: female end on the ESP32 male header, male end
 into the breadboard.
 
-| ESP32 pin | Physical side | Connect to | Cable |
+| ESP32 pin | Side | Connect to | Cable |
 |---|---|---|---|
-| `3V3` (pin 30) | right, bottom | `X` rail (`+3V3`) | M-F |
-| `GND` (pin 29) | right, bottom | `Y` rail (`GND`) | M-F |
-| `D21` (pin 20) | right | breadboard **column 1** (`SDA`) | M-F |
-| `D22` (pin 17) | right | breadboard **column 2** (`SCL`) | M-F |
-| `D23` (pin 16) | right | breadboard **column 3** (`INT`) | M-F |
-| `D34` (pin 4) | left | breadboard **column 4** (`HX_DT`) | M-F |
-| `D25` (pin 8) | left | breadboard **column 5** (`HX_SCK`) | M-F |
-| `D4` (pin 26) | right | breadboard **column 6** (`TARE`) | M-F |
-| `D18` (pin 22) | right | breadboard **column 7** (`LED`) | M-F |
-| `D35` (pin 5) | left | **not connected** in Format A | — |
+| `3V3` (pin 30) | right | rail **X** | M-F |
+| `GND` (pin 29) | right | rail **Y** | M-F |
+| `D21` (pin 20) | right | column **1** | M-F |
+| `D22` (pin 17) | right | column **2** | M-F |
+| `D23` (pin 16) | right | column **3** | M-F |
+| `D34` (pin 4) | left | column **4** | M-F |
+| `D25` (pin 8) | left | column **5** | M-F |
+| `D18` (pin 22) | right | column **7** | M-F |
+| `D35` (pin 5) | left | not connected | — |
+| `D4` (pin 26) | right | not connected (no tare button) | — |
 
 ## 3. MAX30102
 
-| MAX30102 pin | Connect to | Cable |
+| Module pin | Connect to | Cable |
 |---|---|---|
-| `VIN` | `X` rail (`+3V3`) | M-F |
-| `GND` | `Y` rail (`GND`) | M-F |
-| `SDA` | breadboard **column 1** | M-F |
-| `SCL` | breadboard **column 2** | M-F |
-| `INT` | breadboard **column 3** | M-F |
+| `VIN` | rail **X** | M-F |
+| `GND` | rail **Y** | M-F |
+| `SDA` | column **1** | M-F |
+| `SCL` | column **2** | M-F |
+| `INT` | column **3** | M-F |
+
+I2C address `0x57`, 100 Hz, 3.3 V only.
 
 ## 4. MLX90614
 
-| MLX90614 pin | Connect to | Cable |
+| Module pin | Connect to | Cable |
 |---|---|---|
-| `VIN` | `X` rail (`+3V3`) | M-F |
-| `GND` | `Y` rail (`GND`) | M-F |
-| `SDA` | breadboard **column 1** | M-F |
-| `SCL` | breadboard **column 2** | M-F |
+| `VIN` | rail **X** | M-F |
+| `GND` | rail **Y** | M-F |
+| `SDA` | column **1** | M-F |
+| `SCL` | column **2** | M-F |
+
+I2C address `0x5A`, 3.3 V variant.
 
 ## 5. HX711
 
-| HX711 pin | Connect to | Cable |
+| Module pin | Connect to | Cable |
 |---|---|---|
-| `VCC` | `X` rail (`+3V3`) | M-F |
-| `GND` | `Y` rail (`GND`) | M-F |
-| `DT` | breadboard **column 4** | M-F |
-| `SCK` | breadboard **column 5** | M-F |
+| `VCC` | rail **X** | M-F |
+| `GND` | rail **Y** | M-F |
+| `DT` | column **4** | M-F |
+| `SCK` | column **5** | M-F |
 
-## 6. Button
+HX711 at **3.3 V**, 10 SPS, gain 128.
 
-Use a 4-leg tactile button. The two legs on the same side are internally joined;
-use **diagonal legs** so the button is normally open.
+## 6. LED + 330 Ω
 
-| Button leg | Connect to | Cable |
-|---|---|---|
-| leg 1 (one side) | breadboard **column 6** | M-F |
-| leg 2 (diagonal) | `Y` rail (`GND`) | M-F |
-
-If the button is plugged into the breadboard, put leg 1 in column 6 and leg 2 in
-a free hole, then use an **M-M** jumper from that hole to the Y rail (GND).
-
-## 7. LED + 330 Ω
-
-The **long leg** of the LED is the anode (+); the **short leg** is the cathode
-(−).
+The **long leg** is the anode (+) and the **short leg** is the cathode (−). The
+flat edge on the LED body also marks the cathode.
 
 | LED / resistor | Connect to | Cable |
 |---|---|---|
-| LED anode (long) | breadboard **column 7** | M-F |
-| LED cathode (short) | breadboard **column 8** | M-F or direct into the board |
-| 330 Ω leg 1 | breadboard **column 8** | direct into the board |
-| 330 Ω leg 2 | breadboard **column 9** | direct into the board |
-| Column 9 | `Y` rail (`GND`) | **M-M** |
+| LED anode (long) | column **7** | M-F |
+| LED cathode (short) | column **8** | M-F or direct |
+| 330 Ω leg 1 | column **8** (`8b`) | direct |
+| 330 Ω leg 2 | column **9** (`9a`) | direct |
+| Column **9** (`9b`) | rail **Y** | **M-M** |
 
-If the LED and resistor are free, use M-F jumpers for the LED legs and short
-M-M jumpers for the resistor legs. Do not connect the LED directly across 3V3
-and GND without the 330 Ω resistor.
+`9a` and `9b` are two holes in the same column 9 and are internally connected.
+`9a` holds the resistor leg; `9b` is only used for the M-M jumper to **Y**.
 
-**What are 9a and 9b?** They are two holes in the **same column 9**, so they are
-internally connected. `9a` holds the second leg of the 330 Ω resistor; `9b` is
-just the hole used for the **M-M** jumper to the `Y` (GND) rail. You can use any
-free hole in column 9 for that M-M jumper. If you do not have the resistor yet,
-leave column 9 unused.
+**If you do not have the resistor yet:** do not connect the bare LED. Use a
+**220 Ω–1 kΩ** resistor (330 Ω recommended) or an LED module with a built-in
+resistor. Without it, you can test the rest of the system; the LED is only the
+status indicator.
 
-**No 330 Ω resistor?** Do **not** connect a bare LED directly. Use a resistor
-between **220 Ω and 1 kΩ** (330 Ω is the recommended value), or a **LED module
-with a built-in resistor**. A bare LED on 3.3 V can draw too much current and
-damage the LED or the ESP32 pin.
+## 7. Two 3-wire load cells → HX711
 
-With a 3-pin LED module (VCC/GND/S), connect `S` → `D18` (column 7), `GND` → `Y`,
-and `VCC` → `X`; the module already includes the resistor.
+Use **two identical 3-wire cells**. Each cell is a **half-bridge**: the white
+wire is the center; red and black are the ends.
 
-## 8. 50 kg load cell → HX711
+```text
+Cell A red   ─┐
+Cell B red   ─┴── E+
+Cell A black ─┐
+Cell B black ─┴── E−
+Cell A white ──── A+
+Cell B white ──── A−
+```
 
-No jumpers. Use the HX711 screw terminal and a small screwdriver.
+- Join the two red wires to `E+`.
+- Join the two black wires to `E−`.
+- One white wire to `A+`, the other to `A−`.
+- If the reading goes negative when you press, swap `A+` and `A−`, or rotate one
+  cell 180°.
 
-| Load-cell wire | HX711 terminal |
+**Before soldering**, verify the colors with a multimeter:
+
+| Measurement | Expected for a half-bridge |
 |---|---|
-| Red | `E+` |
-| Black | `E−` |
-| Green | `A+` |
-| White | `A−` |
+| red ↔ white | about R |
+| black ↔ white | about R |
+| red ↔ black | about 2R |
 
-If your load cell has a fifth **shield** wire, connect it to `GND` on the HX711
-side only. The HX711 must be powered from **3.3 V**, not 5 V.
+If those values do not match, the wire colors are not the assumed mapping. Do
+not connect it until you confirm.
+
+**Mechanics:** the two cells must be mounted so one flexes in the opposite
+direction to the other. If both are loaded the same way, the signals cancel. The
+final capacity depends on the mount: if the cells share the load, it can
+approach 2× the single-cell rating; if one takes the full load, it remains the
+single-cell rating.
+
+**Connecting the wires:** the HX711 screw terminal has one hole per terminal.
+Join the two reds and the two blacks with a small **terminal block / Wago** or a
+soldered pigtail, then insert one wire per HX711 terminal. Do not force two thick
+wires into one screw.
+
+## 8. Tare and calibration without a button
+
+There is **no tare button** in the definitive build. Leave GPIO4 unconnected;
+the firmware enables the internal pull-up.
+
+Open the serial monitor at **115200**:
+
+```text
+STATUS
+TARE
+CAL 5
+```
+
+- `TARE` with the cells empty.
+- Put a **known weight** on the assembly and send `CAL 5` (or `CAL 10`).
+- Wait for `calibration saved`.
+- Do not calibrate with the maximum rated load; use a safe known weight.
 
 ## 9. Cable types
 
 | Type | Use |
 |---|---|
-| **M-F** (male–female) | ESP32 or free module male header → breadboard hole. This is the main cable. |
-| **M-M** (male–male) | Only inside the breadboard: column 9 → GND rail, button leg → GND rail, or joining two columns/rails. |
-| **F-F** (female–female) | **Not needed here.** It is only for joining two male headers directly without a breadboard. |
-| **No jumper** | Load cell → HX711 screw terminal. |
+| **M-F** | ESP32 or free module male header → breadboard hole. Main cable. |
+| **M-M** | Only inside the breadboard: `9b` → `Y`, or joining a column/rail. |
+| **F-F** | Not needed. Only for two male headers directly without a breadboard. |
+| **No jumper** | Load cells → HX711 terminal block (screwdriver). |
 
 ## 10. Soldering
 
 **No soldering iron needed** if:
 
-- The ESP32 and all three modules already have their male headers soldered.
-- You use the 400-point breadboard as the bus and M-F/M-M jumpers.
-- The load cell goes to the HX711 screw terminal.
+- The ESP32 and sensor modules already have their male headers soldered.
+- You use the 400-point board as a bus and M-F/M-M jumpers.
+- The two load cells go to a terminal block/Wago and the HX711 screw terminal.
 
 **You need a soldering iron** if:
 
-- The modules came with loose headers that are not soldered.
+- The modules came with loose headers.
 - You use a perfboard instead of a solderless breadboard.
-- You want a permanent connection or need to tin/shorten the load-cell wires.
+- You want a permanent harness or need to tin the load-cell wires.
 
-## 11. Assembly order
+## 11. Bring-up order
 
-1. Put the ESP32 and the three modules **beside** the breadboard.
-2. Connect ESP32 `3V3` → X rail (+3V3) and `GND` → Y rail (GND) (M-F).
-3. Connect ESP32 `D21` → column 1 and `D22` → column 2 (M-F).
-4. Connect MAX30102 `SDA` → column 1, `SCL` → column 2, `INT` → column 3 (M-F).
-5. Connect MLX90614 `SDA` → column 1 and `SCL` → column 2 (M-F).
-6. Connect every module `VIN/VCC` → X rail (+3V3) and `GND` → Y rail (GND) (M-F).
-7. Connect HX711 `DT` → column 4 and `SCK` → column 5 (M-F).
-8. Connect the button to column 6 and GND; connect the LED to column 7 and the
-   330 Ω resistor between columns 8 and 9, then column 9 to GND.
-9. Connect the load cell to the HX711 screw terminal.
-10. Before USB-C, check with a multimeter that `3V3` and `GND` are not shorted.
-
-## 12. Can I connect M-M and M-F without a breadboard?
-
-**No, not directly for ESP32 ↔ module.** Both the ESP32 and the sensor modules
-have **male headers**. A direct male-to-male connection needs **F-F** jumpers
-(female on both ends).
-
-- **M-M** has male pins on both ends: it cannot plug into a male header.
-- **M-F** has one male and one female end: the female end fits one module, but
-  the male end cannot plug into the other module's male header.
-- You can physically plug an M-M male end into the female end of an M-F, but the
-  other end is still male, so it does not solve the ESP32 ↔ module connection.
-- **F-F** is the correct cable for direct module-to-module or ESP32-to-module
-  wiring.
-
-With the 400-point board as a bus, you do **not** need F-F:
-
-- ESP32/module male pin → **M-F** → breadboard hole.
-- Breadboard row/rail → **M-M** → breadboard row/rail.
-- The breadboard joins the shared 3V3, GND, SDA and SCL lines.
-
-That is why the recommended build is the **400-point board as a bus**, with the
-ESP32 and modules left free.
-
-## 13. No tare button? Use the serial command
-
-The tare button is **optional**. If you do not have it, leave GPIO4 unconnected:
-the firmware enables the internal pull-up, so it will not trigger by itself.
-
-Connect the HX711 and load cell, open the serial monitor at **115200**, and use:
-
-```text
-TARE
-```
-
-with the load cell empty. Then put a **known weight** on the cell and type:
-
-```text
-CAL 5
-```
-
-(for a 5 kg reference; use `CAL 10` for 10 kg, etc.). The firmware saves the
-offset and scale in NVS. `STATUS` shows the current calibration.
-
-The 50 kg cell is the rated limit: use a known weight well below 50 kg and a
-mechanical stop. Do not stand on the cell.
+1. Disconnect USB-C. Check continuity: `X`–`Y` must not be shorted.
+2. Connect USB-C; measure about 3.3 V between X and Y.
+3. I2C scan: expect `0x57` (MAX30102) and `0x5A` (MLX90614).
+4. Connect the two cells to the HX711 terminal block; run `TARE`.
+5. Add a known weight and run `CAL 5` or `CAL 10`.
+6. Test the LED: anode on column 7, cathode on column 8, 330 Ω to column 9,
+   column 9 to Y with M-M.
+7. Send telemetry to the local WebSocket, not production, until validated.
