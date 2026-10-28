@@ -26,9 +26,9 @@ That is why this map uses **one column per signal**:
 | **6** | `D4 / TARE` | ESP32 `D4` + button leg 1 |
 | **7** | `D18 / LED` | ESP32 `D18` + LED anode |
 | **8** | `LED−` | LED cathode + 330 Ω leg 1 |
-| **9** | `GND*` | 330 Ω leg 2 → M-M to the black `GND` rail |
-| **Red rail** | `+3V3` | ESP32 `3V3` + all module `VIN/VCC` |
-| **Black rail** | `GND` | ESP32 `GND` + all module `GND` + button leg 2 |
+| **9** | `GND*` | 330 Ω leg 2 → M-M to the `Y` rail (`GND`) |
+| **X rail** | `+3V3` | ESP32 `3V3` + all module `VIN/VCC` |
+| **Y rail** | `GND` | ESP32 `GND` + all module `GND` + button leg 2 |
 
 ### Exact hole assignment
 
@@ -57,7 +57,7 @@ above the center channel.
 | `8a` | LED cathode (−, short leg) | M-F or direct |
 | `8b` | 330 Ω leg 1 | direct |
 | `9a` | 330 Ω leg 2 | direct |
-| `9b` | black `GND` rail | M-M |
+| `9b` | `Y` rail (`GND`) | M-M |
 
 Use different holes of the same column for multiple wires. For example, column 1
 has three connections: put the ESP32 wire in hole `1a`, the MAX30102 wire in
@@ -65,7 +65,7 @@ has three connections: put the ESP32 wire in hole `1a`, the MAX30102 wire in
 breadboard; no M-M jumper is needed for that column.
 
 `GND*` in column 9 is the return from the 330 Ω resistor. Link column 9 to the
-black `GND` rail with an **M-M** jumper.
+`Y` rail (`GND`) with an **M-M** jumper.
 
 ## 2. ESP32 connections
 
@@ -74,8 +74,8 @@ into the breadboard.
 
 | ESP32 pin | Physical side | Connect to | Cable |
 |---|---|---|---|
-| `3V3` (pin 30) | right, bottom | red `+3V3` rail | M-F |
-| `GND` (pin 29) | right, bottom | black `GND` rail | M-F |
+| `3V3` (pin 30) | right, bottom | `X` rail (`+3V3`) | M-F |
+| `GND` (pin 29) | right, bottom | `Y` rail (`GND`) | M-F |
 | `D21` (pin 20) | right | breadboard **column 1** (`SDA`) | M-F |
 | `D22` (pin 17) | right | breadboard **column 2** (`SCL`) | M-F |
 | `D23` (pin 16) | right | breadboard **column 3** (`INT`) | M-F |
@@ -89,8 +89,8 @@ into the breadboard.
 
 | MAX30102 pin | Connect to | Cable |
 |---|---|---|
-| `VIN` | red `+3V3` rail | M-F |
-| `GND` | black `GND` rail | M-F |
+| `VIN` | `X` rail (`+3V3`) | M-F |
+| `GND` | `Y` rail (`GND`) | M-F |
 | `SDA` | breadboard **column 1** | M-F |
 | `SCL` | breadboard **column 2** | M-F |
 | `INT` | breadboard **column 3** | M-F |
@@ -99,8 +99,8 @@ into the breadboard.
 
 | MLX90614 pin | Connect to | Cable |
 |---|---|---|
-| `VIN` | red `+3V3` rail | M-F |
-| `GND` | black `GND` rail | M-F |
+| `VIN` | `X` rail (`+3V3`) | M-F |
+| `GND` | `Y` rail (`GND`) | M-F |
 | `SDA` | breadboard **column 1** | M-F |
 | `SCL` | breadboard **column 2** | M-F |
 
@@ -108,8 +108,8 @@ into the breadboard.
 
 | HX711 pin | Connect to | Cable |
 |---|---|---|
-| `VCC` | red `+3V3` rail | M-F |
-| `GND` | black `GND` rail | M-F |
+| `VCC` | `X` rail (`+3V3`) | M-F |
+| `GND` | `Y` rail (`GND`) | M-F |
 | `DT` | breadboard **column 4** | M-F |
 | `SCK` | breadboard **column 5** | M-F |
 
@@ -121,10 +121,10 @@ use **diagonal legs** so the button is normally open.
 | Button leg | Connect to | Cable |
 |---|---|---|
 | leg 1 (one side) | breadboard **column 6** | M-F |
-| leg 2 (diagonal) | black `GND` rail | M-F |
+| leg 2 (diagonal) | `Y` rail (`GND`) | M-F |
 
 If the button is plugged into the breadboard, put leg 1 in column 6 and leg 2 in
-a free hole, then use an **M-M** jumper from that hole to the black rail.
+a free hole, then use an **M-M** jumper from that hole to the Y rail (GND).
 
 ## 7. LED + 330 Ω
 
@@ -137,7 +137,7 @@ The **long leg** of the LED is the anode (+); the **short leg** is the cathode
 | LED cathode (short) | breadboard **column 8** | M-F or direct into the board |
 | 330 Ω leg 1 | breadboard **column 8** | direct into the board |
 | 330 Ω leg 2 | breadboard **column 9** | direct into the board |
-| Column 9 | black `GND` rail | **M-M** |
+| Column 9 | `Y` rail (`GND`) | **M-M** |
 
 If the LED and resistor are free, use M-F jumpers for the LED legs and short
 M-M jumpers for the resistor legs. Do not connect the LED directly across 3V3
@@ -180,11 +180,11 @@ No jumpers. Use the HX711 screw terminal and a small screwdriver.
 ## 11. Assembly order
 
 1. Put the ESP32 and the three modules **beside** the breadboard.
-2. Connect ESP32 `3V3` → red rail and `GND` → black rail (M-F).
+2. Connect ESP32 `3V3` → X rail (+3V3) and `GND` → Y rail (GND) (M-F).
 3. Connect ESP32 `D21` → column 1 and `D22` → column 2 (M-F).
 4. Connect MAX30102 `SDA` → column 1, `SCL` → column 2, `INT` → column 3 (M-F).
 5. Connect MLX90614 `SDA` → column 1 and `SCL` → column 2 (M-F).
-6. Connect every module `VIN/VCC` → red rail and `GND` → black rail (M-F).
+6. Connect every module `VIN/VCC` → X rail (+3V3) and `GND` → Y rail (GND) (M-F).
 7. Connect HX711 `DT` → column 4 and `SCK` → column 5 (M-F).
 8. Connect the button to column 6 and GND; connect the LED to column 7 and the
    330 Ω resistor between columns 8 and 9, then column 9 to GND.

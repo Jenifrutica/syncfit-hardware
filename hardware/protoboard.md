@@ -4,6 +4,8 @@
 **Assumption:** solderless breadboard and modules with **pre-soldered male headers**.  
 **Recommended breadboard:** **830 points**. A 400-point board only works if the
 sensor modules are left **free** beside it.  
+**Your 400-point board:** one pair of rails, **X = +3V3** and **Y = GND**. The
+red/black rails in the drawings mean X/Y.  
 **Diagram (modules on board, if they fit):** [`protoboard.svg`](protoboard.svg) · [`protoboard.png`](protoboard.png)  
 **Diagram (400-point board as a bus, modules free — recommended):**
 [`protoboard-free.svg`](protoboard-free.svg) · [`protoboard-free.png`](protoboard-free.png)
