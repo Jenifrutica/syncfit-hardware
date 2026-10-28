@@ -68,6 +68,7 @@ C++ (ESP-IDF / Arduino Core), I2C / SPI, WebSocket client over Wi-Fi.
 - [x] Validate emitted frames against `syncfit-contracts` (manual).
 - [ ] Add contract validation to CI.
 - [x] Produce Format A wiring diagram, pinout and BOM.
+- [x] Produce the solderless protoboard layout and jumper list.
 - [ ] Produce the electrical schematic.
 - [ ] Produce Format B wearable design (enclosure and LiPo power).
 
@@ -104,7 +105,9 @@ telemetry frame, MAX30102/MLX90614/HX711 drivers, FreeRTOS tasks, serial/NVS
 provisioning, Wi-Fi WebSocket client, mock-sensor build and Format A build sheet
 (`hardware/wiring.svg`, `wiring.png`, `pinout.md`, `bom.csv`). Pending:
 hardware-in-the-loop calibration, CI contract validation, electrical schematic
-and Format B. See `hardware/README.md` for both form factors.
+and Format B. Format A also has a solderless protoboard layout
+(`hardware/protoboard.svg`) with a per-net jumper list. See
+`hardware/README.md` for both form factors.
 
 ## Context for a new session
 

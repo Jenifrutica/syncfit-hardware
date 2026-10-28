@@ -24,6 +24,19 @@ Physical design artifacts for the two form factors.
 - [`pinout.md`](pinout.md) — full pinout, connectors and bring-up checks.
 - [`bom.csv`](bom.csv) — bill of materials, including the 50 kg load cell.
 
+## Protoboard build (solderless)
+
+![SyncFit Edge protoboard layout](protoboard.png)
+
+- [`protoboard.svg`](protoboard.svg) — editable breadboard layout.
+- [`protoboard.png`](protoboard.png) — high-resolution export.
+- [`protoboard.md`](protoboard.md) — net-by-net wiring list, jumper types
+  (M-M / M-F / F-F) and soldering-iron checklist.
+
+The ESP32 stays beside the breadboard; use **M-F** jumpers from its male pins to
+the breadboard. Modules with male headers plug directly into the breadboard.
+The 50 kg load cell goes to the HX711 screw terminal (screwdriver, no solder).
+
 ## Final pinout (ESP32 DevKit V1, 30-pin)
 
 | Sensor / function | Signal | ESP32 pin |
