@@ -34,6 +34,11 @@ Physical design artifacts for the two form factors.
 - [`protoboard-free.svg`](protoboard-free.svg) — 400-point board as a bus with
   the modules **free** (recommended for the 400-point board).
 - [`protoboard-free.png`](protoboard-free.png) — high-resolution export.
+- [`protoboard-columns.svg`](protoboard-columns.svg) — exact pin-by-pin column
+  map.
+- [`protoboard-columns.png`](protoboard-columns.png) — high-resolution export.
+- [`connection-map.md`](connection-map.md) — the exact “connect this to that”
+  table, including button, LED and load cell.
 - [`protoboard.md`](protoboard.md) — net-by-net wiring list, jumper types
   (M-M / M-F / F-F) and soldering-iron checklist.
 
