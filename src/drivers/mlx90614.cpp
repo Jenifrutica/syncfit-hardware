@@ -10,8 +10,14 @@ constexpr float kResolutionK = 0.02f;
 
 bool Mlx90614::begin(TwoWire& wire) {
   wire_ = &wire;
-  float temperature = 0.0f;
-  return readAmbientC(temperature);
+  // The module needs a few ms after power-up and occasionally NAKs the first
+  // transaction; retry a couple of times before declaring it missing.
+  for (int attempt = 0; attempt < 3; ++attempt) {
+    float temperature = 0.0f;
+    if (readAmbientC(temperature)) return true;
+    delay(50);
+  }
+  return false;
 }
 
 bool Mlx90614::readObjectC(float& temperature_c) {

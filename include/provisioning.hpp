@@ -9,6 +9,7 @@
 //   SET WS ws://host:port/path  (or wss://...)
 //   TARE
 //   CAL <known_kg>
+//   SCAN
 //   REBOOT
 
 #pragma once

@@ -11,7 +11,9 @@ namespace syncfit::pins {
 // I2C bus (MAX30102 + MLX90614).
 constexpr std::uint8_t kI2cSda = 21;
 constexpr std::uint8_t kI2cScl = 22;
-constexpr std::uint32_t kI2cClockHz = 400000;
+// 100 kHz: the MLX90614 does not tolerate 400 kHz, and the MAX30102 FIFO
+// (100 Hz x 6 bytes) fits comfortably in the slower bus.
+constexpr std::uint32_t kI2cClockHz = 100000;
 
 // MAX30102 interrupt (active low, optional; FIFO polling is also supported).
 constexpr std::uint8_t kMax30102Int = 23;

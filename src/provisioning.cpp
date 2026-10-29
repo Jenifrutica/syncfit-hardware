@@ -1,5 +1,7 @@
 #include "provisioning.hpp"
 
+#include <Wire.h>
+
 #include <cstdlib>
 
 #include "config.hpp"
@@ -13,6 +15,19 @@ bool g_tare_requested = false;
 bool g_cal_requested = false;
 float g_cal_kg = 0.0f;
 
+void printI2cScan() {
+  Serial.println("i2c scan:");
+  std::uint8_t found = 0;
+  for (std::uint8_t addr = 0x08; addr < 0x78; ++addr) {
+    Wire.beginTransmission(addr);
+    if (Wire.endTransmission() == 0) {
+      Serial.printf("  found 0x%02X\n", addr);
+      ++found;
+    }
+  }
+  if (found == 0) Serial.println("  nothing on the bus");
+}
+
 void printHelp() {
   Serial.println("Commands:");
   Serial.println("  HELP");
@@ -23,6 +38,7 @@ void printHelp() {
   Serial.println("  SET WS ws://host:port/path");
   Serial.println("  TARE");
   Serial.println("  CAL <known_kg>");
+  Serial.println("  SCAN");
   Serial.println("  REBOOT");
 }
 
@@ -76,6 +92,10 @@ void handleLine(String line) {
   }
   if (line == "STATUS") {
     printStatus();
+    return;
+  }
+  if (line == "SCAN") {
+    printI2cScan();
     return;
   }
   if (line == "TARE") {
