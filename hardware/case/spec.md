@@ -9,21 +9,21 @@ Dos objetivos distintos:
 
 ## 1. Medidas reales de la electrónica
 
-| Pieza | Medida (mm) | Dónde va |
-|---|---|---|
-| ESP32 DevKit 30 pines | 55 × 28 × 13 (+ headers 20) | centro, USB-C al fondo |
-| Protoboard 400 pts | 84 × 55 × 9 | apoyada en el piso interno |
-| HX711 | 34 × 21 × 12 | al lado del ESP32 |
-| MAX30102 | 15 × 20 × 5 | detrás de la panza |
-| MLX90614 (GY-906) | 21 × 15 × 6 | detrás del ojo izquierdo |
-| LED 3 mm | 3 × 5 | ojo derecho |
-| 2 borneras 2P | 10 × 10 × 10 c/u | junto al HX711 |
-| 2 celdas 3 hilos | 75 × 20 × 6 c/u | piso, una por ala |
-| Barra del agarre | 60 × 15 × 4 | sobre las celdas |
-| Peso total aprox. | 180 g | |
+Medidas tomadas con regla por la usuaria (mm):
 
-Cuerpo: **103 × 87.5 × 135 mm**, base plana **Ø 60**.
-Soporte: **Ø 116 × 14 mm**, asiento hundido Ø 34 a 9 mm de altura.
+| Pieza | Largo | Ancho | Alto | Nota |
+|---|---|---|---|---|
+| ESP32 DevKit 30 pines | 52 | 30 | 13 · 22 con jumpers | el largo incluye el USB-C |
+| Protoboard 400 | 87 | 53 | 10 · 25 con jumpers | |
+| HX711 | 24 | 15 | 17 | con jumpers |
+| MAX30102 | 16 | 12 | 21 | con jumpers |
+| MLX90614 | 21 | 15 | 6 | sin soldar aun |
+| Bornera 2 posiciones | 14 | 10 | 9 | |
+| Celda de carga | 34 | 34 | 7 | media puente cuadrada |
+| LED | Ø 5 | | | ojo derecho |
+
+Cuerpo (medido del GLB): **162.5 × 91.5 × 135 mm**, alas hasta z = 95.
+Soporte: Ø 100, asiento que copia el perfil de la base.
 
 ## 2. Mapa de huecos
 
