@@ -99,14 +99,17 @@ def cylinder(center, radius, height, axis="y", nu=40, cap=True):
 
 
 # La silueta es una Bezier cubica en (r, z): gota con base redonda y punta fina.
-_P1 = (1.45 * R, 0.16 * H)
-_P2 = (0.98 * R, 0.58 * H)
+_P0 = (30.0, 0.0)     # base plana de 60 mm para apoyar en el soporte
+_P1 = (56.0, 22.0)
+_P2 = (50.0, 80.0)
+_P3 = (0.0, H)
 
 
 def bezier(t: float):
     mt = 1.0 - t
-    r = 3 * mt * mt * t * _P1[0] + 3 * mt * t * t * _P2[0]
-    z = 3 * mt * mt * t * _P1[1] + 3 * mt * t * t * _P2[1] + t ** 3 * H
+    r = (mt ** 3 * _P0[0] + 3 * mt * mt * t * _P1[0] + 3 * mt * t * t * _P2[0])
+    z = (mt ** 3 * _P0[1] + 3 * mt * mt * t * _P1[1]
+         + 3 * mt * t * t * _P2[1] + t ** 3 * _P3[1])
     return r, z
 
 
@@ -137,8 +140,9 @@ def body_back(x: float, z: float):
 
 
 def drop_mesh(segments=72, rings=64):
+    """Gota con base plana: anillos de la Bezier + tapa inferior + punta."""
     verts = []
-    for k in range(1, rings):
+    for k in range(rings):
         r, z = bezier(k / rings)
         for j in range(segments):
             a = 2 * np.pi * j / segments
@@ -150,16 +154,15 @@ def drop_mesh(segments=72, rings=64):
     verts = np.vstack([verts, [[0, 0, H]]])
 
     faces = []
-    n = rings - 1
-    for j in range(segments):
-        faces.append((bottom, (j + 1) % segments, j))
-    for k in range(n - 1):
+    for k in range(rings - 1):
         base, nxt = k * segments, (k + 1) * segments
         for j in range(segments):
             a, b = base + j, base + (j + 1) % segments
             c, d = nxt + (j + 1) % segments, nxt + j
             faces += [(a, b, c), (a, c, d)]
-    last = (n - 1) * segments
+    for j in range(segments):
+        faces.append((bottom, (j + 1) % segments, j))
+    last = (rings - 1) * segments
     for j in range(segments):
         faces.append((last + j, last + (j + 1) % segments, top))
     return verts, np.asarray(faces, np.int32)
@@ -187,7 +190,7 @@ def model():
 
     # alas = las dos paletas del agarre
     for sx in (-1, 1):
-        add(superellipsoid((sx * (radius_at(72) + 3), -2, 72), (11, 6, 13), 0.85, 0.85), WHITE)
+        add(superellipsoid((sx * (radius_at(78) + 2), -3, 78), (13, 7, 17), 0.85, 0.85), WHITE)
 
     # ojos (izquierdo = MLX, derecho = LED) -- esferas achatadas, no discos:
     # asi la curvatura del cuerpo no se los come.
@@ -218,10 +221,6 @@ def model():
     if len(pts) > 2:
         add(tube(pts, 1.9), NAVY)
 
-    # pies
-    for sx in (-1, 1):
-        add(superellipsoid((sx * 15, 0, 4), (6.5, 8.5, 5.5), 0.9, 0.9), NAVY)
-
     # ventana del dedo (MAX30102) en la panza
     y = body_front(0, 45)
     if y is not None:
@@ -234,6 +233,35 @@ def model():
         add(superellipsoid((0, yb - 0.5, 34), (6.0, 2.6, 3.2), 0.25, 0.25, 18, 10), PORT)
 
     return parts
+
+
+def lathe(profile, segments=96, squash=SQUASH):
+    """Revoluciona un perfil cerrado (r, z) alrededor del eje z."""
+    pts = list(profile)
+    verts = []
+    for r, z in pts:
+        for j in range(segments):
+            a = 2 * np.pi * j / segments
+            verts.append([r * math.cos(a), r * math.sin(a) * squash, z])
+    verts = np.asarray(verts, float)
+    faces = []
+    n = len(pts)
+    for i in range(n):
+        nxt = (i + 1) % n
+        for j in range(segments):
+            a = i * segments + j
+            b = i * segments + (j + 1) % segments
+            c = nxt * segments + (j + 1) % segments
+            d = nxt * segments + j
+            faces += [(a, b, c), (a, c, d)]
+    return verts, np.asarray(faces, np.int32)
+
+
+def stand():
+    """Base para que Pulsi se pare: disco con asiento hundido."""
+    profile = [(0, 0), (56, 0), (58, 2), (58, 10), (40, 14), (34, 14), (34, 9), (0, 9)]
+    verts, faces = lathe(profile, 96, squash=1.0)
+    return [(verts, faces, np.asarray(YELLOW_DARK, float))]
 
 
 # ---------------------------------------------------------------- renderer
@@ -336,5 +364,7 @@ if __name__ == "__main__":
     parts = model()
     for name, fwd, up in VIEWS:
         print("wrote", render(parts, fwd, up, OUT / f"{name}.png"))
+    print("wrote", render(stand(), (0.7, 1.0, -0.55), (0, 0, 1), OUT / "stand.png",
+                          center=(0, 0, 8), world_span=150.0))
     write_stl(parts, OUT.parent / "blockout.stl")
     print("wrote blockout.stl")

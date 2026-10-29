@@ -1,117 +1,108 @@
 # Case 3D — SyncFit Edge (Pulsi)
 
-Pulsi es la mascota del sitio: una gota amarilla con ojos azul marino, mejillas
-rosadas, sonrisa, dos alitas blancas y pies pequeños. Este directorio convierte
-esa ilustración en una carcasa imprimible.
+Dos objetivos distintos:
 
-- `make_views.py` — genera las vistas y el `blockout.stl`.
-- `views/front|right|back|left|top|iso.png` — 768 × 768, fondo blanco, ortográficas.
-- `views/turnaround.png` — las cuatro vistas juntas.
-- `blockout.stl` — malla de referencia (respaldo si Hunyuan falla).
+| Uso | Qué se usa |
+|---|---|
+| Página web / render bonito | `views/ref_*.png` o el 3D que generes con Hunyuan |
+| **Case para imprimir** | `blockout.stl` + `fix_mesh.py` con las medidas reales |
 
-## 1. Medidas del blockout
+## 1. Medidas reales de la electrónica
 
-| Parte | Tamaño (mm) | Nota |
+| Pieza | Medida (mm) | Dónde va |
 |---|---|---|
-| Cuerpo | 103 × 87.5 × 135 | gota; aloja la protoboard 400 pts (84 × 55) |
-| Alas | 22 × 12 × 26 c/u | paletas del agarre, piezas sueltas |
-| Pies | 13 × 17 × 11 c/u | base, no portantes |
-| Pared | 2 mm | PETG |
+| ESP32 DevKit 30 pines | 55 × 28 × 13 (+ headers 20) | centro, USB-C al fondo |
+| Protoboard 400 pts | 84 × 55 × 9 | apoyada en el piso interno |
+| HX711 | 34 × 21 × 12 | al lado del ESP32 |
+| MAX30102 | 15 × 20 × 5 | detrás de la panza |
+| MLX90614 (GY-906) | 21 × 15 × 6 | detrás del ojo izquierdo |
+| LED 3 mm | 3 × 5 | ojo derecho |
+| 2 borneras 2P | 10 × 10 × 10 c/u | junto al HX711 |
+| 2 celdas 3 hilos | 75 × 20 × 6 c/u | piso, una por ala |
+| Barra del agarre | 60 × 15 × 4 | sobre las celdas |
+| Peso total aprox. | 180 g | |
 
-Coordenadas: x derecha, **y hacia atrás** (la cara frontal mira a −y), z arriba.
+Cuerpo: **103 × 87.5 × 135 mm**, base plana **Ø 60**.
+Soporte: **Ø 116 × 14 mm**, asiento hundido Ø 34 a 9 mm de altura.
 
 ## 2. Mapa de huecos
 
-| Elemento | Centro (x, y, z) | Corte | Cara |
+Coordenadas: x derecha, **y hacia atrás** (la cara mira a −y), z arriba desde la base.
+
+| Elemento | Centro | Corte | Cara |
 |---|---|---|---|
-| MAX30102 (dedo) | (0, −43.7, 45) | Ø 18 pasante | frontal (panza) |
-| MLX90614 (ojo izq.) | (−16, −31.0, 90) | Ø 11 pasante | frontal |
-| LED (ojo der.) | (16, −31.0, 90) | Ø 5 | frontal |
-| USB-C | (0, +43.6, 34) | 9 × 4 | trasera |
-| Celdas + barra | (0, 0, 8) | 92 × 38 × 16 | bolsillo inferior |
-| HX711 + borneras | (0, 8, 30) | 36 × 22 × 12 | interior |
-| Tapa trasera | y > 26 | 82 × 92 | trasera |
+| MAX30102 (dedo) | (0, −43.7, 45) | Ø 18 + aro Ø 22 | panza |
+| MLX90614 (temperatura) | (−16, −31.0, 90) | Ø 11 | ojo izquierdo |
+| LED | (16, −31.0, 90) | Ø 5 | ojo derecho |
+| USB-C | (0, +43.6, 34) | 9 × 4 | espalda |
+| Celdas | (0, 0, 8) | bolsillo 92 × 38 × 16 | piso interno |
+| HX711 + borneras | (0, 8, 30) | 36 × 22 × 12 | piso interno |
+| Tapa trasera | y > 26 | 82 × 92 | espalda |
+| Asiento del soporte | z = 0 | Ø 60 plano | base |
 
-Detalles:
+## 3. Flujo de toma de datos
 
-- **Ojos**: cada ojo es una ventana. El izquierdo lleva el MLX90614 (IR pasa por
-  el aire, sin filtro); el derecho lleva el LED de estado, que brilla a través.
-- **Panza**: el dedo se apoya en el aro; el módulo queda 5 mm detrás.
-- **USB-C**: alinear con el conector real; 1 mm de holgura por lado.
-- **Alas**: no se pegan; van sobre un pasador Ø3 en el cuerpo y presionan una
-  celda cada una.
+El case está diseñado para que cada paso tenga un lugar físico:
 
-## 3. Mecanismo del agarre
+| Paso | Gesto | Sensor | Zona de Pulsi |
+|---|---|---|---|
+| 1 | Apoyar la yema del dedo | MAX30102 (PPG) | **panza**, el aro |
+| 2 | Apretar las alas | 2 celdas + HX711 | **alas**, empujan las celdas |
+| 3 | Acercar la carita a la sien/frente | MLX90614 (IR) | **ojo izquierdo** |
+| Estado | Mira el LED | LED de estado | **ojo derecho** |
+
+Si prefieres que la temperatura se tome por detrás, el hueco se mueve a la
+espalda (z ≈ 95) y el ojo izquierdo queda ciego. Es un cambio de 5 minutos.
+
+## 4. Mecanismo del agarre
 
 ```text
-   ala izquierda ──pasador Ø3──► brazo interior ──► celda A (extremo libre)
-   ala derecha   ──pasador Ø3──► brazo interior ──► celda B (extremo libre)
+ala izquierda ──pasador Ø3──► brazo interior ──► celda A (extremo libre)
+ala derecha   ──pasador Ø3──► brazo interior ──► celda B (extremo libre)
 ```
 
-- Las celdas van atornilladas al piso del bolsillo, en la **misma dirección**.
-- Apretar las alas deforma las dos celdas; el retorno lo da su propia
-  elasticidad más una lámina de PET de 0.5 mm.
-- Carrera útil: 3–4 mm. Si el valor no sube al apretar, se invierte una celda o
-  se intercambian `A+` y `A−`.
+- Celdas atornilladas al piso, **en la misma dirección**.
+- Carrera 3–4 mm; retorno por la elasticidad de la celda + lámina PET 0.5 mm.
+- Si al apretar el valor baja, se invierte una celda o se cambian `A+` / `A−`.
 
-## 4. Hunyuan3D (image → 3D)
+## 5. Soporte
 
-Hay dos juegos de imágenes:
+Disco Ø 116 × 14 con asiento hundido Ø 34 a 9 mm. El cuerpo apoya su base plana
+de Ø 60 dentro del asiento y queda de pie.
 
-| Juego | Archivos | Para qué |
-|---|---|---|
-| **Referencia** (render bonito) | `views/ref_front.png`, `ref_threequarter.png`, `ref_profile.png`, `ref_back.png`, `ref_top.png` | alimentar Hunyuan |
-| **Blockout** (geometría) | `views/front.png`, `back.png`, `left.png`, `right.png`, `top.png` | medir y cortar |
+- Se imprime aparte, sin soportes.
+- Opcional: fieltro o goma en la cara inferior para que no resbale.
 
-El juego de referencia sale de `~/Downloads/pulsito.jpeg` con `split_refs.py`.
+## 6. Hunyuan3D (image → 3D)
 
-Para Hunyuan, la mejor combinación es **single-view con `ref_front.png`** (es la
-toma más limpia). Si usas el modelo multivista, sube en este orden:
+Juego de referencia: `views/ref_front.png`, `ref_back.png`, `ref_profile.png`,
+`ref_threequarter.png`, `ref_top.png` (salen de `~/Downloads/pulsito.jpeg` con
+`split_refs.py`).
 
-1. `views/ref_front.png`
-2. `views/ref_back.png`
-3. `views/ref_profile.png`
-4. `views/ref_threequarter.png`
-
-Ajustes sugeridos: 768 px, 50 steps, guidance 5.0, seed fija, quitar fondo.
-
-Prompt:
+Recomendado: **single-view con `ref_front.png`**. Si usas multivista:
+front, back, profile, threequarter — en ese orden.
 
 ```text
 cute mascot character, yellow teardrop body with a pointed top, two small white
 wings on the sides, two round navy eyes, rosy blush cheeks, small smile,
-two tiny navy feet, smooth matte plastic, soft studio lighting, plain white
-background, product design render, single object, no text
+smooth matte plastic, soft studio lighting, plain white background,
+product design render, single object, no text
 ```
 
-Guardar el resultado como `hardware/case/hunyuan.glb`.
-
-## 5. Post-proceso
+## 7. Post-proceso e impresión
 
 ```bash
 pip install trimesh manifold3d numpy
 python3 hardware/case/fix_mesh.py hardware/case/hunyuan.glb
 ```
 
-Salidas: `case_body.stl`, `case_back.stl`, `case_wing_l.stl`, `case_wing_r.stl`.
-
-El script escala al blockout, corta los huecos de la tabla con booleanos, ahueca
-la carcasa, abre la tapa trasera y separa las alas.
-
-## 6. Impresión
+Salidas: `case_body.stl`, `case_back.stl`, `case_wing_l/r.stl`, `case_stand.stl`.
 
 | Ajuste | Valor |
 |---|---|
-| Material | PETG (mejor para el agarre) o PLA+ |
+| Material | PETG |
 | Capa | 0.2 mm |
 | Paredes | 3 perímetros |
 | Relleno | 15 % |
 | Soportes | solo en la punta y la ranura USB |
-| Tolerancia | 0.25 mm en encajes, 0.35 mm en las alas |
-
-## 7. Ensamble
-
-- Tapa trasera con 4 tornillos M3 × 10.
-- Alas sobre pasadores Ø3, con tope para que no giren.
-- Celdas atornilladas al piso; el brazo del ala apoya en su extremo libre.
-- Pies pegados o a presión (no soportan carga).
+| Tolerancia | 0.25 mm encajes, 0.35 mm alas |

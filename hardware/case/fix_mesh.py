@@ -8,7 +8,7 @@ hollows it, opens the back for assembly and writes the STLs.
     python3 hardware/case/fix_mesh.py hardware/case/hunyuan.glb
 
 Outputs next to the input file:
-    case_body.stl, case_back.stl, case_wing_l.stl, case_wing_r.stl
+    case_body.stl, case_back.stl, case_wing_l/r.stl, case_stand.stl
 """
 
 from __future__ import annotations
@@ -128,6 +128,15 @@ def main() -> None:
     plate = difference(plate, holes).apply_translation([0.0, BACK_Y, 55.0])
     plate.export(out / "case_back.stl")
     print("wrote", out / "case_back.stl")
+
+    # soporte: disco con asiento
+    base = trimesh.creation.cylinder(radius=58.0, height=14.0, sections=96)
+    base.apply_translation([0.0, 0.0, 7.0])
+    pocket = trimesh.creation.cylinder(radius=34.0, height=12.0, sections=96)
+    pocket.apply_translation([0.0, 0.0, 11.0])
+    stand = difference(base, pocket)
+    stand.export(out / "case_stand.stl")
+    print("wrote", out / "case_stand.stl")
 
     # alas = paletas del agarre (piezas sueltas)
     for side, sx in (("l", -1), ("r", 1)):
