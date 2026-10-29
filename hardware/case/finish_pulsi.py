@@ -11,11 +11,17 @@ from __future__ import annotations
 
 import argparse
 import importlib.util
+import io
+import json
 import math
+import shutil
+import struct
+import subprocess
 from pathlib import Path
 
 import numpy as np
 import trimesh
+from PIL import Image
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "models"
@@ -29,8 +35,67 @@ def load_helpers():
     return module
 
 
+def glb_json(path: Path):
+    """Devuelve (json, offset del chunk BIN) del GLB."""
+    data = path.read_bytes()
+    _, _, length = struct.unpack("<III", data[:12])
+    off, js, bin_off = 12, None, None
+    while off < length:
+        clen, ctype = struct.unpack("<II", data[off:off + 8])
+        body = off + 8
+        if ctype == 0x4E4F534A:
+            js = json.loads(data[body:body + clen])
+        elif ctype == 0x004E4942:
+            bin_off = body
+        off = body + clen + ((4 - clen % 4) % 4 if clen % 4 else 0)
+    return js, bin_off, data
+
+
+def base_color_image(path: Path) -> Image.Image | None:
+    """Extrae solo la textura base color declarada por el material."""
+    js, bin_off, data = glb_json(path)
+    material = (js.get("materials") or [{}])[0]
+    index = (material.get("pbrMetallicRoughness", {})
+             .get("baseColorTexture", {}).get("index"))
+    if index is None:
+        return None
+    source = js["textures"][index]["source"]
+    view = js["bufferViews"][js["images"][source]["bufferView"]]
+    start = bin_off + view.get("byteOffset", 0)
+    return Image.open(io.BytesIO(data[start:start + view["byteLength"]])).convert("RGB")
+
+
+def texture_colors(src: Path, mesh: trimesh.Trimesh) -> np.ndarray | None:
+    """Color por vertice muestreando la textura base color del GLB."""
+    uv = getattr(mesh.visual, "uv", None)
+    if uv is None:
+        return None
+    image = base_color_image(src)
+    if image is None:
+        return None
+    atlas = np.asarray(image)
+    h, w = atlas.shape[:2]
+    u = np.clip(uv[:, 0] % 1.0, 0, 0.999)
+    v = np.clip(uv[:, 1] % 1.0, 0, 0.999)
+    px = (u * (w - 1)).astype(int)
+    py = ((1.0 - v) * (h - 1)).astype(int)   # glTF guarda la V al reves
+    return atlas[py, px].astype(float)
+
+
+def as_glb(src: Path) -> Path:
+    """trimesh no lee FBX: lo convierto con fbx2gltf si hace falta."""
+    if src.suffix.lower() != ".fbx":
+        return src
+    binary = shutil.which("fbx2gltf") or str(Path.home() / ".local/bin/fbx2gltf")
+    out = Path("/tmp/opencode") / (src.stem + ".glb")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    subprocess.run([binary, "-i", str(src), "-o", str(out), "-b"], check=True,
+                   capture_output=True)
+    return out
+
+
 def prepare(src: Path, flip: bool) -> trimesh.Trimesh:
-    scene = trimesh.load(src, force="scene")
+    scene = trimesh.load(as_glb(src), force="scene")
     mesh = scene.to_geometry()
     mesh.apply_transform(trimesh.transformations.rotation_matrix(math.pi / 2, [1, 0, 0]))
     if flip:
@@ -98,8 +163,12 @@ def main() -> None:
     pp = load_helpers()
     OUT.mkdir(parents=True, exist_ok=True)
 
-    mesh = prepare(Path(args.src).expanduser(), args.flip)
-    colors = pp.project_colors(mesh, du=args.du, dv=args.dv)
+    src = Path(args.src).expanduser()
+    mesh = prepare(src, args.flip)
+    colors = texture_colors(as_glb(src), mesh)
+    if colors is None:
+        print("sin textura en el GLB: uso la proyeccion")
+        colors = pp.project_colors(mesh, du=args.du, dv=args.dv)
     rgba = np.hstack([colors, np.full((len(colors), 1), 255)]).astype(np.uint8)
     mesh.visual = trimesh.visual.ColorVisuals(mesh=mesh, vertex_colors=rgba)
     mesh.export(OUT / "pulsi_model.glb")
