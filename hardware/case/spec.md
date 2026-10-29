@@ -16,11 +16,12 @@ Medidas tomadas con regla por la usuaria (mm):
 | ESP32 DevKit 30 pines | 52 | 30 | 13 · 22 con jumpers | el largo incluye el USB-C |
 | Protoboard 400 | 87 | 53 | 10 · 25 con jumpers | |
 | HX711 | 24 | 15 | 17 | con jumpers |
-| MAX30102 | 16 | 12 | 21 | con jumpers |
-| MLX90614 | 21 | 15 | 6 | sin soldar aun |
+| MAX30102 (dedo) | **20** | **15** | 21 | ventana 5 x 3 mm |
+| MLX90614 (temperatura) | **16** | **12** | 6 | lente Ø 9-10 mm |
 | Bornera 2 posiciones | 14 | 10 | 9 | |
 | Celda de carga | 34 | 34 | 7 | media puente cuadrada |
 | LED | Ø 5 | | | ojo derecho |
+| USB-C | en la **tapa** | | | decidido |
 
 Cuerpo (medido del GLB): **162.5 × 91.5 × 135 mm**, alas hasta z = 95.
 Soporte: Ø 100, asiento que copia el perfil de la base.
