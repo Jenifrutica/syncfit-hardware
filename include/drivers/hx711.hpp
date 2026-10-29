@@ -24,12 +24,14 @@ class Hx711 {
   void setScale(float scale) { scale_ = scale; }
   std::int32_t offset() const { return offset_; }
   float scale() const { return scale_; }
+  std::int32_t lastRaw() const { return last_raw_; }
   bool readKg(float& kg);
 
  private:
   std::uint8_t dout_pin_;
   std::uint8_t sck_pin_;
   std::int32_t offset_ = 0;
+  std::int32_t last_raw_ = 0;
   float scale_ = 0.0f;  // 0 = not calibrated; readKg() returns false
 };
 

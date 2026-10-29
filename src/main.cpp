@@ -216,11 +216,22 @@ void forceTask(void*) {
       Serial.println("[force] ignored in mock mode");
     }
 #else
-    if (tare_requested && g_hx711.tare(10)) {
-      syncfit::provisioningSaveCalibration(g_hx711.offset(), g_hx711.scale());
+    if (tare_requested) {
+      if (g_hx711.tare(10)) {
+        syncfit::provisioningSaveCalibration(g_hx711.offset(), g_hx711.scale());
+        Serial.printf("[force] tare ok offset=%ld\n",
+                      static_cast<long>(g_hx711.offset()));
+      } else {
+        Serial.println("[force] tare failed: HX711 not responding");
+      }
     }
-    if (calibration_requested && g_hx711.calibrate(calibration_kg, 10)) {
-      syncfit::provisioningSaveCalibration(g_hx711.offset(), g_hx711.scale());
+    if (calibration_requested) {
+      if (g_hx711.calibrate(calibration_kg, 10)) {
+        syncfit::provisioningSaveCalibration(g_hx711.offset(), g_hx711.scale());
+        Serial.printf("[force] cal ok scale=%.1f counts/kg\n", g_hx711.scale());
+      } else {
+        Serial.println("[force] cal failed: no change or HX711 not responding");
+      }
     }
 #endif
 
@@ -247,6 +258,21 @@ void forceTask(void*) {
     force_ok = true;
 #else
     force_ok = g_hx711.readKg(force_kg);
+    if (force_ok) {
+      static std::uint32_t last_kg_ms = 0;
+      if (now - last_kg_ms >= 1000) {
+        last_kg_ms = now;
+        Serial.printf("[force] kg=%.2f\n", force_kg);
+      }
+    } else if (g_hx711.scale() == 0.0f) {
+      static std::uint32_t last_raw_ms = 0;
+      if (now - last_raw_ms >= 1000) {
+        last_raw_ms = now;
+        Serial.printf("[force] raw=%ld ready=%d (sin calibrar)\n",
+                      static_cast<long>(g_hx711.lastRaw()),
+                      g_hx711.isReady() ? 1 : 0);
+      }
+    }
 #endif
 
     if (force_ok) {

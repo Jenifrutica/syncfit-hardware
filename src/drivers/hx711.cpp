@@ -32,6 +32,7 @@ bool Hx711::readRaw(std::int32_t& value) {
 
   if (raw & 0x800000u) raw |= 0xFF000000u;
   value = static_cast<std::int32_t>(raw);
+  last_raw_ = value;
   return true;
 }
 
