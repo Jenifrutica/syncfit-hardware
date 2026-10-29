@@ -56,12 +56,22 @@ Detalles:
 
 ## 4. Hunyuan3D (image → 3D)
 
-Subir las 4 vistas en este orden (es el que espera Hunyuan3D-2mv):
+Hay dos juegos de imágenes:
 
-1. `views/front.png`
-2. `views/back.png`
-3. `views/left.png`
-4. `views/right.png`
+| Juego | Archivos | Para qué |
+|---|---|---|
+| **Referencia** (render bonito) | `views/ref_front.png`, `ref_threequarter.png`, `ref_profile.png`, `ref_back.png`, `ref_top.png` | alimentar Hunyuan |
+| **Blockout** (geometría) | `views/front.png`, `back.png`, `left.png`, `right.png`, `top.png` | medir y cortar |
+
+El juego de referencia sale de `~/Downloads/pulsito.jpeg` con `split_refs.py`.
+
+Para Hunyuan, la mejor combinación es **single-view con `ref_front.png`** (es la
+toma más limpia). Si usas el modelo multivista, sube en este orden:
+
+1. `views/ref_front.png`
+2. `views/ref_back.png`
+3. `views/ref_profile.png`
+4. `views/ref_threequarter.png`
 
 Ajustes sugeridos: 768 px, 50 steps, guidance 5.0, seed fija, quitar fondo.
 
