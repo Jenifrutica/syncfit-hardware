@@ -103,46 +103,46 @@ flat edge on the LED body also marks the cathode.
 resistor. Without it, you can test the rest of the system; the LED is only the
 status indicator.
 
-## 7. Two 3-wire load cells → HX711
+## 7. Two 3-wire load cells -> HX711
 
-Use **two identical 3-wire cells**. Each cell is a **half-bridge**: the white
-wire is the center; red and black are the ends.
+Use **two identical 3-wire cells**. Each cell is a **half-bridge**: one wire is
+the **centre** of the divider and the other two are its **ends**. On this cell
+the **red** wire is the centre; **black** and **white** are the ends.
 
 ```text
-Cell A red   ─┐
-Cell B red   ─┴── E+
+Cell A red   ──── A+
+Cell B red   ──── A−
+Cell A white ─┐
+Cell B black ─┴── E+
 Cell A black ─┐
-Cell B black ─┴── E−
-Cell A white ──── A+
-Cell B white ──── A−
+Cell B white ─┴── E−
 ```
 
-- Join the two red wires to `E+`.
-- Join the two black wires to `E−`.
-- One white wire to `A+`, the other to `A−`.
-- If the reading goes negative when you press, swap `A+` and `A−`, or rotate one
-  cell 180°.
+- The two **centres** (red) go to `A+` and `A−`, one per cell, never together.
+- The **ends are crossed**: cell A white + cell B black -> `E+`; cell A black +
+  cell B white -> `E−`.
+- Never join the two reds to each other, and never join the two whites.
+- If pressing does nothing, swap black and white of **one** cell (or rotate that
+  cell 180°).
+- If the reading goes negative, swap `A+` and `A−`.
 
-**Before soldering**, verify the colors with a multimeter:
+**Before connecting**, verify the colours with a multimeter:
 
 | Measurement | Expected for a half-bridge |
 |---|---|
-| red ↔ white | about R |
-| black ↔ white | about R |
-| red ↔ black | about 2R |
+| red <-> black | about R |
+| red <-> white | about R |
+| black <-> white | about 2R |
 
-If those values do not match, the wire colors are not the assumed mapping. Do
-not connect it until you confirm.
+The pair that reads 2R is the pair of ends; the remaining wire is the centre. The
+flat ribbon of this cell runs **black, red, white**, so the middle wire of the
+ribbon is also the centre.
 
-The flat ribbon of this cell runs **black, red, white** from left to right; the
-white is still the electrical center of the half-bridge, so the order on the
-cable does not change the wiring above.
-
-**Mechanics:** the two cells must be mounted so one flexes in the opposite
-direction to the other. If both are loaded the same way, the signals cancel. The
-final capacity depends on the mount: if the cells share the load, it can
-approach 2× the single-cell rating; if one takes the full load, it remains the
-single-cell rating.
+**Mechanics:** mount the two cells the same way, side by side, both compressed by
+the load. With this crossed wiring the two signals add. If one cell is mounted in
+the opposite direction, the signals cancel. The final capacity depends on the
+mount: if the cells share the load, it can approach 2x the single-cell rating; if
+one takes the full load, it stays at the single-cell rating.
 
 ### 7.1 Two 2-position terminal blocks
 
@@ -151,35 +151,37 @@ The build uses **two screw terminal blocks of 2 positions**, one **green** and o
 
 | Block | Screw | Net | What goes in the screw |
 |---|---|---|---|
-| **1 · green** | 1 | `E+` | cell A red + cell B red + wire to HX711 `E+` |
-| **1 · green** | 2 | `E−` | cell A black + cell B black + wire to HX711 `E−` |
-| **2 · black** | 1 | `A+` | cell A white + wire to HX711 `A+` |
-| **2 · black** | 2 | `A−` | cell B white + wire to HX711 `A−` |
+| **1 - green** | 1 | `E+` | cell A white + cell B black + jumper to HX711 `E+` |
+| **1 - green** | 2 | `E−` | cell A black + cell B white + jumper to HX711 `E−` |
+| **2 - black** | 1 | `A+` | cell A red + jumper to HX711 `A+` |
+| **2 - black** | 2 | `A−` | cell B red + jumper to HX711 `A−` |
 
 ```text
- red A ─┐
- red B ─┼─► [1·1 green] ──► HX711 E+
- wire  ─┘
+ wht A ─┐
+ blk B ─┴─► [1-1 green] ──► HX711 E+
 
  blk A ─┐
- blk B ─┼─► [1·2 green] ──► HX711 E−
- wire  ─┘
+ wht B ─┴─► [1-2 green] ──► HX711 E−
 
- wht A ─┐
- wire  ─┴─► [2·1 black] ──► HX711 A+
- wht B ─┐
- wire  ─┴─► [2·2 black] ──► HX711 A−
+ red A ────► [2-1 black] ──► HX711 A+
+ red B ────► [2-2 black] ──► HX711 A−
 ```
 
-**Three wires do not fit in one screw.** Twist the two cell wires together with
-the short wire that goes to the HX711 and tin the tip, so the bundle enters as a
-single conductor. The `A+`/`A−` screws only take two wires and need no twisting
-beyond keeping the pair short.
+**The jumper.** Each screw needs a short wire (about 8 cm) from the block to the
+matching HX711 terminal, with both ends stripped. A Dupont M-M jumper cut in half
+works. If you have no wire for the jumpers, skip the blocks and put the twisted
+cell pairs straight into the HX711 terminals.
+
+**Three wires in one screw.** In the green block, `E+` receives two cell wires
+plus the jumper. Twist the two cell wires together with the jumper and tin the
+tip, so the bundle enters as a single conductor. The black block only takes two
+wires per screw.
 
 Rules:
 
 - Colour-code the blocks: **green = excitation (`E`), black = signal (`A`)**.
 - **Never** put an `E` net and an `A` net in the same block.
+- **Never** put the two reds in the same screw, nor the two whites.
 - If a block turns out to be a common busbar (every screw connected to every
   other), it cannot carry two different nets. Use it for a single net only.
 - Two spare blocks are fine if you bought four; keep them as spares.

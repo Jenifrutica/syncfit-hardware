@@ -2551,7 +2551,7 @@
 <rect x="1265" y="1047" width="880" height="430" rx="16" fill="#000000" opacity="0.1"/>
 <rect x="1260" y="1040" width="880" height="430" rx="16" fill="#ffffff" stroke="#d9d3c7" stroke-width="1.5"/>
 <text x="82" y="1074" font-family="DejaVu Sans, Arial, sans-serif" font-size="16.5" fill="#1f2340" text-anchor="start" font-weight="bold">Dos celdas de 3 hilos -&gt; 2 bloques de 2 tornillos</text>
-<text x="82" y="1096" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.8" fill="#5b6078" text-anchor="start" font-weight="bold">Cada tornillo es una conexion independiente. Bloque 1 (verde) = E+/E-  ·  Bloque 2 (negro) = A+/A-.</text>
+<text x="82" y="1096" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.8" fill="#5b6078" text-anchor="start" font-weight="bold">Bloque negro = senal (los 2 rojos).  Bloque verde = excitacion (blanco y negro cruzados entre celdas).</text>
 <rect x="105" y="1113" width="150" height="72" rx="10" fill="#000000" opacity="0.1"/>
 <rect x="100" y="1106" width="150" height="72" rx="10" fill="#c9ced8" stroke="#7c8594" stroke-width="2"/>
 <text x="175" y="1128" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#1f2340" text-anchor="middle" font-weight="bold">Celda A</text>
@@ -2582,75 +2582,81 @@
 <text x="412" y="1164" font-family="DejaVu Sans Mono, monospace" font-size="7.0" fill="#1f2340" text-anchor="middle" font-weight="bold">blanco</text>
 <line x1="412" y1="1178" x2="412" y2="1196" stroke="#b9b2a6" stroke-width="2.6" stroke-linecap="round"/>
 <circle cx="412" cy="1180" r="5" fill="#d9b44a" stroke="#7a6420" stroke-width="1.2"/>
-<rect x="705" y="1159" width="190" height="108" rx="10" fill="#000000" opacity="0.1"/>
-<rect x="700" y="1152" width="190" height="108" rx="10" fill="#2f7d4f" stroke="#17502c" stroke-width="2"/>
-<text x="714" y="1173" font-family="DejaVu Sans Mono, monospace" font-size="9.2" fill="#ffffff" text-anchor="start" font-weight="bold">BLOQUE 1  ·  E+ / E-</text>
-<circle cx="726" cy="1190" r="8.5" fill="#dfe3ea" stroke="#6d7686" stroke-width="1.6"/>
-<line x1="726" y1="1190" x2="714" y2="1190" stroke="#6d7686" stroke-width="2" stroke-linecap="round"/>
-<text x="748" y="1195" font-family="DejaVu Sans Mono, monospace" font-size="12.5" fill="#ffffff" text-anchor="start" font-weight="bold">E+</text>
-<circle cx="726" cy="1234" r="8.5" fill="#dfe3ea" stroke="#6d7686" stroke-width="1.6"/>
-<line x1="726" y1="1234" x2="714" y2="1234" stroke="#6d7686" stroke-width="2" stroke-linecap="round"/>
-<text x="748" y="1239" font-family="DejaVu Sans Mono, monospace" font-size="12.5" fill="#ffffff" text-anchor="start" font-weight="bold">E-</text>
-<rect x="705" y="1283" width="190" height="108" rx="10" fill="#000000" opacity="0.1"/>
-<rect x="700" y="1276" width="190" height="108" rx="10" fill="#2b2f33" stroke="#14171a" stroke-width="2"/>
-<text x="714" y="1297" font-family="DejaVu Sans Mono, monospace" font-size="9.2" fill="#ffffff" text-anchor="start" font-weight="bold">BLOQUE 2  ·  A+ / A-</text>
-<circle cx="726" cy="1314" r="8.5" fill="#dfe3ea" stroke="#6d7686" stroke-width="1.6"/>
-<line x1="726" y1="1314" x2="714" y2="1314" stroke="#6d7686" stroke-width="2" stroke-linecap="round"/>
-<text x="748" y="1319" font-family="DejaVu Sans Mono, monospace" font-size="12.5" fill="#ffffff" text-anchor="start" font-weight="bold">A+</text>
-<circle cx="726" cy="1358" r="8.5" fill="#dfe3ea" stroke="#6d7686" stroke-width="1.6"/>
-<line x1="726" y1="1358" x2="714" y2="1358" stroke="#6d7686" stroke-width="2" stroke-linecap="round"/>
-<text x="748" y="1363" font-family="DejaVu Sans Mono, monospace" font-size="12.5" fill="#ffffff" text-anchor="start" font-weight="bold">A-</text>
-<rect x="965" y="1157" width="200" height="240" rx="12" fill="#000000" opacity="0.1"/>
-<rect x="960" y="1150" width="200" height="240" rx="12" fill="#2e7d4f" stroke="#1b4d31" stroke-width="2"/>
-<text x="1060" y="1178" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="bold">HX711</text>
-<circle cx="982" cy="1190" r="7" fill="#dfe3ea" stroke="#6d7686" stroke-width="1.4"/>
-<text x="1000" y="1195" font-family="DejaVu Sans Mono, monospace" font-size="9.5" fill="#ffffff" text-anchor="start" font-weight="bold">E+</text>
-<circle cx="982" cy="1234" r="7" fill="#dfe3ea" stroke="#6d7686" stroke-width="1.4"/>
-<text x="1000" y="1239" font-family="DejaVu Sans Mono, monospace" font-size="9.5" fill="#ffffff" text-anchor="start" font-weight="bold">E-</text>
-<circle cx="982" cy="1314" r="7" fill="#dfe3ea" stroke="#6d7686" stroke-width="1.4"/>
-<text x="1000" y="1319" font-family="DejaVu Sans Mono, monospace" font-size="9.5" fill="#ffffff" text-anchor="start" font-weight="bold">A+</text>
-<circle cx="982" cy="1358" r="7" fill="#dfe3ea" stroke="#6d7686" stroke-width="1.4"/>
-<text x="1000" y="1363" font-family="DejaVu Sans Mono, monospace" font-size="9.5" fill="#ffffff" text-anchor="start" font-weight="bold">A-</text>
-<text x="1060" y="1375" font-family="DejaVu Sans Mono, monospace" font-size="9.5" fill="#ffe0a3" text-anchor="middle" font-weight="bold">3.3 V</text>
-<path d="M 175 1180 L 175 1190 L 694 1190" fill="none" stroke="#d64545" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round"/>
-<path d="M 375 1180 L 375 1190 L 694 1190" fill="none" stroke="#d64545" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round"/>
-<circle cx="375" cy="1190" r="4.6" fill="#d64545"/>
-<path d="M 138 1180 L 138 1234 L 694 1234" fill="none" stroke="#242424" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round"/>
-<path d="M 338 1180 L 338 1234 L 694 1234" fill="none" stroke="#fbf9f4" stroke-width="10.0" stroke-linejoin="round" stroke-linecap="round"/>
-<path d="M 338 1180 L 338 1234 L 694 1234" fill="none" stroke="#242424" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round"/>
-<circle cx="338" cy="1234" r="4.6" fill="#242424"/>
-<path d="M 212 1180 L 212 1314 L 694 1314" fill="none" stroke="#fbf9f4" stroke-width="12.4" stroke-linejoin="round" stroke-linecap="round"/>
-<path d="M 212 1180 L 212 1314 L 694 1314" fill="none" stroke="#9a9388" stroke-width="5.4" stroke-linejoin="round" stroke-linecap="round"/>
-<path d="M 212 1180 L 212 1314 L 694 1314" fill="none" stroke="#ffffff" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round"/>
-<path d="M 412 1180 L 412 1358 L 694 1358" fill="none" stroke="#fbf9f4" stroke-width="12.4" stroke-linejoin="round" stroke-linecap="round"/>
-<path d="M 412 1180 L 412 1358 L 694 1358" fill="none" stroke="#9a9388" stroke-width="5.4" stroke-linejoin="round" stroke-linecap="round"/>
-<path d="M 412 1180 L 412 1358 L 694 1358" fill="none" stroke="#ffffff" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round"/>
-<line x1="890" y1="1190" x2="976" y2="1190" stroke="#cfc8ba" stroke-width="3.0" stroke-linecap="round"/>
-<line x1="890" y1="1234" x2="976" y2="1234" stroke="#cfc8ba" stroke-width="3.0" stroke-linecap="round"/>
-<line x1="890" y1="1314" x2="976" y2="1314" stroke="#cfc8ba" stroke-width="3.0" stroke-linecap="round"/>
-<line x1="890" y1="1358" x2="976" y2="1358" stroke="#cfc8ba" stroke-width="3.0" stroke-linecap="round"/>
-<text x="82" y="1408" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.4" fill="#3d4256" text-anchor="start" font-weight="bold">E+ y E-: entran 3 cables (los 2 de las celdas + el puente al HX711). Rétuercelos y estaña la punta.</text>
-<text x="82" y="1430" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.4" fill="#3d4256" text-anchor="start" font-weight="bold">A+ y A-: entran 2 cables (el blanco de una celda + el cable al HX711).</text>
-<text x="82" y="1452" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.2" fill="#5b6078" text-anchor="start" font-weight="bold">No cruces E con A en el mismo bloque. Si compraste 4 bloques, los otros 2 sobran.</text>
+<rect x="705" y="1163" width="190" height="106" rx="10" fill="#000000" opacity="0.1"/>
+<rect x="700" y="1156" width="190" height="106" rx="10" fill="#2f7d4f" stroke="#17502c" stroke-width="2"/>
+<text x="714" y="1177" font-family="DejaVu Sans Mono, monospace" font-size="9.2" fill="#ffffff" text-anchor="start" font-weight="bold">BLOQUE 1  ·  E+ / E-</text>
+<text x="878" y="1177" font-family="DejaVu Sans Mono, monospace" font-size="7.0" fill="rgba(255,255,255,0.70)" text-anchor="end" font-weight="bold">blanco+negro</text>
+<circle cx="726" cy="1200" r="8.5" fill="#dfe3ea" stroke="#6d7686" stroke-width="1.6"/>
+<line x1="726" y1="1200" x2="714" y2="1200" stroke="#6d7686" stroke-width="2" stroke-linecap="round"/>
+<text x="748" y="1205" font-family="DejaVu Sans Mono, monospace" font-size="12.5" fill="#ffffff" text-anchor="start" font-weight="bold">E+</text>
+<circle cx="726" cy="1240" r="8.5" fill="#dfe3ea" stroke="#6d7686" stroke-width="1.6"/>
+<line x1="726" y1="1240" x2="714" y2="1240" stroke="#6d7686" stroke-width="2" stroke-linecap="round"/>
+<text x="748" y="1245" font-family="DejaVu Sans Mono, monospace" font-size="12.5" fill="#ffffff" text-anchor="start" font-weight="bold">E-</text>
+<rect x="705" y="1293" width="190" height="106" rx="10" fill="#000000" opacity="0.1"/>
+<rect x="700" y="1286" width="190" height="106" rx="10" fill="#2b2f33" stroke="#14171a" stroke-width="2"/>
+<text x="714" y="1307" font-family="DejaVu Sans Mono, monospace" font-size="9.2" fill="#ffffff" text-anchor="start" font-weight="bold">BLOQUE 2  ·  A+ / A-</text>
+<text x="878" y="1307" font-family="DejaVu Sans Mono, monospace" font-size="7.0" fill="rgba(255,255,255,0.70)" text-anchor="end" font-weight="bold">solo rojos</text>
+<circle cx="726" cy="1330" r="8.5" fill="#dfe3ea" stroke="#6d7686" stroke-width="1.6"/>
+<line x1="726" y1="1330" x2="714" y2="1330" stroke="#6d7686" stroke-width="2" stroke-linecap="round"/>
+<text x="748" y="1335" font-family="DejaVu Sans Mono, monospace" font-size="12.5" fill="#ffffff" text-anchor="start" font-weight="bold">A+</text>
+<circle cx="726" cy="1370" r="8.5" fill="#dfe3ea" stroke="#6d7686" stroke-width="1.6"/>
+<line x1="726" y1="1370" x2="714" y2="1370" stroke="#6d7686" stroke-width="2" stroke-linecap="round"/>
+<text x="748" y="1375" font-family="DejaVu Sans Mono, monospace" font-size="12.5" fill="#ffffff" text-anchor="start" font-weight="bold">A-</text>
+<rect x="965" y="1157" width="200" height="262" rx="12" fill="#000000" opacity="0.1"/>
+<rect x="960" y="1150" width="200" height="262" rx="12" fill="#2e7d4f" stroke="#1b4d31" stroke-width="2"/>
+<text x="1060" y="1180" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="bold">HX711</text>
+<circle cx="982" cy="1200" r="7" fill="#dfe3ea" stroke="#6d7686" stroke-width="1.4"/>
+<text x="1000" y="1205" font-family="DejaVu Sans Mono, monospace" font-size="9.5" fill="#ffffff" text-anchor="start" font-weight="bold">E+</text>
+<circle cx="982" cy="1240" r="7" fill="#dfe3ea" stroke="#6d7686" stroke-width="1.4"/>
+<text x="1000" y="1245" font-family="DejaVu Sans Mono, monospace" font-size="9.5" fill="#ffffff" text-anchor="start" font-weight="bold">E-</text>
+<circle cx="982" cy="1330" r="7" fill="#dfe3ea" stroke="#6d7686" stroke-width="1.4"/>
+<text x="1000" y="1335" font-family="DejaVu Sans Mono, monospace" font-size="9.5" fill="#ffffff" text-anchor="start" font-weight="bold">A+</text>
+<circle cx="982" cy="1370" r="7" fill="#dfe3ea" stroke="#6d7686" stroke-width="1.4"/>
+<text x="1000" y="1375" font-family="DejaVu Sans Mono, monospace" font-size="9.5" fill="#ffffff" text-anchor="start" font-weight="bold">A-</text>
+<text x="1060" y="1400" font-family="DejaVu Sans Mono, monospace" font-size="9.5" fill="#ffe0a3" text-anchor="middle" font-weight="bold">3.3 V</text>
+<path d="M 212 1180 L 212 1200 L 338 1200" fill="none" stroke="#9a9388" stroke-width="5.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 212 1180 L 212 1200 L 338 1200" fill="none" stroke="#ffffff" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 412 1180 L 412 1240 L 694 1240" fill="none" stroke="#9a9388" stroke-width="5.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 412 1180 L 412 1240 L 694 1240" fill="none" stroke="#ffffff" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 338 1180 L 338 1200" fill="none" stroke="#242424" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 138 1180 L 138 1240 L 412 1240" fill="none" stroke="#242424" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 338 1200 L 694 1200" fill="none" stroke="#7f8796" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 412 1240 L 694 1240" fill="none" stroke="#7f8796" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="338" cy="1200" r="4.6" fill="#4a4f5c"/>
+<circle cx="412" cy="1240" r="4.6" fill="#4a4f5c"/>
+<path d="M 175 1180 L 175 1330 L 694 1330" fill="none" stroke="#fbf9f4" stroke-width="10.0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 175 1180 L 175 1330 L 694 1330" fill="none" stroke="#d64545" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 375 1180 L 375 1370 L 694 1370" fill="none" stroke="#fbf9f4" stroke-width="10.0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 375 1180 L 375 1370 L 694 1370" fill="none" stroke="#d64545" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="890" y1="1200" x2="976" y2="1200" stroke="#cfc8ba" stroke-width="3.0" stroke-linecap="round"/>
+<line x1="890" y1="1240" x2="976" y2="1240" stroke="#cfc8ba" stroke-width="3.0" stroke-linecap="round"/>
+<line x1="890" y1="1330" x2="976" y2="1330" stroke="#cfc8ba" stroke-width="3.0" stroke-linecap="round"/>
+<line x1="890" y1="1370" x2="976" y2="1370" stroke="#cfc8ba" stroke-width="3.0" stroke-linecap="round"/>
+<text x="925" y="1150" font-family="DejaVu Sans Mono, monospace" font-size="7.2" fill="#5b6078" text-anchor="middle" font-weight="bold">puente</text>
+<text x="925" y="1162" font-family="DejaVu Sans Mono, monospace" font-size="7.2" fill="#5b6078" text-anchor="middle" font-weight="bold">~8 cm</text>
+<line x1="908" y1="1170" x2="942" y2="1170" stroke="#5b6078" stroke-width="1.0" stroke-linecap="round" stroke-dasharray="3 3"/>
+<text x="82" y="1406" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.4" fill="#3d4256" text-anchor="start" font-weight="bold">rojo = centro de la celda; negro y blanco = extremos. Verifica: negro-blanco ~ 2R y rojo-negro / rojo-blanco ~ R.</text>
+<text x="82" y="1428" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.4" fill="#3d4256" text-anchor="start" font-weight="bold">Cada tornillo lleva un puente de ~8 cm al HX711. Sin cable: conecta las celdas directo al HX711.</text>
+<text x="82" y="1450" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.4" fill="#5b6078" text-anchor="start" font-weight="bold">Si al presionar no cambia nada: intercambia blanco y negro de UNA celda. Si el valor baja: intercambia A+ y A-.</text>
 <text x="1282" y="1074" font-family="DejaVu Sans, Arial, sans-serif" font-size="16.5" fill="#1f2340" text-anchor="start" font-weight="bold">Reglas del montaje</text>
 <circle cx="1286" cy="1106" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
 <text x="1298" y="1110" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">Cada bloque de 2 tornillos = 2 conexiones separadas. Usas 2 bloques.</text>
 <circle cx="1286" cy="1136" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
-<text x="1298" y="1140" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">Bloque 1 (verde): tornillo 1 = E+ · tornillo 2 = E-.</text>
+<text x="1298" y="1140" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">Bloque negro (senal): tornillo 1 = rojo A -&gt; A+; tornillo 2 = rojo B -&gt; A-.</text>
 <circle cx="1286" cy="1166" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
-<text x="1298" y="1170" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">Bloque 2 (negro): tornillo 1 = A+ · tornillo 2 = A-.</text>
+<text x="1298" y="1170" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">Bloque verde (excitacion): tornillo 1 = blanco A + negro B -&gt; E+.</text>
 <circle cx="1286" cy="1196" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
-<text x="1298" y="1200" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">Verifica colores: rojo-blanco ~ R, negro-blanco ~ R, rojo-negro ~ 2R.</text>
+<text x="1298" y="1200" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">Bloque verde: tornillo 2 = negro A + blanco B -&gt; E-.</text>
 <circle cx="1286" cy="1226" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
-<text x="1298" y="1230" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">Si no se cumple, el blanco no es el centro: no conectes todavía.</text>
+<text x="1298" y="1230" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">El rojo es el centro de la celda; negro y blanco son los extremos.</text>
 <circle cx="1286" cy="1256" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
-<text x="1298" y="1260" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">Lectura negativa al presionar: intercambia A+ y A- (o gira una celda).</text>
+<text x="1298" y="1260" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">Nunca juntes los dos rojos ni los dos blancos entre si.</text>
 <circle cx="1286" cy="1286" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
-<text x="1298" y="1290" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">Sin botón de tare: GPIO4 libre. Usa TARE y CAL 5 por serial a 115200.</text>
+<text x="1298" y="1290" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">Cada tornillo: 2 cables (celda + puente). En el verde, 3 si no usas puente.</text>
 <circle cx="1286" cy="1316" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
-<text x="1298" y="1320" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">LED: ánodo a 7b · cátodo a 8a · 330 Ω entre 8b y 9a · 9b a Y con M-M.</text>
+<text x="1298" y="1320" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">Sin boton de tare: GPIO4 libre. Usa TARE y CAL 5 por serial a 115200.</text>
 <circle cx="1286" cy="1346" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
-<text x="1298" y="1350" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">Las celdas deben flexionar en sentidos opuestos o las señales se cancelan.</text>
+<text x="1298" y="1350" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">LED: anodo a 7b · catodo a 8a · 330 ohm entre 8b y 9a · 9b a Y con M-M.</text>
 <circle cx="1286" cy="1376" r="3" fill="#f1ccde" stroke="#c99ab0" stroke-width="1"/>
 <text x="1298" y="1380" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.6" fill="#3d4256" text-anchor="start" font-weight="bold">HX711 a 3.3 V, nunca 5 V. X = +3V3, Y = GND.</text>
 <line x1="60" y1="1512" x2="2140" y2="1512" stroke="#d9d3c7" stroke-width="1.5" stroke-linecap="round"/>

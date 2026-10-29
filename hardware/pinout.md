@@ -99,29 +99,31 @@ I2C address: **0x5A**. Use the **3.3 V** variant. Read object and ambient temper
 | `DT` | `GPIO34` | Green |
 | `SCK` | `GPIO25` | Green |
 
-Use **two identical 3-wire cells**. Each cell is a half-bridge: the white wire is
-the center; red and black are the ends. The flat ribbon runs **black, red, white**
-from left to right; the white is still the electrical center.
+Use **two identical 3-wire cells**. Each cell is a half-bridge with one **centre**
+wire and two **ends**. On this cell the **red** wire is the centre; **black** and
+**white** are the ends. The flat ribbon runs **black, red, white**, so the middle
+wire of the ribbon is also the centre.
 
 | HX711 terminal | Cell wires |
 |---|---|
-| `E+` | Cell A red + Cell B red |
-| `E−` | Cell A black + Cell B black |
-| `A+` | Cell A white |
-| `A−` | Cell B white |
+| `E+` | Cell A white + Cell B black |
+| `E−` | Cell A black + Cell B white |
+| `A+` | Cell A red |
+| `A−` | Cell B red |
 
-If the reading goes negative when pressing, swap `A+` and `A−`, or rotate one
-cell 180°. Join the two reds and the two blacks with **two 2-position screw
-blocks**: one green for `E+`/`E−` and one black for `A+`/`A−`. Twist the pair of
-cell wires together with the wire that goes to the HX711, because a single
-screw does not take three separate wires.
+If the reading goes negative when pressing, swap `A+` and `A−`. If pressing does
+nothing, swap black and white of one cell (or rotate it 180°). Join the pairs
+with **two 2-position screw blocks**: one green for `E+`/`E−` and one black for
+`A+`/`A−`. Each screw needs a short jumper (~8 cm) to the HX711; in the green
+block twist the two cell wires with the jumper because a single screw does not
+take three separate wires.
 
 | Block | Screw | Net |
 |---|---|---|
-| 1 · green | 1 | `E+` — cell A red + cell B red + wire to HX711 |
-| 1 · green | 2 | `E−` — cell A black + cell B black + wire to HX711 |
-| 2 · black | 1 | `A+` — cell A white + wire to HX711 |
-| 2 · black | 2 | `A−` — cell B white + wire to HX711 |
+| 1 · green | 1 | `E+` — cell A white + cell B black + jumper to HX711 |
+| 1 · green | 2 | `E−` — cell A black + cell B white + jumper to HX711 |
+| 2 · black | 1 | `A+` — cell A red + jumper to HX711 |
+| 2 · black | 2 | `A−` — cell B red + jumper to HX711 |
 
 Never put an `E` net and an `A` net in the same block.
 

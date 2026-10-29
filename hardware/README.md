@@ -31,8 +31,9 @@ The definitive build uses:
 
 - **400-point breadboard** as a bus; the ESP32 and modules stay **free**.
 - **X = +3V3**, **Y = GND** (the board has only one pair of rails).
-- **Two identical 3-wire half-bridge load cells** in a full bridge:
-  reds → `E+`, blacks → `E−`, whites → `A+` / `A−`.
+- **Two identical 3-wire half-bridge load cells** in a full bridge: the **red**
+  centre wire of each cell goes to `A+` / `A−`, and the ends are crossed —
+  white A + black B → `E+`, black A + white B → `E−`.
 - **Two 2-position screw blocks** (one green, one black) as the cell junction:
   green = `E+`/`E−`, black = `A+`/`A−`; one net per screw.
 - **No tare button**: GPIO4 is left free; use the serial command `TARE`.
@@ -48,14 +49,14 @@ The definitive build uses:
 | MAX30102 | INT | 23 |
 | MLX90614 | SDA / SCL | 21 / 22 (shared I2C) |
 | HX711 | DT / SCK | 34 / 25 |
-| Two 3-wire cells | reds `E+`, blacks `E−`, whites `A+`/`A−` | 2-position blocks → HX711 |
+| Two 3-wire cells | reds → `A+`/`A−`; ends crossed → `E+`/`E−` | 2-position blocks → HX711 |
 | Status LED | GPIO → 330 Ω → LED → Y | 18 |
 | Buzzer (optional) | GPIO → NPN | 17 |
 | Battery ADC (Format B) | divider 100k/100k | 35 |
 | USB-C | 5 V / programming | integrated |
 
-**Notes.** HX711 runs at 3.3 V. The two cells must be mechanically mounted so they
-flex in opposite directions; otherwise their signals cancel. The final capacity
+**Notes.** HX711 runs at 3.3 V. Mount the two cells the same way, both compressed
+by the load: with the crossed ends their signals add. The final capacity
 depends on the mount (shared load can approach 2× the single-cell rating). Use a
 mechanical stop. I2C pull-ups are 4.7 kΩ to X only when the modules do not
 already include them.
