@@ -121,6 +121,7 @@ void sensorTask(void*) {
   std::uint32_t last_peak_ms = 0;
   std::uint32_t last_temperature_ms = 0;
   std::uint32_t last_state_ms = 0;
+  std::uint32_t last_ppg_log_ms = 0;
   float temperature_baseline = NAN;
 
   TickType_t last_wake = xTaskGetTickCount();
@@ -189,6 +190,21 @@ void sensorTask(void*) {
       g_state.heart_rate_bpm = rr_metrics.heartRateBpm();
       g_state.finger_present = finger_present;
       xSemaphoreGive(g_state_mutex);
+    }
+
+    if (now - last_ppg_log_ms >= 1000) {
+      last_ppg_log_ms = now;
+      xSemaphoreTake(g_state_mutex, portMAX_DELAY);
+      const bool present = g_state.finger_present;
+      const float hr = g_state.heart_rate_bpm;
+      const float temp = g_state.object_temperature_c;
+      const float delta = g_state.delta_temperature_c;
+      const bool temp_valid = g_state.temperature_valid;
+      const std::size_t count = g_state.ppg_count;
+      xSemaphoreGive(g_state_mutex);
+      Serial.printf("[ppg] finger=%d hr=%.0f samples=%u temp=%s%.2f dt=%.2f\n",
+                    present ? 1 : 0, hr, static_cast<unsigned>(count),
+                    temp_valid ? "" : "?", temp, delta);
     }
   }
 }

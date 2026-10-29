@@ -26,6 +26,8 @@ Physical design artifacts for the two form factors.
   calibration.
 - [`pinout.md`](pinout.md) — full ESP32 pinout and bring-up checks.
 - [`bom.csv`](bom.csv) — bill of materials.
+- [`case/spec.md`](case/spec.md) — mascot case: blockout, sensor windows and the
+  Hunyuan3D → `fix_mesh.py` workflow.
 
 The definitive build uses:
 
