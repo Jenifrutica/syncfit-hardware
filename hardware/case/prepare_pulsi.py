@@ -79,11 +79,26 @@ def rebuild_tip(mesh: trimesh.Trimesh) -> trimesh.Trimesh:
 
 def figure_box(path: Path) -> tuple[int, int, int, int]:
     rgb = np.asarray(Image.open(path).convert("RGB"))
-    r = rgb[..., 0].astype(int); g = rgb[..., 1].astype(int); b = rgb[..., 2].astype(int)
-    mask = (r - b > 45) & (r > 140) & (g > 100)
-    mask = ndimage.binary_closing(mask, iterations=4)
+    mask = ~background_mask(rgb)
+    mask = ndimage.binary_closing(mask, iterations=6)
+    mask = ndimage.binary_fill_holes(mask)
     ys, xs = np.nonzero(mask)
     return xs.min(), ys.min(), xs.max(), ys.max()
+
+
+def background_mask(img: np.ndarray) -> np.ndarray:
+    """Pixeles del fondo pastel (menta o rosa)."""
+    rgb = img.astype(np.float32) / 255.0
+    mx = rgb.max(2); mn = rgb.min(2)
+    delta = np.maximum(mx - mn, 1e-6)
+    sat = np.where(mx > 0, (mx - mn) / np.maximum(mx, 1e-6), 0.0)
+    hue = np.where(mx == rgb[..., 0], ((rgb[..., 1] - rgb[..., 2]) / delta) % 6,
+                   np.where(mx == rgb[..., 1],
+                            (rgb[..., 2] - rgb[..., 0]) / delta + 2,
+                            (rgb[..., 0] - rgb[..., 1]) / delta + 4)) / 6.0
+    mint = (hue > 0.42) & (hue < 0.56)
+    rose = (hue > 0.93) | (hue < 0.05)
+    return (sat > 0.05) & (mint | rose)
 
 
 def clean_background(img: np.ndarray) -> np.ndarray:
@@ -112,7 +127,7 @@ def clean_background(img: np.ndarray) -> np.ndarray:
     return out
 
 
-def project_colors(mesh: trimesh.Trimesh) -> np.ndarray:
+def project_colors(mesh: trimesh.Trimesh, du: float = 0.0, dv: float = 0.0) -> np.ndarray:
     """Pinta cada vertice muestreando la vista frontal o la trasera."""
     lo, hi = mesh.bounds
     front = clean_background(np.asarray(Image.open(VIEWS / "ref_front.png").convert("RGB")))
@@ -123,8 +138,8 @@ def project_colors(mesh: trimesh.Trimesh) -> np.ndarray:
     bb = figure_box(VIEWS / "ref_back.png")
 
     v = mesh.vertices
-    u = np.clip((v[:, 0] - lo[0]) / max(hi[0] - lo[0], 1e-6), 0, 1)
-    w = np.clip((v[:, 2] - lo[2]) / max(hi[2] - lo[2], 1e-6), 0, 1)
+    u = np.clip((v[:, 0] - lo[0]) / max(hi[0] - lo[0], 1e-6) + du, 0, 1)
+    w = np.clip((v[:, 2] - lo[2]) / max(hi[2] - lo[2], 1e-6) + dv, 0, 1)
     w = np.maximum(w, 0.09)   # la base no muestrea la sombra del pie
 
     def sample(img, box):

@@ -65,39 +65,30 @@ ala derecha   ──pasador Ø3──► brazo interior ──► celda B (extre
 - Carrera 3–4 mm; retorno por la elasticidad de la celda + lámina PET 0.5 mm.
 - Si al apretar el valor baja, se invierte una celda o se cambian `A+` / `A−`.
 
-## 5. Modelo de Hunyuan (`prepare_pulsi.py`)
+## 5. Modelo final (`finish_pulsi.py`)
 
 ```bash
-# requiere fbx2gltf en PATH para .fbx
-python3 hardware/case/prepare_pulsi.py ~/Downloads/pulsi.fbx
+python3 hardware/case/finish_pulsi.py ~/Downloads/pulsii.glb --dv=-0.035
 ```
 
-Dos variantes:
+**No deforma la malla.** Solo la gira a Z-up, la escala a 135 mm, la centra y la
+pinta proyectando las vistas de referencia.
 
-```bash
-python3 hardware/case/prepare_pulsi.py ~/Downloads/pulsi.fbx   # malla de Hunyuan
-python3 hardware/case/prepare_pulsi.py --blockout               # silueta limpia
-```
+Salidas en `models/`:
 
 | Archivo | Qué es |
 |---|---|
-| `pulsi_colored.glb` | Hunyuan con color (vértices) |
-| `pulsi_case.stl` / `pulsi_stand.stl` | cuerpo y soporte de esa variante |
-| `pulsi_clean_*.glb/.stl` | variante de silueta limpia (blockout) |
-| `compare.png` | las dos, lado a lado |
+| `pulsi_model.glb` | modelo con color por vértices (1.3 MB) |
+| `pulsi_case.stl` | cuerpo tal cual, sin cortes (2.4 MB) |
+| `pulsi_stand.stl` | soporte Ø 100 con asiento que copia la base |
+| `pulsi_preview.png` / `pulsi_iso.png` | vistas del modelo |
+| `pulsi_assembled.png` | cuerpo + soporte |
 
-La variante de Hunyuan conserva el detalle orgánico pero el FBX es un relieve
-2.5D: perfil romboidal, costura en el ecuador y una marca cuadrada en la frente.
-La variante `clean` tiene la silueta de gota correcta y 227 k caras.
+El asiento del soporte se genera midiendo el perfil real del cuerpo cada 1.5 mm
+y sumando 0.7 mm de holgura, así que **el cuerpo no se recorta**.
 
-El script: suelda los vértices (el FBX trae uno por triángulo), escala a 135 mm,
-reconstruye la punta, decima a 150 k caras, suaviza, **pinta proyectando
-`ref_front.png` y `ref_back.png`** y aplana la base en z = 12.
-
-> El FBX de Hunyuan es un relieve 2.5D: la cara y la espalda se unen en el
-> ecuador, así que queda una costura visible y el perfil es más romboidal que la
-> referencia. Para el case impreso se puede usar el blockout, que tiene la
-> silueta correcta.
+Ajustes finos: `--dv` sube o baja la proyección del color (hoy −0.035) y `--du`
+la mueve en horizontal.
 
 ## 6. Soporte
 
