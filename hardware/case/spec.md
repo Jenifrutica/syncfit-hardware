@@ -65,7 +65,32 @@ ala derecha   ──pasador Ø3──► brazo interior ──► celda B (extre
 - Carrera 3–4 mm; retorno por la elasticidad de la celda + lámina PET 0.5 mm.
 - Si al apretar el valor baja, se invierte una celda o se cambian `A+` / `A−`.
 
-## 5. Soporte
+## 5. Modelo de Hunyuan (`prepare_pulsi.py`)
+
+```bash
+# requiere fbx2gltf en PATH para .fbx
+python3 hardware/case/prepare_pulsi.py ~/Downloads/pulsi.fbx
+```
+
+Salidas en `models/`:
+
+| Archivo | Qué es |
+|---|---|
+| `pulsi_colored.glb` | modelo con color (vértices) para la página |
+| `pulsi_case.stl` | cuerpo imprimible, base plana Ø 26 |
+| `pulsi_stand.stl` | soporte Ø 100 con asiento Ø 27 |
+| `pulsi_preview.png` | vista previa del resultado |
+
+El script: suelda los vértices (el FBX trae uno por triángulo), escala a 135 mm,
+reconstruye la punta, decima a 150 k caras, suaviza, **pinta proyectando
+`ref_front.png` y `ref_back.png`** y aplana la base en z = 12.
+
+> El FBX de Hunyuan es un relieve 2.5D: la cara y la espalda se unen en el
+> ecuador, así que queda una costura visible y el perfil es más romboidal que la
+> referencia. Para el case impreso se puede usar el blockout, que tiene la
+> silueta correcta.
+
+## 6. Soporte
 
 Disco Ø 116 × 14 con asiento hundido Ø 34 a 9 mm. El cuerpo apoya su base plana
 de Ø 60 dentro del asiento y queda de pie.
@@ -73,7 +98,7 @@ de Ø 60 dentro del asiento y queda de pie.
 - Se imprime aparte, sin soportes.
 - Opcional: fieltro o goma en la cara inferior para que no resbale.
 
-## 6. Hunyuan3D (image → 3D)
+## 7. Hunyuan3D (image → 3D)
 
 Juego de referencia: `views/ref_front.png`, `ref_back.png`, `ref_profile.png`,
 `ref_threequarter.png`, `ref_top.png` (salen de `~/Downloads/pulsito.jpeg` con
@@ -89,7 +114,7 @@ smooth matte plastic, soft studio lighting, plain white background,
 product design render, single object, no text
 ```
 
-## 7. Post-proceso e impresión
+## 8. Post-proceso e impresión
 
 ```bash
 pip install trimesh manifold3d numpy
