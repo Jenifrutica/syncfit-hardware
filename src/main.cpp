@@ -39,6 +39,7 @@ using namespace syncfit;
 syncfit::Max30102 g_max30102;
 syncfit::Mlx90614 g_mlx90614;
 syncfit::Hx711 g_hx711(pins::kHx711Dout, pins::kHx711Sck);
+syncfit::MovingAverage<4> g_force_filter;
 syncfit::StatusLed g_status_led(pins::kStatusLed);
 syncfit::WsClient g_ws_client;
 
@@ -218,6 +219,7 @@ void forceTask(void*) {
 #else
     if (tare_requested) {
       if (g_hx711.tare(10)) {
+        g_force_filter.reset();
         syncfit::provisioningSaveCalibration(g_hx711.offset(), g_hx711.scale());
         Serial.printf("[force] tare ok offset=%ld\n",
                       static_cast<long>(g_hx711.offset()));
@@ -259,6 +261,7 @@ void forceTask(void*) {
 #else
     force_ok = g_hx711.readKg(force_kg);
     if (force_ok) {
+      force_kg = g_force_filter.push(force_kg);
       static std::uint32_t last_kg_ms = 0;
       if (now - last_kg_ms >= 1000) {
         last_kg_ms = now;
