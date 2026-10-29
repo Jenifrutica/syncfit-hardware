@@ -21,7 +21,7 @@ MODELS = HERE / "models"
 SRC = MODELS / "pulsi_case.stl"
 
 WALL_SCALE = 0.88       # copia interior: 12 % hacia el centro
-BELLY = (0.0, 44.0)     # ventana del dedo (x, z)
+BELLY = (0.0, 95.0)     # ventana del dedo, ahora en la frente
 EYE_L = (-20.7, 72.7)   # MLX90614
 EYE_R = (17.3, 71.1)    # LED 5 mm
 USB = (12.0, 6.0)       # ancho x, alto z
@@ -77,10 +77,24 @@ def main() -> None:
         tube_y(EYE_L[0], EYE_L[1], 6.0, -90, -20),
         tube_y(EYE_R[0], EYE_R[1], 3.0, -90, -20),
     ]
+
+    # agujeros del pasador de la paleta, en los costados
     for sx in (-1, 1):
-        pocket = trimesh.creation.box(extents=[POCKET[0], 40, POCKET[1]])
-        pocket.apply_translation([sx * POCKET_X, 4, POCKET_Z])
-        cuts.append(pocket)
+        pin = trimesh.creation.cylinder(radius=1.6, height=12, sections=24)
+        pin.apply_transform(trimesh.transformations.rotation_matrix(np.pi / 2, [0, 1, 0]))
+        pin.apply_translation([sx * 46, -18, 16])
+        cuts.append(pin)
+    # celda apoyada contra la pared interna, con placa de tope detras
+    plates = []
+    for sx in (-1, 1):
+        hole = trimesh.creation.cylinder(radius=6.0, height=14, sections=32)
+        hole.apply_transform(trimesh.transformations.rotation_matrix(np.pi / 2, [1, 0, 0]))
+        hole.apply_translation([sx * 24, -40, 40])
+        cuts.append(hole)
+        plate = trimesh.creation.box(extents=[22, 3, 22])
+        plate.apply_translation([sx * 24, -27, 40])
+        plates.append(plate)
+    front = trimesh.boolean.union([front] + plates, engine="manifold")
     front = trimesh.boolean.difference([front] + cuts, engine="manifold")
 
     # ---- ranura USB en la mitad trasera

@@ -8,13 +8,13 @@ booleanos.
 
 | Archivo | Volumen | Tamaño | Tiempo aprox.* |
 |---|---|---|---|
-| `pulsi_front.stl` | 75 cm³ | 162 × 43 × 135 mm | 6–8 h |
+| `pulsi_front.stl` | 82 cm³ | 162 × 47 × 135 mm | 7–8 h |
 | `pulsi_back.stl` | 89 cm³ | 162 × 44 × 134 mm | 7–9 h |
 | `pulsi_stand.stl` | 114 cm³ | 100 × 100 × 22 mm | 5–6 h |
-| **Total** | **278 cm³** | | **18–23 h** |
+| **Total** | **285 cm³** | | **19–24 h** |
 
 \* Con 0.2 mm de capa, 15 % de relleno y 3 paredes. Para cotizar, el dato que
-sirve es el **peso de filamento**: ≈ 330 g en PETG (1.27 g/cm³ con relleno).
+sirve es el **peso de filamento**: ≈ 360 g en PETG (1.27 g/cm³ con relleno).
 
 ## Ajustes de impresión
 
@@ -50,7 +50,7 @@ sirve es el **peso de filamento**: ≈ 330 g en PETG (1.27 g/cm³ con relleno).
 | LED 5 mm | ojo derecho, Ø6 |
 | ESP32 + protoboard | cavidad central |
 | HX711 | cavidad, junto al ESP32 |
-| 2 celdas 34 × 34 × 7 | bolsillos laterales de 36 × 36 |
+| 2 celdas 34 × 34 × 7 | contra la pared interna, detrás de la panza |
 | USB-C | ranura en la mitad trasera (z = 52) |
 
 ## Pendiente antes de imprimir
