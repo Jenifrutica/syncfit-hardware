@@ -14,6 +14,7 @@ Outputs in hardware/case/models/:
 
 from __future__ import annotations
 
+import argparse
 import math
 import shutil
 import subprocess
@@ -85,20 +86,53 @@ def figure_box(path: Path) -> tuple[int, int, int, int]:
     return xs.min(), ys.min(), xs.max(), ys.max()
 
 
+def clean_background(img: np.ndarray) -> np.ndarray:
+    """Rellena el fondo pastel con el color de figura mas cercano.
+
+    Asi las alas y los bordes no toman el celeste o el rosa del fondo cuando se
+    proyecta la foto sobre la malla.
+    """
+    rgb = img.astype(np.float32) / 255.0
+    mx = rgb.max(2); mn = rgb.min(2)
+    delta = np.maximum(mx - mn, 1e-6)
+    sat = np.where(mx > 0, (mx - mn) / np.maximum(mx, 1e-6), 0.0)
+    hue = np.where(mx == rgb[..., 0], ((rgb[..., 1] - rgb[..., 2]) / delta) % 6,
+                   np.where(mx == rgb[..., 1],
+                            (rgb[..., 2] - rgb[..., 0]) / delta + 2,
+                            (rgb[..., 0] - rgb[..., 1]) / delta + 4)) / 6.0
+    mint = (hue > 0.42) & (hue < 0.56)
+    rose = (hue > 0.93) | (hue < 0.05)
+    background = (sat > 0.05) & (mint | rose)
+    if not background.any():
+        return img
+    index = ndimage.distance_transform_edt(background, return_distances=False,
+                                           return_indices=True)
+    out = img.copy()
+    out[background] = img[index[0][background], index[1][background]]
+    return out
+
+
 def project_colors(mesh: trimesh.Trimesh) -> np.ndarray:
     """Pinta cada vertice muestreando la vista frontal o la trasera."""
     lo, hi = mesh.bounds
-    front = np.asarray(Image.open(VIEWS / "ref_front.png").convert("RGB"), float)
-    back = np.asarray(Image.open(VIEWS / "ref_back.png").convert("RGB"), float)
+    front = clean_background(np.asarray(Image.open(VIEWS / "ref_front.png").convert("RGB")))
+    back = clean_background(np.asarray(Image.open(VIEWS / "ref_back.png").convert("RGB")))
+    front = front.astype(float)
+    back = back.astype(float)
     fb = figure_box(VIEWS / "ref_front.png")
     bb = figure_box(VIEWS / "ref_back.png")
 
     v = mesh.vertices
     u = np.clip((v[:, 0] - lo[0]) / max(hi[0] - lo[0], 1e-6), 0, 1)
     w = np.clip((v[:, 2] - lo[2]) / max(hi[2] - lo[2], 1e-6), 0, 1)
+    w = np.maximum(w, 0.09)   # la base no muestrea la sombra del pie
 
     def sample(img, box):
         x0, y0, x1, y1 = box
+        # encoger un poco para no muestrear el fondo en los bordes
+        dx, dy = (x1 - x0) * 0.02, (y1 - y0) * 0.02
+        x0, x1 = x0 + dx, x1 - dx
+        y0, y1 = y0 + dy, y1 - dy
         px = np.clip(x0 + u * (x1 - x0), 0, img.shape[1] - 1)
         py = np.clip(y0 + (1.0 - w) * (y1 - y0), 0, img.shape[0] - 1)
         return img[py.astype(int), px.astype(int)]
@@ -107,6 +141,13 @@ def project_colors(mesh: trimesh.Trimesh) -> np.ndarray:
     ny = mesh.vertex_normals[:, 1]
     weight = np.clip(0.5 - ny * 1.6, 0.0, 1.0)[:, None]
     colors = sample(front, fb) * weight + sample(back, bb) * (1.0 - weight)
+
+    # las alas se fuerzan a blanco: la proyeccion siempre roza el fondo ahi
+    maxx = np.abs(v[:, 0]).max()
+    band = (v[:, 2] > 50) & (v[:, 2] < 100) & (np.abs(v[:, 1]) < 18)
+    score = np.clip((np.abs(v[:, 0]) - 0.74 * maxx) / (0.14 * maxx), 0, 1) * band
+    score = score[:, None]
+    colors = colors * (1 - score) + np.array([250, 250, 252]) * score
     return np.clip(colors, 0, 255)
 
 
@@ -191,15 +232,52 @@ def render(mesh: trimesh.Trimesh, colors: np.ndarray, path: Path,
         (size, size), Image.LANCZOS).save(path)
 
 
+def blockout() -> trimesh.Trimesh:
+    """Silueta limpia: la gota del blockout mas las dos alas."""
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("mk", HERE / "make_views.py")
+    mk = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mk)
+
+    parts = [mk.drop_mesh()]
+    for sx in (-1, 1):
+        parts.append(mk.superellipsoid((sx * (mk.radius_at(78) + 2), -3, 78),
+                                       (13, 7, 17), 0.85, 0.85))
+    verts, faces = [], []
+    offset = 0
+    for v, f in parts:
+        verts.append(v)
+        faces.append(f + offset)
+        offset += len(v)
+    mesh = trimesh.Trimesh(np.vstack(verts), np.vstack(faces), process=True)
+    mesh.merge_vertices()
+    return mesh
+
+
 def main() -> None:
-    src = Path(sys.argv[1]).expanduser() if len(sys.argv) > 1 else Path.home() / "Downloads" / "pulsi.fbx"
+    parser = argparse.ArgumentParser()
+    parser.add_argument("src", nargs="?", default=str(Path.home() / "Downloads" / "pulsi.fbx"))
+    parser.add_argument("--blockout", action="store_true",
+                        help="silueta limpia en vez de la malla de Hunyuan")
+    args = parser.parse_args()
+    src = Path(args.src).expanduser()
+    prefix = "pulsi_clean" if args.blockout else "pulsi"
     OUT.mkdir(parents=True, exist_ok=True)
 
-    mesh = rebuild_tip(normalise(load_mesh(src)))
+    if args.blockout:
+        mesh = blockout()
+    else:
+        mesh = rebuild_tip(normalise(load_mesh(src)))
 
     # El export de Hunyuan trae un vertice por triangulo: hay que soldarlos
     # antes de decimar o el simplificador se come media malla.
-    low = mesh.simplify_quadric_decimation(face_count=FACES)
+    if args.blockout:
+        # pocos vertices: subdividir antes de pintar para que el color sea suave
+        low = mesh.subdivide()
+        low = low.subdivide()
+    else:
+        low = mesh.simplify_quadric_decimation(face_count=FACES)
     low = low.process(validate=True)
     if not low.is_watertight:
         trimesh.repair.fill_holes(low)
@@ -209,26 +287,27 @@ def main() -> None:
     low.visual = trimesh.visual.ColorVisuals(
         mesh=low, vertex_colors=np.hstack([colors, np.full((len(colors), 1), 255)]))
 
-    render(low, colors, OUT / "pulsi_preview.png")
+    render(low, colors, OUT / f"{prefix}_preview.png")
 
-    body = flatten_bottom(low, BOTTOM_CUT)
+    cut = 0.0 if args.blockout else BOTTOM_CUT
+    body = flatten_bottom(low, cut) if cut > 0 else low
     body.visual = trimesh.visual.ColorVisuals()
 
     radius = 13.0
     for dz in (0.2, 0.6, 1.0):
-        sec = body.section(plane_origin=[0, 0, BOTTOM_CUT + dz], plane_normal=[0, 0, 1])
+        sec = body.section(plane_origin=[0, 0, cut + dz], plane_normal=[0, 0, 1])
         if sec is not None:
             pad, _ = sec.to_2D()
             radius = float(np.abs(pad.vertices).max())
             break
 
-    body.export(OUT / "pulsi_case.stl")
-    stand(radius).export(OUT / "pulsi_stand.stl")
-    low.export(OUT / "pulsi_colored.glb")
+    body.export(OUT / f"{prefix}_case.stl")
+    stand(radius).export(OUT / f"{prefix}_stand.stl")
+    low.export(OUT / f"{prefix}_colored.glb")
 
     print(f"cuerpo: {len(body.faces)} caras, base Ø{2 * radius:.1f} mm, alto {body.extents[2]:.1f} mm")
-    for name in ("pulsi_case.stl", "pulsi_stand.stl", "pulsi_colored.glb", "pulsi_preview.png"):
-        print("wrote", OUT / name)
+    for suffix in ("case.stl", "stand.stl", "colored.glb", "preview.png"):
+        print("wrote", OUT / f"{prefix}_{suffix}")
 
 
 if __name__ == "__main__":

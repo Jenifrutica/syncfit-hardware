@@ -72,14 +72,23 @@ ala derecha   ──pasador Ø3──► brazo interior ──► celda B (extre
 python3 hardware/case/prepare_pulsi.py ~/Downloads/pulsi.fbx
 ```
 
-Salidas en `models/`:
+Dos variantes:
+
+```bash
+python3 hardware/case/prepare_pulsi.py ~/Downloads/pulsi.fbx   # malla de Hunyuan
+python3 hardware/case/prepare_pulsi.py --blockout               # silueta limpia
+```
 
 | Archivo | Qué es |
 |---|---|
-| `pulsi_colored.glb` | modelo con color (vértices) para la página |
-| `pulsi_case.stl` | cuerpo imprimible, base plana Ø 26 |
-| `pulsi_stand.stl` | soporte Ø 100 con asiento Ø 27 |
-| `pulsi_preview.png` | vista previa del resultado |
+| `pulsi_colored.glb` | Hunyuan con color (vértices) |
+| `pulsi_case.stl` / `pulsi_stand.stl` | cuerpo y soporte de esa variante |
+| `pulsi_clean_*.glb/.stl` | variante de silueta limpia (blockout) |
+| `compare.png` | las dos, lado a lado |
+
+La variante de Hunyuan conserva el detalle orgánico pero el FBX es un relieve
+2.5D: perfil romboidal, costura en el ecuador y una marca cuadrada en la frente.
+La variante `clean` tiene la silueta de gota correcta y 227 k caras.
 
 El script: suelda los vértices (el FBX trae uno por triángulo), escala a 135 mm,
 reconstruye la punta, decima a 150 k caras, suaviza, **pinta proyectando
