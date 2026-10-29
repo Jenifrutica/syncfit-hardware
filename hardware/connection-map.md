@@ -134,6 +134,10 @@ Cell B white ──── A−
 If those values do not match, the wire colors are not the assumed mapping. Do
 not connect it until you confirm.
 
+The flat ribbon of this cell runs **black, red, white** from left to right; the
+white is still the electrical center of the half-bridge, so the order on the
+cable does not change the wiring above.
+
 **Mechanics:** the two cells must be mounted so one flexes in the opposite
 direction to the other. If both are loaded the same way, the signals cancel. The
 final capacity depends on the mount: if the cells share the load, it can

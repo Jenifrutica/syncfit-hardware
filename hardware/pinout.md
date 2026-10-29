@@ -100,7 +100,8 @@ I2C address: **0x5A**. Use the **3.3 V** variant. Read object and ambient temper
 | `SCK` | `GPIO25` | Green |
 
 Use **two identical 3-wire cells**. Each cell is a half-bridge: the white wire is
-the center; red and black are the ends.
+the center; red and black are the ends. The flat ribbon runs **black, red, white**
+from left to right; the white is still the electrical center.
 
 | HX711 terminal | Cell wires |
 |---|---|
