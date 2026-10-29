@@ -176,5 +176,5 @@ resistor (220 Ω–1 kΩ is acceptable).
    black `A+`/`A−`), then to the module. Run `TARE` and `CAL <kg>` from the serial
    monitor.
 5. Verify the LED with the 330 Ω resistor before connecting it.
-6. Check that the two cells are mounted so they flex in opposite directions.
+6. Check that the two cells are mounted the same way, both compressed by the load.
 7. Send telemetry to the local backend WebSocket, not production, until the hardware is validated.
