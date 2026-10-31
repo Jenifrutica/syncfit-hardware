@@ -1,46 +1,45 @@
-# Impresión multicolor — Pulsi
+# Archivo final de impresión — Pulsi
 
-STL no lleva color. Para imprimir en varios colores hay que dar **objetos
-separados** y asignarle un filamento a cada uno.
+## Sube este archivo
 
-## Archivos
+`pulsi_print_final.stl` — **215 × 162.5 × 135 mm**, 5 objetos, 212 cm³ (≈ 263 g).
 
-| Archivo | Objetos | Volumen | Color |
-|---|---|---|---|
-| `pulsi_multicolor.stl` | 3 (cuerpo + 2 alas) | 120 cm³ | — |
-| `body_amarillo.stl` | 1 | 84 cm³ | amarillo `#F5C95A` |
-| `wings_blanco.stl` | 2 | 36 cm³ | blanco |
+| Objeto | Volumen | Color sugerido |
+|---|---|---|
+| Cuerpo (hueco, con ventana trasera Ø60) | 77.1 cm³ | amarillo `#F5C95A` |
+| Ala izquierda | 17.9 cm³ | blanco |
+| Ala derecha | 17.9 cm³ | blanco |
+| Tapa trasera (con labio) | 24.6 cm³ | amarillo |
+| Soporte | 74.5 cm³ | blanco o ámbar |
 
-Tamaño del conjunto: **182 × 194 × 135 mm** · ≈ 152 g en PLA.
+También están sueltos: `01_cuerpo.stl`, `02_ala_izq.stl`, `03_ala_der.stl`,
+`04_tapa.stl`, `05_soporte.stl`.
 
-## Cómo asignar los colores
+## Configuración
 
-**PrusaSlicer / OrcaSlicer**
-1. Importar `pulsi_multicolor.stl`.
-2. Clic derecho → **Split to objects** (quedan 3 objetos).
-3. Seleccionar las dos alas → asignar el filamento blanco.
-4. Dejar el cuerpo en amarillo.
-
-**Bambu Studio**
-1. Importar y responder **Sí** a "cargar como varios objetos".
-2. Seleccionar cada ala y ponerle el filamento 2 (blanco).
-
-**Cura**
-1. Importar; si no separa, usar la extensión *Mesh Tools*.
-2. Con el plugin de multi-extrusión, asignar extrusor por objeto.
-
-## Qué no se imprime y hay que pintar
-
-| Detalle | Por qué |
+| Campo | Valor |
 |---|---|
-| Rubor (mejillas) | Es un degradado suave, no un bloque de color |
-| Boca y ojos | Trazos de 2–3 mm: se ven borrosos impresos |
-| Aro de la panza | Es un relieve; si se quiere de otro color, hay que pintarlo |
+| Tecnología | PLA (o PETG) |
+| Color | el que elijas; si es unicolor, blanco |
+| Relleno | 20 % |
+| Altura de capa | 0.20 mm |
+| Soportes | **Sí** (las alas son aletas horizontales) |
+| Paredes | 3 perímetros |
 
-Con acrílico o marcador permanente queda mejor que imprimirlo.
+## Multicolor
+
+1. Importar el STL.
+2. **Split to objects** (PrusaSlicer/Orca) o cargar como varios objetos (Bambu).
+3. Alas → filamento blanco. Cuerpo y tapa → amarillo.
+
+## Qué pintar a mano
+
+Rubor, ojos, boca y aro de la panza: son trazos de 2–3 mm, impresos salen
+borrosos. Con acrílico quedan mejor.
 
 ## Ensamble
 
-- Las alas se pegan sobre las caras planas de los costados (x = ±55).
-- El cuerpo es hueco (3–4 mm de pared) y **cerrado**: hay que abrirle la espalda
-  antes de imprimir para meter la electrónica.
+1. Abrir la tapa trasera (Ø60) y meter la electrónica.
+2. Pegar las alas en las caras planas de los costados.
+3. Cerrar con la tapa (encaja con labio; se puede pegar o asegurar con cinta).
+4. Apoyar en el soporte.
