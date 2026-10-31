@@ -15,6 +15,16 @@
 Piezas sueltas: `01_cuerpo.stl` · `02_ala_izq.stl` · `03_ala_der.stl` ·
 `04_tapa.stl` · `05_soporte.stl`.
 
+## Colores por objeto
+
+| Objeto | Color |
+|---|---|
+| Cuerpo | amarillo `#F5C95A` |
+| Alas | blanco |
+| Tapa | amarillo |
+| Soporte | negro o café oscuro |
+| Patas | se pintan (van en el cuerpo) |
+
 ## Color
 
 - **STL no lleva color.** Para que el servicio vea los colores: mandar este
