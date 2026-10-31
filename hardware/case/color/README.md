@@ -15,6 +15,18 @@
 También están sueltos: `01_cuerpo.stl`, `02_ala_izq.stl`, `03_ala_der.stl`,
 `04_tapa.stl`, `05_soporte.stl`.
 
+## Orientación de cada pieza
+
+| Pieza | Cómo va | Alto |
+|---|---|---|
+| Cuerpo | de pie, base en la cama | 135 mm |
+| Alas (las dos) | **acostadas sobre su cara plana** (la que se pega al cuerpo) | 23 mm |
+| Tapa | **plana**, el labio hacia arriba | 12 mm |
+| Soporte | plano, tal cual | 22 mm |
+
+Todas las piezas son **macizas** salvo el cuerpo, que es hueco (3–4 mm de pared).
+Las alas pesan 18 cm³ cada una: ahuecarlas las debilitaría en la unión.
+
 ## Configuración
 
 | Campo | Valor |
