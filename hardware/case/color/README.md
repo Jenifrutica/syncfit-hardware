@@ -2,7 +2,7 @@
 
 ## Sube este archivo
 
-`pulsi_print_final.stl` — **215 × 162.5 × 135 mm**, 5 objetos, 212 cm³ (≈ 263 g).
+`pulsi_print_final.stl` — **212 × 197 × 135 mm**, 5 objetos, 197 cm³ (≈ 245 g).
 
 | Objeto | Volumen | Color sugerido |
 |---|---|---|
@@ -10,7 +10,7 @@
 | Ala izquierda | 17.9 cm³ | blanco |
 | Ala derecha | 17.9 cm³ | blanco |
 | Tapa trasera (con labio) | 24.6 cm³ | amarillo |
-| Soporte | 74.5 cm³ | blanco o ámbar |
+| Soporte Ø80 | 52.3 cm³ | blanco o ámbar |
 
 También están sueltos: `01_cuerpo.stl`, `02_ala_izq.stl`, `03_ala_der.stl`,
 `04_tapa.stl`, `05_soporte.stl`.
@@ -20,9 +20,9 @@ También están sueltos: `01_cuerpo.stl`, `02_ala_izq.stl`, `03_ala_der.stl`,
 | Pieza | Cómo va | Alto |
 |---|---|---|
 | Cuerpo | de pie, base en la cama | 135 mm |
-| Alas (las dos) | **acostadas sobre su cara plana** (la que se pega al cuerpo) | 23 mm |
+| Alas (las dos) | **de pie sobre la cara recta** del corte (la que se pega al cuerpo) | 26 mm |
 | Tapa | **plana**, el labio hacia arriba | 12 mm |
-| Soporte | plano, tal cual | 22 mm |
+| Soporte (Ø80) | plano, tal cual | 22 mm |
 
 Todas las piezas son **macizas** salvo el cuerpo, que es hueco (3–4 mm de pared).
 Las alas pesan 18 cm³ cada una: ahuecarlas las debilitaría en la unión.
