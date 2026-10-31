@@ -1,50 +1,38 @@
-# Pulsi — versión definitiva (cuerpo y alas en una pieza)
+# Pulsi — modelo original, tres colores
+
+El cuerpo es **el modelo original completo** (alas incluidas, sin cortes). Solo se
+ahuecó y se le abrió la espalda para meter la electrónica.
 
 | Archivo | Qué es |
 |---|---|
 | `pulsi_print_final.stl` | 3 piezas en la cama, para imprimir |
-| `pulsi_print_final.glb` | el mismo, con color de referencia |
+| `pulsi_print_final.glb` | el mismo, con los tres colores |
+| `check_layout.png` / `check_union.png` | vista de la cama / del modelo |
 
-**Cama: 181.2 × 191.8 × 135 mm** · 168.3 cm³ · ≈ 209 g.
+**Cama: 183 × 203.8 × 135 mm** · 168.3 cm³ · ≈ 209 g.
 
-| Objeto | Volumen | Color |
+## Los tres colores
+
+| Zona | Color |
+|---|---|
+| Cuerpo | 🟡 amarillo `#F5C95A` |
+| Alas | ⚪ blanco `#FAFAFC` |
+| Patas + soporte | ⚫ oscuro `#302A3C` |
+| Tapa trasera | 🟡 amarillo |
+
+## Piezas
+
+| Pieza | Volumen | Encaje |
 |---|---|---|
-| Cuerpo con alas (una pieza, hueco) | 84 cm³ | amarillo `#F5C95A` · alas blanco · patas oscuro |
-| Tapa Ø66 | 32 cm³ | amarillo |
-| Soporte Ø80 | 52 cm³ | negro `#2D283C` |
-
-## Por qué el cuerpo va con las alas
-
-El ala sube más que el cuerpo (la gota se afina), así que separarlas dejaba
-siempre una ranura de hasta 40 mm en la punta. **En una sola pieza no hay hueco
-posible** y la silueta queda idéntica al render.
-
-## Multicolor
-
-En el GLB los colores van por vértice como referencia. Para imprimir en varios
-colores, en el slicer (PrusaSlicer, Orca, Bambu) se pinta por regiones:
-
-- alas → blanco
-- cuerpo → amarillo
-- patas → oscuro
-
-O más simple: se imprime en amarillo y se pintan las alas y las patas.
-
-## Orientación
-
-Cuerpo de pie · tapa plana · soporte plano.
+| Cuerpo (hueco, alas incluidas) | 84 cm³ | abertura trasera **Ø60** |
+| Tapa | 32 cm³ | labio **Ø59** → 0.5 mm de holgura |
+| Soporte | 52 cm³ | asiento medido del cuerpo, +0.7 mm |
 
 ## Impresión
 
-PLA o PETG · 20 % · 0.20 mm · **soportes sí** (solo el cuerpo, en las alas y la
-mitad inferior).
+PLA o PETG · 20 % · 0.20 mm · **soportes sí** (alas y mitad inferior).
+Orientación: cuerpo de pie, tapa plana, soporte plano.
 
 ## A mano
 
 Ojos, boca, rubor y aro de la panza: acrílico o marcador.
-
-## Ensamble
-
-1. Meter la electrónica por la abertura trasera Ø60.
-2. Cerrar con la tapa (labio Ø59 en agujero Ø60).
-3. Apoyar en el soporte.
