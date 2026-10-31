@@ -1,66 +1,44 @@
-# Pulsi — archivo definitivo de impresión
+# Pulsi — archivos finales
 
-## Sube
+## Un solo archivo, cinco piezas, con color
 
-`pulsi_print_final.stl` — **211.7 × 196.8 × 135 mm**, 5 objetos, 203 cm³ (≈ 252 g).
+| Archivo | Qué es |
+|---|---|
+| `pulsi_print_final.stl` | 5 piezas en la cama, para imprimir |
+| `pulsi_print_final.glb` | el mismo, **cada pieza con su color** |
+
+Tamaño: **206.5 × 185.8 × 135 mm** · 196 cm³ · ≈ 242 g en PLA.
 
 | Objeto | Volumen | Color |
 |---|---|---|
-| Cuerpo (hueco, abertura trasera Ø60) | 84.5 cm³ | amarillo `#F5C95A` |
-| Ala izquierda | 17.0 cm³ | blanco |
-| Ala derecha | 17.0 cm³ | blanco |
-| Tapa trasera Ø66 | 32.3 cm³ | amarillo |
-| Soporte Ø80 | 52.3 cm³ | blanco o ámbar |
+| Cuerpo (hueco, abertura trasera Ø60) | 79.2 cm³ | amarillo `#F5C95A` |
+| Ala izquierda | 15.9 cm³ | blanco `#F8F8FA` |
+| Ala derecha | 15.9 cm³ | blanco `#F8F8FA` |
+| Tapa Ø66 | 32.3 cm³ | amarillo |
+| Soporte Ø80 | 52.3 cm³ | negro `#2D283C` |
 
-Piezas sueltas: `01_cuerpo.stl` · `02_ala_izq.stl` · `03_ala_der.stl` ·
-`04_tapa.stl` · `05_soporte.stl`.
+Piezas sueltas: `01_cuerpo.stl` … `05_soporte.stl`.
 
-## Colores por objeto
+## El hueco de las alas
 
-| Objeto | Color |
-|---|---|
-| Cuerpo | amarillo `#F5C95A` |
-| Alas | blanco |
-| Tapa | amarillo |
-| Soporte | negro o café oscuro |
-| Patas | se pintan (van en el cuerpo) |
+No es un hueco: es la **holgura de 0.05 mm** entre el ala y el cuerpo para que las
+dos piezas se impriman sin solaparse. Pegadas, las caras coinciden y no se ve.
 
-## Color
+## Orientación (ya viene puesta)
 
-- **STL no lleva color.** Para que el servicio vea los colores: mandar este
-  archivo y la tabla de arriba, o pedir impresión multicolor indicando un
-  filamento por objeto.
-- **Archivo con los colores originales** (solo para ver en Blender o en la
-  página): `../models/pulsi_model.glb`.
-
-## A mano
-
-Ojos, boca, rubor y aro de la panza: acrílico o marcador. Son trazos de 2–3 mm;
-impresos salen borrosos. Los ojos ya están modelados como bultos, así que se
-pintan fácil.
-
-## Orientación (ya viene en el archivo)
-
-| Pieza | Cómo | Alto |
-|---|---|---|
-| Cuerpo | de pie | 135 mm |
-| Alas | de pie sobre la cara recta del corte | 26 mm |
-| Tapa | plana, labio arriba | 12 mm |
-| Soporte | plano | 22 mm |
+Cuerpo de pie · alas de pie sobre su cara recta · tapa plana · soporte plano.
 
 ## Impresión
 
 PLA o PETG · 20 % · 0.20 mm · **soportes sí** (solo el cuerpo).
 
+## A mano
+
+Ojos, boca, rubor, aro de la panza y patas: acrílico o marcador.
+
 ## Ensamble
 
 1. Pegar las alas en las caras planas de los costados.
 2. Meter la electrónica por la abertura trasera Ø60.
-3. Cerrar con la tapa (labio Ø59 en agujero Ø60, 0.5 mm de holgura).
+3. Cerrar con la tapa.
 4. Apoyar en el soporte.
-
-## Nota sobre las alas
-
-La punta superior del ala se recortó **6 mm** (z = 109) porque ahí el cuerpo ya
-no tiene pared detrás y quedaba un hueco visible al pegarla. El ala conserva su
-forma; solo pierde la esquirla que flotaba.
