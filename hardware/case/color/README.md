@@ -3,41 +3,40 @@
 | Archivo | Qué es |
 |---|---|
 | `pulsi_print_final.stl` | 5 piezas en la cama, para imprimir |
-| `pulsi_print_final.glb` | el mismo, **cada pieza con su color** |
-| `pulsi_color.glb` | el personaje **armado** y coloreado, para ver |
+| `pulsi_print_final.glb` | el mismo archivo, **5 objetos, cada uno con su color** |
+| `../models/pulsi_model.glb` | el personaje armado con la textura original (para ver) |
 
-Tamaño de la cama: **206.9 × 185.8 × 135 mm** · 198 cm³ · ≈ 245 g.
+Cama: **206.9 × 185.8 × 135 mm** · 198 cm³ · ≈ 245 g.
 
-| Objeto | Volumen | Color |
-|---|---|---|
-| Cuerpo (hueco, abertura Ø60) | 79 cm³ | amarillo `#F5C95A` |
-| Ala izq / der | 17 + 17 cm³ | blanco `#F8F8FA` |
-| Tapa Ø66 | 32 cm³ | amarillo |
-| Soporte Ø80 | 52 cm³ | negro `#2D283C` |
+## Objetos y colores (van dentro del GLB)
 
-## Las alas y el hueco de la unión
+| Objeto | Color |
+|---|---|
+| `cuerpo` | 🟡 amarillo `#F5C95A` |
+| `ala_izq` | ⚪ blanco `#F8F8FA` |
+| `ala_der` | ⚪ blanco `#F8F8FA` |
+| `tapa` | 🟡 amarillo |
+| `soporte` | ⚫ negro `#2D283C` |
 
-El ala **se mete 2 mm dentro del cuerpo** (su raíz va oculta). Por eso ya no hay
-rendija: la superficie curva del cuerpo cubre la unión, igual que en el render.
+Cada ala es un objeto **independiente y de un solo color**: no tiene mitades
+amarillas. Lo que se ve amarillo en las vistas armadas es el **costado del
+cuerpo** detrás del ala, no el ala.
 
-Se recorta en z = 106 porque arriba de ahí el cuerpo se afina y el ala quedaría
-en el aire.
-
-## Orientación (ya puesta)
+## Orientación
 
 Cuerpo de pie · alas de pie sobre su cara recta · tapa plana · soporte plano.
 
 ## Impresión
 
-PLA o PETG · 20 % · 0.20 mm · **soportes sí** (solo el cuerpo).
+PLA o PETG · 20 % · 0.20 mm · soportes sí (solo el cuerpo).
 
 ## A mano
 
-Ojos, boca, rubor, aro de la panza y patas: acrílico o marcador.
+Ojos, boca, rubor, aro y patas: acrílico o marcador.
 
 ## Ensamble
 
-1. Pegar las alas en los costados (la raíz entra 2 mm).
+1. Pegar las alas en los costados (la raíz entra 2 mm dentro del cuerpo).
 2. Meter la electrónica por la abertura trasera Ø60.
 3. Cerrar con la tapa.
 4. Apoyar en el soporte.
