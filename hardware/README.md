@@ -26,6 +26,7 @@ Physical design artifacts for the two form factors.
   calibration.
 - [`pinout.md`](pinout.md) — full ESP32 pinout and bring-up checks.
 - [`bom.csv`](bom.csv) — bill of materials.
+- [`TEST-LOG.md`](TEST-LOG.md) — bench test results and the tare/calibration order.
 - [`case/spec.md`](case/spec.md) — mascot case: blockout, sensor windows and the
   Hunyuan3D → `fix_mesh.py` workflow.
 
@@ -62,6 +63,22 @@ by the load: with the crossed ends their signals add. The final capacity
 depends on the mount (shared load can approach 2× the single-cell rating). Use a
 mechanical stop. I2C pull-ups are 4.7 kΩ to X only when the modules do not
 already include them.
+
+## Estado del hardware (2026-11-10)
+
+Probado sobre el prototipo real:
+
+| Prueba | Estado |
+|---|---|
+| MAX30102 + MLX90614 en I2C | ✅ 0x57 y 0x5A |
+| Temperatura IR | ✅ ~21 °C |
+| Detección de dedo (PPG) | ✅ |
+| Cálculo de pulso | ⚠️ inestable, falta filtrar |
+| Celda + HX711 | ✅ tare y calibración con 1 kg |
+| LED de estado | ✅ destella |
+
+Pendiente: montar las celdas en el soporte, repetir `TARE` y `CAL`, y afinar la
+detección de picos del PPG. Ver [`TEST-LOG.md`](TEST-LOG.md).
 
 ## Still to add
 
