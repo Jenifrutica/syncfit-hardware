@@ -262,4 +262,6 @@ void provisioningConsumeForceStart(bool& requested) {
   g_force_start_requested = false;
 }
 
+void provisioningRequestTare() { g_tare_requested = true; }
+
 }  // namespace syncfit

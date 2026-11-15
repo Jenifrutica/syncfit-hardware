@@ -10,7 +10,7 @@ lo que espera el **firmware**, el **contrato** (`syncfit-contracts`) y la
 |---|---|---|---|---|---|
 | Pulso | MAX30102 (PPG) | I²C | `0x57` | `[ppg] finger=… hr=…` | dedo sobre el aro de la panza |
 | Fuerza | HX711 + celda | GPIO | — | `[force] kg=…` | empujar Pulsi contra la base |
-| Temperatura | MLX90614 (IR) | I²C | `0x5A` | `[ppg] temp=… dt=…` | frente sobre el ojo derecho |
+| Temperatura | MLX90614 (IR) | I²C | `0x5A` | `[ppg] temp=… dt=…` | frente sobre el ojo izquierdo |
 
 ## Lo que coincide
 

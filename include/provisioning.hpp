@@ -45,5 +45,6 @@ void provisioningConsumeTareRequest(bool& requested);
 void provisioningConsumeCalibration(float& known_kg, bool& requested);
 void provisioningConsumePpgDump(bool& requested);
 void provisioningConsumeForceStart(bool& requested);
+void provisioningRequestTare();
 
 }  // namespace syncfit

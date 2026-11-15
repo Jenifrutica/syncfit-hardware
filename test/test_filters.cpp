@@ -44,3 +44,27 @@ void test_heart_rate_uses_the_median_not_the_last_interval() {
   metrics.addRr(300);  // false peak (200 bpm): must not move the median
   TEST_ASSERT_FLOAT_WITHIN(2.0f, 74.1f, metrics.heartRateBpm());
 }
+
+void test_autocorrelation_estimates_a_clean_pulse() {
+  float samples[256] = {};
+  for (int i = 0; i < 256; ++i) {
+    const float t = static_cast<float>(i) / 100.0f;
+    samples[i] = std::sin(2.0f * syncfit::kPi * 1.2f * t) +
+                 0.2f * std::sin(2.0f * syncfit::kPi * 2.4f * t);
+  }
+  TEST_ASSERT_FLOAT_WITHIN(3.0f, 72.0f,
+                           syncfit::estimateHeartRateBpm(samples, 256, 100));
+}
+
+void test_autocorrelation_rejects_a_flat_signal() {
+  float samples[256] = {};
+  TEST_ASSERT_FLOAT_WITHIN(0.01f, 0.0f,
+                           syncfit::estimateHeartRateBpm(samples, 256, 100));
+}
+
+void test_median_filter_rejects_spikes() {
+  syncfit::MedianFilter<21> filter;
+  for (int i = 0; i < 21; ++i) filter.push(80.0f);
+  TEST_ASSERT_FLOAT_WITHIN(0.1f, 80.0f, filter.push(197.0f));
+  TEST_ASSERT_FLOAT_WITHIN(0.1f, 80.0f, filter.push(40.0f));
+}

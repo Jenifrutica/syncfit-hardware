@@ -70,6 +70,42 @@ class MovingAverage {
   std::size_t count_ = 0;
 };
 
+// Median over a fixed window: rejects isolated autocorrelation octave errors
+// (40/197 bpm) while keeping the real resting rate.
+template <std::size_t N>
+class MedianFilter {
+  static_assert(N > 0 && N % 2 == 1, "MedianFilter needs an odd capacity");
+
+ public:
+  float push(float value) {
+    buffer_[index_] = value;
+    index_ = (index_ + 1) % N;
+    if (count_ < N) ++count_;
+    return this->value();
+  }
+
+  float value() const {
+    if (count_ == 0) return 0.0f;
+    std::array<float, N> sorted{};
+    for (std::size_t i = 0; i < count_; ++i) sorted[i] = buffer_[i];
+    std::sort(sorted.begin(), sorted.begin() + count_);
+    return sorted[count_ / 2];
+  }
+
+  std::size_t count() const { return count_; }
+
+  void reset() {
+    buffer_.fill(0.0f);
+    index_ = 0;
+    count_ = 0;
+  }
+
+ private:
+  std::array<float, N> buffer_{};
+  std::size_t index_ = 0;
+  std::size_t count_ = 0;
+};
+
 // Adaptive peak detector for the filtered PPG signal. The envelope follows the
 // signal amplitude so a weak finger contact does not produce false beats.
 class PeakDetector {
@@ -119,6 +155,73 @@ class PeakDetector {
   std::uint32_t last_peak_ms_ = 0;
   bool initialized_ = false;
 };
+
+// Estimate heart rate from a band-passed PPG window with autocorrelation.
+// Peak detectors can count the dicrotic notch as a second beat; autocorrelation
+// locks onto the dominant repetition period instead, which is much more stable
+// at rest. Returns 0 when the window is too short or the correlation is weak.
+inline float estimateHeartRateBpm(const float* samples, std::size_t count,
+                                  int sample_rate_hz = 100) {
+  if (samples == nullptr || count < 64 || sample_rate_hz <= 0) return 0.0f;
+
+  float mean = 0.0f;
+  for (std::size_t i = 0; i < count; ++i) mean += samples[i];
+  mean /= static_cast<float>(count);
+
+  float variance = 0.0f;
+  for (std::size_t i = 0; i < count; ++i) {
+    const float centered = samples[i] - mean;
+    variance += centered * centered;
+  }
+  variance /= static_cast<float>(count);
+  if (variance <= 1.0e-6f) return 0.0f;
+
+  // The check-in is a resting measurement: 45–150 bpm avoids the 40/197
+  // octave errors that a noisy dicrotic notch can create.
+  const std::size_t min_lag =
+      static_cast<std::size_t>(sample_rate_hz * 60 / 150);  // 150 bpm
+  std::size_t max_lag =
+      static_cast<std::size_t>(sample_rate_hz * 60 / 45);  // 45 bpm
+  if (max_lag >= count) max_lag = count - 1;
+  if (max_lag <= min_lag + 1) return 0.0f;
+
+  std::array<float, 160> scores{};
+  if (max_lag >= scores.size()) max_lag = scores.size() - 1;
+
+  float best_score = 0.0f;
+  std::size_t best_lag = 0;
+  for (std::size_t lag = min_lag; lag <= max_lag; ++lag) {
+    float sum = 0.0f;
+    for (std::size_t i = 0; i + lag < count; ++i) {
+      sum += (samples[i] - mean) * (samples[i + lag] - mean);
+    }
+    const float score =
+        sum / (static_cast<float>(count - lag) * variance);
+    scores[lag] = score;
+    if (score > best_score) {
+      best_score = score;
+      best_lag = lag;
+    }
+  }
+
+  if (best_lag == 0 || best_score < 0.20f) return 0.0f;
+
+  // Parabolic interpolation gives sub-sample period resolution.
+  const float y0 = best_lag > 0 ? scores[best_lag - 1] : best_score;
+  const float y1 = best_score;
+  const float y2 = best_lag < max_lag ? scores[best_lag + 1] : best_score;
+  const float denominator = y0 - 2.0f * y1 + y2;
+  float offset = 0.0f;
+  if (std::fabs(denominator) > 1.0e-9f) {
+    offset = 0.5f * (y0 - y2) / denominator;
+  }
+  offset = clampf(offset, -0.5f, 0.5f);
+
+  const float period_samples = static_cast<float>(best_lag) + offset;
+  if (period_samples <= 0.0f) return 0.0f;
+  return clampf(60.0f * static_cast<float>(sample_rate_hz) / period_samples,
+                30.0f, 220.0f);
+}
 
 // RR-interval metrics over a short fixed window. RMSSD is reported in ms.
 class RrMetrics {

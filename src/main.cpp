@@ -55,6 +55,11 @@ bool g_sensor_error = false;
 
 void onWsMessage(const char* message) {
   Serial.printf("[WS] %s\n", message);
+  if (strstr(message, "\"action\":\"tare\"") != nullptr ||
+      strstr(message, "\"command\":\"tare\"") != nullptr) {
+    provisioningRequestTare();
+    Serial.println("[WS] tare queued");
+  }
 }
 
 void buildIds() {
@@ -124,6 +129,7 @@ void sensorTask(void*) {
   // smooths above ~6 Hz without attenuating the 1–2 Hz pulse.
   syncfit::MovingAverage<8> ppg_smoother;
   syncfit::PeakDetector peak_detector;
+  syncfit::MedianFilter<21> hr_filter;  // ~2 s at the 100 ms state cadence
   syncfit::RrMetrics rr_metrics;
   syncfit::RingBuffer<float, config::kPpgWindowSize> window;
 
@@ -226,7 +232,21 @@ void sensorTask(void*) {
         g_state.ppg[i] = window.at(i);
       }
       g_state.rmssd_ms = rr_metrics.rmssdMs();
-      g_state.heart_rate_bpm = rr_metrics.heartRateBpm();
+      // Prefer the autocorrelation estimate: it is not fooled by the dicrotic
+      // notch the way the peak detector is. A 2 s median rejects the occasional
+      // octave error (40/197 bpm).
+      if (!finger_active) {
+        hr_filter.reset();
+      } else {
+        const float autocorr_hr =
+            estimateHeartRateBpm(g_state.ppg, g_state.ppg_count);
+        if (autocorr_hr > 0.0f) hr_filter.push(autocorr_hr);
+      }
+      const float filtered_hr = hr_filter.value();
+      g_state.heart_rate_bpm =
+          filtered_hr > 0.0f
+              ? filtered_hr
+              : (finger_active ? rr_metrics.heartRateBpm() : 0.0f);
       g_state.finger_present = finger_active;
       xSemaphoreGive(g_state_mutex);
     }
