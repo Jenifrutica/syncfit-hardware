@@ -389,6 +389,10 @@ void telemetryTask(void*) {
     frame.delta_temperature_c = snapshot.delta_temperature_c;
     frame.rmssd_hrv_ms = snapshot.rmssd_ms;
     frame.isometric_force_loss_pct = snapshot.force_loss_pct;
+    frame.heart_rate_bpm = snapshot.heart_rate_bpm;
+    frame.force_kg = snapshot.force_kg;
+    frame.object_temperature_c = snapshot.object_temperature_c;
+    frame.finger_present = snapshot.finger_present;
     frame.ppg_samples = snapshot.ppg;
     frame.ppg_count = snapshot.ppg_count;
 

@@ -21,6 +21,10 @@ struct TelemetryData {
   float delta_temperature_c = 0.0f;
   float rmssd_hrv_ms = 0.0f;
   float isometric_force_loss_pct = 0.0f;
+  float heart_rate_bpm = 0.0f;
+  float force_kg = 0.0f;
+  float object_temperature_c = 0.0f;
+  bool finger_present = false;
   const float* ppg_samples = nullptr;
   std::size_t ppg_count = 0;
 };
@@ -70,6 +74,24 @@ inline float clampForceLoss(float value) {
   return value;
 }
 
+inline float clampHeartRate(float value) {
+  if (value < 0.0f) return 0.0f;
+  if (value > 240.0f) return 240.0f;
+  return value;
+}
+
+inline float clampForceKg(float value) {
+  if (value < 0.0f) return 0.0f;
+  if (value > 500.0f) return 500.0f;
+  return value;
+}
+
+inline float clampObjectTemperature(float value) {
+  if (value < -20.0f) return -20.0f;
+  if (value > 60.0f) return 60.0f;
+  return value;
+}
+
 }  // namespace detail
 
 inline bool buildTelemetryJson(const TelemetryData& data, char* out, std::size_t capacity) {
@@ -99,10 +121,16 @@ inline bool buildTelemetryJson(const TelemetryData& data, char* out, std::size_t
   if (!detail::appendf(
           out, capacity, used,
           "\"biomarkers\":{\"delta_temperature_c\":%.3f,\"rmssd_hrv_ms\":%.2f,"
-          "\"isometric_force_loss_pct\":%.2f},",
+          "\"isometric_force_loss_pct\":%.2f,\"heart_rate_bpm\":%.1f,"
+          "\"force_kg\":%.2f,\"object_temperature_c\":%.2f,"
+          "\"finger_present\":%s},",
           detail::clampDeltaTemperature(data.delta_temperature_c),
           detail::clampRmssd(data.rmssd_hrv_ms),
-          detail::clampForceLoss(data.isometric_force_loss_pct))) {
+          detail::clampForceLoss(data.isometric_force_loss_pct),
+          detail::clampHeartRate(data.heart_rate_bpm),
+          detail::clampForceKg(data.force_kg),
+          detail::clampObjectTemperature(data.object_temperature_c),
+          data.finger_present ? "true" : "false")) {
     return false;
   }
 

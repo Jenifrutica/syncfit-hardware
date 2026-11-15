@@ -16,6 +16,10 @@ void test_builds_valid_contract_shape_and_clamps_values() {
   data.delta_temperature_c = 5.0f;
   data.rmssd_hrv_ms = -4.0f;
   data.isometric_force_loss_pct = 150.0f;
+  data.heart_rate_bpm = 250.0f;
+  data.force_kg = -3.0f;
+  data.object_temperature_c = 80.0f;
+  data.finger_present = true;
   data.ppg_samples = samples;
   data.ppg_count = 4;
 
@@ -26,6 +30,10 @@ void test_builds_valid_contract_shape_and_clamps_values() {
   TEST_ASSERT_NOT_NULL(std::strstr(buffer, "\"delta_temperature_c\":2.000"));
   TEST_ASSERT_NOT_NULL(std::strstr(buffer, "\"rmssd_hrv_ms\":0.00"));
   TEST_ASSERT_NOT_NULL(std::strstr(buffer, "\"isometric_force_loss_pct\":100.00"));
+  TEST_ASSERT_NOT_NULL(std::strstr(buffer, "\"heart_rate_bpm\":240.0"));
+  TEST_ASSERT_NOT_NULL(std::strstr(buffer, "\"force_kg\":0.00"));
+  TEST_ASSERT_NOT_NULL(std::strstr(buffer, "\"object_temperature_c\":60.00"));
+  TEST_ASSERT_NOT_NULL(std::strstr(buffer, "\"finger_present\":true"));
   TEST_ASSERT_NOT_NULL(std::strstr(buffer, "\"window_size\":4"));
   TEST_ASSERT_NOT_NULL(std::strstr(buffer, "\"samples\":[0.100,0.200,0.300,0.400]"));
 }
