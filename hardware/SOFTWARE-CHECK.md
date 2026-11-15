@@ -89,3 +89,15 @@ la rutina sigue usando el escenario simulado del backend.
   buffer de 10 s; con ventanas de 2.56 s crece de forma normal. No indica frames
   perdidos.
 
+## Actualización 2026-11-15 — pulso y cero desde la app
+
+- **Pulso:** el valor mostrado ya no sale del detector de picos (que contaba el
+  pico dicrótico). Se calcula por autocorrelación de la ventana de 256 muestras,
+  limitado a 45–150 bpm y suavizado con una mediana de 2 s.
+- **Cero remoto:** `POST /api/v1/live/tare` envía un comando por el WebSocket;
+  firmware ejecuta `TARE`. La app tiene el botón **Poner a cero** en el paso de
+  fuerza.
+- **Temperatura:** la referencia correcta es el **ojo izquierdo**.
+- Pendiente: validar el pulso final con el dedo en el sensor y medir la latencia
+  de fuerza (hoy depende del frame de 2.56 s).
+

@@ -116,3 +116,17 @@ Notas de esta repetición:
   2.5 s para la línea base → `%` de pérdida; al soltar 2 s vuelve a cero.
 - El comando `START` reinicia la serie manualmente.
 
+
+## 2026-11-15 — Pulso por autocorrelación y TARE remoto
+
+- El detector de picos contaba el pico dicrótico: en reposo reportaba ~130 bpm
+  cuando el reloj daba 77–90. Se sustituyó el valor mostrado por una
+  **autocorrelación** sobre la ventana de 256 muestras (rango de reposo
+  45–150 bpm) y una **mediana temporal de 2 s**. En el tramo estable dio
+  **76–88 bpm**; la validación final con el dedo queda pendiente porque el sensor
+  no detectó contacto en las últimas pruebas.
+- Pruebas nativas: **19/19** (autocorrelación, mediana, filtros y TARE).
+- TARE remoto: el backend envía `{"type":"command","action":"tare"}` por el
+  WebSocket; la placa ejecuta `tare ok` y el botón **Poner a cero** de la app
+  funciona. Último offset: **-139032**.
+- El sensor de temperatura es el **ojo izquierdo**; corregido en la interfaz.
