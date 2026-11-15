@@ -13,6 +13,7 @@ DeviceConfig g_config;
 String g_line;
 bool g_tare_requested = false;
 bool g_cal_requested = false;
+bool g_ppg_dump_requested = false;
 float g_cal_kg = 0.0f;
 
 void printI2cScan() {
@@ -39,6 +40,7 @@ void printHelp() {
   Serial.println("  TARE");
   Serial.println("  CAL <known_kg>");
   Serial.println("  SCAN");
+  Serial.println("  PPG");
   Serial.println("  REBOOT");
 }
 
@@ -96,6 +98,11 @@ void handleLine(String line) {
   }
   if (line == "SCAN") {
     printI2cScan();
+    return;
+  }
+  if (line == "PPG") {
+    g_ppg_dump_requested = true;
+    Serial.println("ppg dump queued");
     return;
   }
   if (line == "TARE") {
@@ -236,6 +243,11 @@ void provisioningConsumeCalibration(float& known_kg, bool& requested) {
   known_kg = g_cal_kg;
   requested = g_cal_requested;
   g_cal_requested = false;
+}
+
+void provisioningConsumePpgDump(bool& requested) {
+  requested = g_ppg_dump_requested;
+  g_ppg_dump_requested = false;
 }
 
 }  // namespace syncfit

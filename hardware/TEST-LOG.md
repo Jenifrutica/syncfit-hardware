@@ -49,3 +49,41 @@ CAL 1             → con el peso patrón encima
 
 El LED debe destellar cada 2 s. Sin Wi-Fi configurado no hay telemetría por
 WebSocket; para eso hacen falta `SET WIFI` y `SET WS`.
+
+## 2026-11-14 — Recalibración con el prototipo montado
+
+| Prueba | Comando / método | Resultado |
+|---|---|---|
+| Escaneo I2C | `SCAN` | **0x57** + **0x5A** ✅ |
+| TARE vacío | `TARE` con plataforma vacía | offset **-251970** ✅ |
+| Peso del prototipo | prototipo sobre la plataforma | **0.18 kg** ✅ |
+| TARE con prototipo | `TARE` con el prototipo montado | offset **-257412** ✅ |
+| Escala | `CAL 1` con pesa de 1 kg sola | **-31137 counts/kg** ✅ |
+| Pesa de 1 kg | lectura con 1 kg | **0.99–1.04 kg**, luego **1.00 kg** ✅ |
+| Pesa de 3 lb | lectura con la pesa “3” | **1.29–1.34 kg** (teórico 1.36) ✅ |
+| Empuje sobre el prototipo | presión suave con la mano | **3.3–5.8 kg** ✅ |
+| Vacío después de cargar | retirar la pesa | **-0.20 kg** de histéresis ⚠️ |
+| PPG con dedo | 21 muestras de 1 s | `finger=1` en **21/21**, HR **69–96**, media **78** ✅ |
+| Temperatura frente | MLX a 2–5 cm | **34.0–34.4 °C**, `dt=+2.00` ✅ |
+| Temperatura ambiente | alejar la frente | **19.6 °C**, `dt=-0.74` ✅ |
+| Wi-Fi + WebSocket | `SET WIFI` + `SET WS` + `REBOOT` | conecta a **192.168.80.51**, `/live` y `/capture` con `capture_source=device` ✅ |
+
+### Cambios de firmware de esta sesión
+
+- Segundo `DcBlocker` a **0.95** (~0.8 Hz) para quitar la oscilación lenta de la presión del dedo.
+- Media móvil de **8 muestras** antes del detector de picos.
+- Detección de dedo con **300 ms de histéresis**: sin dedo, `hr=0` y el detector se reinicia.
+- Timestamp por muestra dentro del FIFO (10 ms), no por tick de tarea.
+- HR por **mediana** de los últimos intervalos, no por el último.
+- Refractario del detector: **450 ms** para no contar el pico dicrótico del mismo latido.
+- Comando serie **`PPG`** para volcar la ventana de 256 muestras.
+- Stack de la tarea de red: **4 KB → 8 KB** (el frame de telemetría desbordaba la pila y reiniciaba la placa).
+
+### Notas mecánicas
+
+- El prototipo pesa **0.18 kg** y su carga sí llega a las celdas.
+- Después de retirar la pesa de 1 kg, el cero se movió **-0.20 kg**. Es histéresis del montaje:
+  **hacer `TARE` con la plataforma vacía (o con el prototipo puesto) antes de cada captura.**
+- La escala es lineal y quedó guardada; al montar el prototipo **no hace falta recalibrar**, solo `TARE`.
+- El buffer del backend reporta `dropped` creciente porque guarda solo los últimos 10 s
+  y el dispositivo envía ventanas de 2.56 s; no son frames perdidos.

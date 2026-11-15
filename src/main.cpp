@@ -114,6 +114,14 @@ float mockForce(std::uint32_t now_ms) {
 
 void sensorTask(void*) {
   syncfit::DcBlocker dc_blocker;
+  // The first blocker removes the large optical DC offset. The second one
+  // removes the ~0.4 Hz wander caused by finger pressure and breathing, which
+  // otherwise dominates the envelope and makes the peak detector fire on it.
+  syncfit::DcBlocker wander_blocker(0.95f);
+  // A short moving average removes the high-frequency noise that made the
+  // peak detector fire on every wiggle. At 100 Hz, 8 samples is 80 ms: it
+  // smooths above ~6 Hz without attenuating the 1–2 Hz pulse.
+  syncfit::MovingAverage<8> ppg_smoother;
   syncfit::PeakDetector peak_detector;
   syncfit::RrMetrics rr_metrics;
   syncfit::RingBuffer<float, config::kPpgWindowSize> window;
@@ -122,6 +130,7 @@ void sensorTask(void*) {
   std::uint32_t last_temperature_ms = 0;
   std::uint32_t last_state_ms = 0;
   std::uint32_t last_ppg_log_ms = 0;
+  std::uint32_t last_finger_ms = 0;
   float temperature_baseline = NAN;
 
   TickType_t last_wake = xTaskGetTickCount();
@@ -147,13 +156,42 @@ void sensorTask(void*) {
     }
 #endif
 
+    if (finger_present) last_finger_ms = now;
+    // Keep the last valid reading for a moment: FIFO reads can occasionally
+    // return no samples even while the finger is still on the sensor.
+    const bool finger_active =
+        last_finger_ms != 0 && (now - last_finger_ms) < 300u;
+    if (!finger_active) {
+      peak_detector.reset();
+      rr_metrics.reset();
+      last_peak_ms = 0;
+    }
+
     for (std::size_t i = 0; i < sample_count; ++i) {
       const float filtered = dc_blocker.process(ir_samples[i]);
-      window.push(filtered);
-      if (peak_detector.update(filtered, now)) {
-        if (last_peak_ms != 0) rr_metrics.addRr(now - last_peak_ms);
-        last_peak_ms = now;
+      const float pulsatile = wander_blocker.process(filtered);
+      window.push(pulsatile);
+      if (!finger_active) continue;
+      const float smoothed = ppg_smoother.push(pulsatile);
+      // A FIFO read can return several samples at once; give each one its
+      // real 10 ms timestamp so RR intervals are not quantised to the task tick.
+      const std::uint32_t sample_ms =
+          now - static_cast<std::uint32_t>(sample_count - 1 - i) * 10u;
+      if (peak_detector.update(smoothed, sample_ms)) {
+        if (last_peak_ms != 0) rr_metrics.addRr(sample_ms - last_peak_ms);
+        last_peak_ms = sample_ms;
       }
+    }
+
+    bool dump_ppg = false;
+    provisioningConsumePpgDump(dump_ppg);
+    if (dump_ppg) {
+      Serial.printf("ppg_window count=%u finger=%d\n",
+                    static_cast<unsigned>(window.size()), finger_active ? 1 : 0);
+      for (std::size_t i = 0; i < window.size(); ++i) {
+        Serial.printf("%.1f\n", window.at(i));
+      }
+      Serial.println("ppg_window_end");
     }
 
     if (now - last_temperature_ms >= config::kTemperaturePeriodMs) {
@@ -188,7 +226,7 @@ void sensorTask(void*) {
       }
       g_state.rmssd_ms = rr_metrics.rmssdMs();
       g_state.heart_rate_bpm = rr_metrics.heartRateBpm();
-      g_state.finger_present = finger_present;
+      g_state.finger_present = finger_active;
       xSemaphoreGive(g_state_mutex);
     }
 
@@ -453,7 +491,8 @@ void setup() {
   xTaskCreatePinnedToCore(sensorTask, "sensor", 4096, nullptr, 5, nullptr, 1);
   xTaskCreatePinnedToCore(forceTask, "force", 4096, nullptr, 3, nullptr, 0);
   xTaskCreatePinnedToCore(telemetryTask, "telemetry", 8192, nullptr, 2, nullptr, 0);
-  xTaskCreatePinnedToCore(networkTask, "network", 4096, nullptr, 2, nullptr, 0);
+  // 8 KB: the WebSocket handshake plus a ~6 KB telemetry frame overflowed 4 KB.
+  xTaskCreatePinnedToCore(networkTask, "network", 8192, nullptr, 2, nullptr, 0);
   xTaskCreatePinnedToCore(statusTask, "status", 2048, nullptr, 1, nullptr, 0);
 
   Serial.println("[boot] tasks started");

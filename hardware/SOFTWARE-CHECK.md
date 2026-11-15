@@ -67,3 +67,25 @@ por WebSocket con los biomarcadores derivados (`delta_temperature_c`,
 Para el paso 10 falta un puente que hoy no existe: el WebSocket evalúa el frame
 y responde la decisión, pero **no la guarda por usuaria**. Mientras eso no esté,
 la rutina sigue usando el escenario simulado del backend.
+
+## Actualización 2026-11-14 — banco con prototipo montado
+
+- **Pulso:** corregido en firmware. Se añadió un segundo bloqueo de continua
+  (~0.8 Hz), media móvil de 8 muestras, histéresis de dedo (300 ms), timestamp
+  por muestra, mediana de intervalos RR y refractario de 450 ms. Resultado:
+  `finger=1` en 21/21 muestras y HR **69–96 bpm** (media 78), antes 24–200.
+- **Fuerza:** escala calibrada con 1 kg sola antes de montar el prototipo
+  (**-31137 counts/kg**). Con el prototipo montado solo se hace `TARE`
+  (offset **-257412**) y el cero queda en 0.00 kg. Empuje real: **3.3–5.8 kg**.
+  El cero tiene ~0.20 kg de histéresis tras cargar/descargar; repetir `TARE`.
+- **Temperatura:** frente a 2–5 cm → **34.0–34.4 °C**; ambiente **19.6 °C**.
+  El delta se recorta a ±2 °C como espera el contrato.
+- **WebSocket:** el dispositivo conecta a `192.168.80.51` y el backend recibe
+  frames válidos con timestamp, modalidad y 256 muestras. `/api/v1/live` y
+  `/api/v1/capture` usan el frame del dispositivo (`capture_source=device`).
+- **Stack:** la tarea de red pasó de 4 KB a 8 KB; el frame de telemetría
+  desbordaba la pila y provocaba un `Stack canary watchpoint` en `network`.
+- **`dropped` del backend:** es el contador de muestras sobrescritas del ring
+  buffer de 10 s; con ventanas de 2.56 s crece de forma normal. No indica frames
+  perdidos.
+

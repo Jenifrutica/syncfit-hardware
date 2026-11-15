@@ -32,5 +32,15 @@ void test_rmssd_from_rr_intervals() {
   metrics.addRr(800);
   metrics.addRr(820);
   TEST_ASSERT_FLOAT_WITHIN(2.0f, 20.0f, metrics.rmssdMs());
-  TEST_ASSERT_FLOAT_WITHIN(2.0f, 73.2f, metrics.heartRateBpm());
+  TEST_ASSERT_FLOAT_WITHIN(2.0f, 74.1f, metrics.heartRateBpm());
+}
+
+void test_heart_rate_uses_the_median_not_the_last_interval() {
+  syncfit::RrMetrics metrics;
+  metrics.addRr(800);
+  metrics.addRr(820);
+  metrics.addRr(800);
+  metrics.addRr(820);
+  metrics.addRr(300);  // false peak (200 bpm): must not move the median
+  TEST_ASSERT_FLOAT_WITHIN(2.0f, 74.1f, metrics.heartRateBpm());
 }

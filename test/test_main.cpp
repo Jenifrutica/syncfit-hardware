@@ -10,6 +10,7 @@ void test_orders_largest_first();
 void test_dc_blocker_removes_constant_offset();
 void test_peak_detector_finds_beats();
 void test_rmssd_from_rr_intervals();
+void test_heart_rate_uses_the_median_not_the_last_interval();
 void test_builds_valid_contract_shape_and_clamps_values();
 void test_rejects_empty_or_oversized_windows();
 void test_rejects_small_buffer();
@@ -28,6 +29,7 @@ int main(int, char**) {
   RUN_TEST(test_dc_blocker_removes_constant_offset);
   RUN_TEST(test_peak_detector_finds_beats);
   RUN_TEST(test_rmssd_from_rr_intervals);
+  RUN_TEST(test_heart_rate_uses_the_median_not_the_last_interval);
   RUN_TEST(test_builds_valid_contract_shape_and_clamps_values);
   RUN_TEST(test_rejects_empty_or_oversized_windows);
   RUN_TEST(test_rejects_small_buffer);

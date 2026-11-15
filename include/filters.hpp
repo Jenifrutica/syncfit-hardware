@@ -74,7 +74,9 @@ class MovingAverage {
 // signal amplitude so a weak finger contact does not produce false beats.
 class PeakDetector {
  public:
-  explicit PeakDetector(std::uint32_t refractory_ms = 300)
+  // 450 ms rejects the dicrotic notch of the same beat (which lands ~300 ms
+  // after the systolic peak) while still allowing up to ~133 bpm at rest.
+  explicit PeakDetector(std::uint32_t refractory_ms = 450)
       : refractory_ms_(refractory_ms) {}
 
   bool update(float x, std::uint32_t now_ms) {
@@ -143,9 +145,11 @@ class RrMetrics {
     return clampf(std::sqrt(sum / static_cast<float>(pairs)), 0.0f, 300.0f);
   }
 
+  // Median of the last intervals: one false peak or one missed beat no longer
+  // throws the displayed heart rate to 24 or 200 bpm.
   float heartRateBpm() const {
     if (count_ == 0) return 0.0f;
-    const float rr = static_cast<float>(at(count_ - 1));
+    const float rr = static_cast<float>(medianRr());
     return rr > 0.0f ? clampf(60000.0f / rr, 0.0f, 240.0f) : 0.0f;
   }
 
@@ -157,6 +161,17 @@ class RrMetrics {
   }
 
  private:
+  std::uint32_t medianRr() const {
+    std::array<std::uint32_t, kCapacity> sorted{};
+    for (std::size_t i = 0; i < count_; ++i) sorted[i] = at(i);
+    std::sort(sorted.begin(), sorted.begin() + count_);
+    const std::size_t middle = count_ / 2;
+    if (count_ % 2 == 0) {
+      return (sorted[middle - 1] + sorted[middle]) / 2;
+    }
+    return sorted[middle];
+  }
+
   std::uint32_t at(std::size_t logical_index) const {
     const std::size_t start = count_ == kCapacity ? index_ : 0;
     return buffer_[(start + logical_index) % kCapacity];

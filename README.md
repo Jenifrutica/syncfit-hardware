@@ -134,9 +134,11 @@ esp32dev` after wiring; `pio test -e native` for host tests.
 > Estado: **firmware v0.1 listo para banco**. Compila para ESP32, pasa pruebas
 > nativas y tiene modo mock. Falta validarlo con los sensores reales.
 
-- **Calibración real**: TARE y `CAL <kg>` con las dos celdas de 3 hilos.
-- **Prueba I2C**: confirmar `0x57` (MAX30102) y `0x5A` (MLX90614).
-- **WebSocket local**: probar contra `ws://<laptop>:8000/api/v1/ws/telemetry`.
-- **Validación de contrato** automática en CI.
-- **Esquemático eléctrico** y **Format B** (banda con LiPo).
-- **CI** (`pio test`).
+- [x] **Calibración real**: TARE y `CAL 1` con las dos celdas montadas (2026-11-14).
+- [x] **Prueba I2C**: `0x57` (MAX30102) y `0x5A` (MLX90614) confirmados.
+- [x] **WebSocket local**: `ws://192.168.80.40:8000/api/v1/ws/telemetry`; `/capture` usa `capture_source=device`.
+- [x] **PPG estabilizado**: dedo 21/21, HR 69–96 bpm con filtro y mediana.
+- [ ] **Validación de contrato** automática en CI.
+- [ ] **Esquemático eléctrico** y **Format B** (banda con LiPo).
+- [ ] **CI** (`pio test`).
+- [ ] Repetibilidad mecánica: el cero se mueve ~0.20 kg tras cargar/descargar; hacer `TARE` antes de cada captura.

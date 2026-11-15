@@ -10,6 +10,7 @@
 //   TARE
 //   CAL <known_kg>
 //   SCAN
+//   PPG                 (dump the last 256 filtered samples)
 //   REBOOT
 
 #pragma once
@@ -41,5 +42,6 @@ const DeviceConfig& deviceConfig();
 void provisioningSaveCalibration(std::int32_t offset, float scale);
 void provisioningConsumeTareRequest(bool& requested);
 void provisioningConsumeCalibration(float& known_kg, bool& requested);
+void provisioningConsumePpgDump(bool& requested);
 
 }  // namespace syncfit
