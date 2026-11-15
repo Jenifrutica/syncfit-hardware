@@ -98,14 +98,15 @@ Copy `include/secrets.example.hpp` to `include/secrets.hpp` for local
 credentials (the real file is git-ignored). Runtime provisioning also works over
 serial: `HELP`, `STATUS`, `SET MODALITY GESTATIONAL`, `SET WEEK 16`,
 `SET WIFI <ssid>,<password>`,
-`SET WS ws://<laptop-ip>:8000/api/v1/ws/telemetry`, `TARE`, `CAL <kg>`.
+`SET WS ws://<laptop-ip>:8000/api/v1/ws/telemetry`, `TARE`, `CAL <kg>`, `START`.
 
 **State.** Implemented: ring buffer, SPSC queue, max-heap, filters, contract
 telemetry frame, MAX30102/MLX90614/HX711 drivers, FreeRTOS tasks, serial/NVS
 provisioning, Wi-Fi WebSocket client, mock-sensor build and the definitive
 Format A build sheet (`hardware/definitive.svg`, `definitive.png`,
-`connection-map.md`, `pinout.md`, `bom.csv`). Pending: hardware-in-the-loop
-calibration, CI contract validation, electrical schematic and Format B. The
+`connection-map.md`, `pinout.md`, `bom.csv`). Calibration, PPG and
+WebSocket are validated on the bench. Pending: CI contract validation, electrical
+schematic and Format B. The
 definitive build uses two identical 3-wire half-bridge cells joined with two
 2-position screw blocks (red centre to A+/A−, ends crossed to E+/E−), no tare
 button, and the 400-point board as a bus. See
@@ -137,7 +138,8 @@ esp32dev` after wiring; `pio test -e native` for host tests.
 - [x] **Calibración real**: TARE y `CAL 1` con las dos celdas montadas (2026-11-14).
 - [x] **Prueba I2C**: `0x57` (MAX30102) y `0x5A` (MLX90614) confirmados.
 - [x] **WebSocket local**: `ws://192.168.80.40:8000/api/v1/ws/telemetry`; `/capture` usa `capture_source=device`.
-- [x] **PPG estabilizado**: dedo 21/21, HR 69–96 bpm con filtro y mediana.
+- [x] **PPG estabilizado**: dedo 16/16, HR 70–90 bpm con filtro y mediana.
+- [x] **Pérdida isométrica**: línea base automática al primer empuje, comando `START`, pérdida hasta 41.5 %.
 - [ ] **Validación de contrato** automática en CI.
 - [ ] **Esquemático eléctrico** y **Format B** (banda con LiPo).
 - [ ] **CI** (`pio test`).

@@ -26,6 +26,7 @@
 #include "drivers/max30102.hpp"
 #include "drivers/mlx90614.hpp"
 #include "filters.hpp"
+#include "force_baseline.hpp"
 #include "net/ws_client.hpp"
 #include "provisioning.hpp"
 #include "ring_buffer.hpp"
@@ -248,10 +249,8 @@ void sensorTask(void*) {
 }
 
 void forceTask(void*) {
-  std::uint32_t baseline_start_ms = millis();
   std::uint32_t last_button_ms = 0;
-  float baseline_kg = 0.0f;
-  bool baseline_ready = false;
+  syncfit::ForceBaseline force_baseline;
   bool button_handled = false;
   bool last_button = false;
 
@@ -265,6 +264,12 @@ void forceTask(void*) {
     float calibration_kg = 0.0f;
     bool calibration_requested = false;
     syncfit::provisioningConsumeCalibration(calibration_kg, calibration_requested);
+    bool start_requested = false;
+    syncfit::provisioningConsumeForceStart(start_requested);
+    if (start_requested) {
+      force_baseline.reset();
+      Serial.println("[force] set reset; push >=5 kg");
+    }
 
 #if SYNCFIT_MOCK_SENSORS
     if (tare_requested || calibration_requested) {
@@ -316,11 +321,6 @@ void forceTask(void*) {
     force_ok = g_hx711.readKg(force_kg);
     if (force_ok) {
       force_kg = g_force_filter.push(force_kg);
-      static std::uint32_t last_kg_ms = 0;
-      if (now - last_kg_ms >= 1000) {
-        last_kg_ms = now;
-        Serial.printf("[force] kg=%.2f\n", force_kg);
-      }
     } else if (g_hx711.scale() == 0.0f) {
       static std::uint32_t last_raw_ms = 0;
       if (now - last_raw_ms >= 1000) {
@@ -333,21 +333,18 @@ void forceTask(void*) {
 #endif
 
     if (force_ok) {
-      if (!baseline_ready && now - baseline_start_ms < 5000) {
-        if (force_kg > baseline_kg) baseline_kg = force_kg;
-      } else if (!baseline_ready) {
-        baseline_ready = true;
-        Serial.printf("[force] baseline=%.2f kg\n", baseline_kg);
+      force_baseline.update(force_kg, now);
+      static std::uint32_t last_force_log_ms = 0;
+      if (now - last_force_log_ms >= 1000) {
+        last_force_log_ms = now;
+        Serial.printf("[force] kg=%.2f loss=%.1f%% baseline=%.2f\n",
+                      force_kg, force_baseline.lossPct(),
+                      force_baseline.baselineKg());
       }
-
-      const float loss_pct =
-          (baseline_ready && baseline_kg > 5.0f)
-              ? clampf((baseline_kg - force_kg) / baseline_kg * 100.0f, 0.0f, 100.0f)
-              : 0.0f;
 
       xSemaphoreTake(g_state_mutex, portMAX_DELAY);
       g_state.force_kg = force_kg;
-      g_state.force_loss_pct = loss_pct;
+      g_state.force_loss_pct = force_baseline.lossPct();
       g_state.force_valid = true;
       xSemaphoreGive(g_state_mutex);
     }

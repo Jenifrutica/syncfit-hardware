@@ -31,7 +31,7 @@ lo que espera el **firmware**, el **contrato** (`syncfit-contracts`) y la
 | Tema | Medido | Qué espera el software | Acción |
 |---|---|---|---|
 | Pulso | 38–200 bpm, inestable | RMSSD estable para `syncfit-core` | Filtrar picos y descartar ventanas con dedo en movimiento (firmware) |
-| Fuerza | 1 kg de patrón verificado | `isometric_force_loss_pct` solo si la base supera **5 kg** | La interfaz pide empujar firme; por debajo de 5 kg la pérdida queda en 0 |
+| Fuerza | 1 kg de patrón verificado | `isometric_force_loss_pct` solo si la base supera **1.5 kg** | La interfaz pide empujar firme; por debajo de 1.5 kg la pérdida queda en 0 |
 | Temperatura | 21 °C en ambiente | `delta_temperature_c` en ±2 °C | El delta es contra el arranque: la frente debe apoyarse **después** de encender |
 | Celdas sueltas | 3 kg dio 5.3 / 5.9 / 2.46 kg | Lectura repetible | Repetir `TARE` + `CAL` con las celdas ya montadas en el soporte |
 | Telemetría | Sin Wi-Fi configurado | `ws://<host>:8000/api/v1/ws/telemetry` | `SET WIFI` y `SET WS <ip>,8000` antes de la demo |

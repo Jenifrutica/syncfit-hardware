@@ -87,3 +87,32 @@ WebSocket; para eso hacen falta `SET WIFI` y `SET WS`.
 - La escala es lineal y quedó guardada; al montar el prototipo **no hace falta recalibrar**, solo `TARE`.
 - El buffer del backend reporta `dropped` creciente porque guarda solo los últimos 10 s
   y el dispositivo envía ventanas de 2.56 s; no son frames perdidos.
+
+## 2026-11-14 — Repetición final paso a paso
+
+Secuencia completa repetida con el prototipo ya montado. Estos son los valores
+que quedan guardados en NVS:
+
+| Paso | Resultado |
+|---|---|
+| I²C | `0x57` + `0x5A` ✅ |
+| TARE vacío | offset **-262005**, **0.00 kg** ✅ |
+| Pesa de 1 kg sola | **0.91 kg** antes de calibrar |
+| `CAL 1` | escala **-28305 counts/kg**; con 1 kg → **1.00 kg** ✅ |
+| Vacío tras retirar la pesa | **-0.10 kg** (histéresis); `TARE` → **0.00 kg** |
+| Peso del prototipo | **0.08 kg** |
+| TARE con prototipo | offset **-261131**, **0.00 kg** ✅ |
+| Empuje sobre el prototipo | pico **10.06 kg**, línea base **8.66 kg**, pérdida hasta **41.5 %** ✅ |
+| PPG | `finger=1` en **16/16**, HR **70–90 bpm**, media **83** ✅ |
+| Temperatura frente | **32–47 °C** (según distancia), `dt=+2.00` ✅ |
+| Temperatura ambiente | **20.2–20.7 °C**, `dt=-1.34..-0.84` ✅ |
+| WebSocket | `/live` con timestamp y 256 muestras; `/capture` → `capture_source=device` ✅ |
+
+Notas de esta repetición:
+
+- El umbral de arranque de la serie bajó a **1.5 kg** porque el empuje cómodo
+  sobre el prototipo ronda 1.7–10 kg; con 5 kg no siempre arrancaba.
+- La pérdida isométrica se calcula sola: primer empuje ≥1.5 kg → ventana de
+  2.5 s para la línea base → `%` de pérdida; al soltar 2 s vuelve a cero.
+- El comando `START` reinicia la serie manualmente.
+

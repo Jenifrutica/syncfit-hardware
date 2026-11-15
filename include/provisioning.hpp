@@ -9,6 +9,7 @@
 //   SET WS ws://host:port/path  (or wss://...)
 //   TARE
 //   CAL <known_kg>
+//   START               (reset the isometric set baseline)
 //   SCAN
 //   PPG                 (dump the last 256 filtered samples)
 //   REBOOT
@@ -43,5 +44,6 @@ void provisioningSaveCalibration(std::int32_t offset, float scale);
 void provisioningConsumeTareRequest(bool& requested);
 void provisioningConsumeCalibration(float& known_kg, bool& requested);
 void provisioningConsumePpgDump(bool& requested);
+void provisioningConsumeForceStart(bool& requested);
 
 }  // namespace syncfit
