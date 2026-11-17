@@ -432,6 +432,8 @@ void telemetryTask(void*) {
 
 void networkTask(void*) {
   std::uint32_t last_reconnect_ms = 0;
+  std::uint32_t last_force_ms = 0;
+  char force_buffer[96];
   TickType_t last_wake = xTaskGetTickCount();
 
   for (;;) {
@@ -454,6 +456,22 @@ void networkTask(void*) {
         g_tx_ready = false;
       }
       xSemaphoreGive(g_tx_mutex);
+    }
+
+    // Fast force channel: newest force every 100 ms (the frame takes 2.56 s).
+    if (g_ws_client.connected() && now - last_force_ms >= config::kForceSendIntervalMs) {
+      last_force_ms = now;
+      float force_kg = 0.0f;
+      float loss_pct = 0.0f;
+      bool valid = false;
+      xSemaphoreTake(g_state_mutex, portMAX_DELAY);
+      valid = g_state.force_valid;
+      force_kg = g_state.force_kg;
+      loss_pct = g_state.force_loss_pct;
+      xSemaphoreGive(g_state_mutex);
+      if (valid && syncfit::buildForceJson(force_kg, loss_pct, force_buffer, sizeof(force_buffer))) {
+        g_ws_client.send(force_buffer);
+      }
     }
   }
 }

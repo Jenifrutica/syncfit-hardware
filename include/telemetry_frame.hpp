@@ -152,4 +152,15 @@ inline bool buildTelemetryJson(const TelemetryData& data, char* out, std::size_t
   return true;
 }
 
+// Fast force message sent every ~100 ms next to the 2.56 s frame, so the app's
+// force step reacts without waiting for the full telemetry window.
+inline bool buildForceJson(float force_kg, float loss_pct, char* out, std::size_t capacity) {
+  if (out == nullptr || capacity == 0) return false;
+  const int written = std::snprintf(out, capacity,
+                                    "{\"type\":\"force\",\"force_kg\":%.2f,\"loss_pct\":%.1f}",
+                                    detail::clampForceKg(force_kg),
+                                    detail::clampForceLoss(loss_pct));
+  return written > 0 && static_cast<std::size_t>(written) < capacity;
+}
+
 }  // namespace syncfit

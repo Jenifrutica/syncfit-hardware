@@ -80,6 +80,8 @@ constexpr bool kDefaultWsSecure = SYNCFIT_WS_SECURE != 0;
 constexpr std::uint32_t kPpgSampleRateHz = SYNCFIT_PPG_SAMPLE_RATE_HZ;
 constexpr std::size_t kPpgWindowSize = SYNCFIT_PPG_WINDOW_SIZE;
 constexpr std::uint32_t kTelemetryPeriodMs = SYNCFIT_TELEMETRY_PERIOD_MS;
+// Fast force message period (see buildForceJson).
+constexpr std::uint32_t kForceSendIntervalMs = 100;
 constexpr std::uint32_t kForcePeriodMs = SYNCFIT_FORCE_PERIOD_MS;
 constexpr std::uint32_t kTemperaturePeriodMs = SYNCFIT_TEMPERATURE_PERIOD_MS;
 

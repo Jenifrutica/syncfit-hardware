@@ -66,3 +66,13 @@ void test_rejects_small_buffer() {
   char small[16] = {};
   TEST_ASSERT_FALSE(syncfit::buildTelemetryJson(data, small, sizeof(small)));
 }
+
+void test_builds_fast_force_message() {
+  char buffer[96] = {};
+  TEST_ASSERT_TRUE(syncfit::buildForceJson(8.437f, 12.34f, buffer, sizeof(buffer)));
+  TEST_ASSERT_EQUAL_STRING("{\"type\":\"force\",\"force_kg\":8.44,\"loss_pct\":12.3}", buffer);
+  TEST_ASSERT_TRUE(syncfit::buildForceJson(-2.0f, 150.0f, buffer, sizeof(buffer)));
+  TEST_ASSERT_EQUAL_STRING("{\"type\":\"force\",\"force_kg\":0.00,\"loss_pct\":100.0}", buffer);
+  char tiny[8] = {};
+  TEST_ASSERT_FALSE(syncfit::buildForceJson(1.0f, 1.0f, tiny, sizeof(tiny)));
+}
