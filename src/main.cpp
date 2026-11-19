@@ -458,6 +458,9 @@ void telemetryTask(void*) {
     const bool built = syncfit::buildTelemetryJson(frame, g_tx_buffer, sizeof(g_tx_buffer));
     if (built) {
       g_tx_ready = true;
+      // USB bridge: the PC (tools/usb_bridge.py) forwards these lines to the
+      // server when the device's own Wi-Fi is unreliable.
+      Serial.printf("TX %s\n", g_tx_buffer);
 #if SYNCFIT_MOCK_SENSORS
       Serial.printf("[telemetry] %s\n", g_tx_buffer);
 #endif
@@ -554,7 +557,7 @@ void networkTask(void*) {
     // keep-alive when idle (the full frame takes 2.56 s).
     // Never in the same pass as the 2.56 s frame: back-to-back TLS writes
     // starve loop() and the pong is missed.
-    if (!sent_frame && g_ws_client.connected() && now - last_force_ms >= config::kForceSendIntervalMs) {
+    if (!sent_frame && now - last_force_ms >= config::kForceSendIntervalMs) {
       last_force_ms = now;
       float force_kg = 0.0f;
       float loss_pct = 0.0f;
@@ -566,7 +569,8 @@ void networkTask(void*) {
       xSemaphoreGive(g_state_mutex);
       if (valid && force_gate.shouldSend(force_kg, loss_pct, now, 200) &&
           syncfit::buildForceJson(force_kg, loss_pct, force_buffer, sizeof(force_buffer))) {
-        g_ws_client.send(force_buffer);
+        Serial.printf("TX %s\n", force_buffer);  // USB bridge
+        if (g_ws_client.connected()) g_ws_client.send(force_buffer);
       }
     }
   }
