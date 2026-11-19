@@ -23,6 +23,8 @@ void test_rejects_small_buffer();
 void test_builds_fast_force_message();
 void test_force_gate_sends_changes_and_keepalive_only();
 void test_parses_http_date_header();
+void test_sample_rate_meter_tracks_the_real_rate();
+void test_heart_rate_uses_the_measured_sample_rate();
 void test_builds_fast_force_message();
 
 void setUp() {}
@@ -52,5 +54,7 @@ int main(int, char**) {
   RUN_TEST(test_builds_fast_force_message);
   RUN_TEST(test_force_gate_sends_changes_and_keepalive_only);
   RUN_TEST(test_parses_http_date_header);
+  RUN_TEST(test_sample_rate_meter_tracks_the_real_rate);
+  RUN_TEST(test_heart_rate_uses_the_measured_sample_rate);
   return UNITY_END();
 }

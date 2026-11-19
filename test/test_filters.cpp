@@ -68,3 +68,25 @@ void test_median_filter_rejects_spikes() {
   TEST_ASSERT_FLOAT_WITHIN(0.1f, 80.0f, filter.push(197.0f));
   TEST_ASSERT_FLOAT_WITHIN(0.1f, 80.0f, filter.push(40.0f));
 }
+
+void test_sample_rate_meter_tracks_the_real_rate() {
+  syncfit::SampleRateMeter meter(100.0f, 1000);
+  meter.add(0, 0);
+  std::uint32_t t = 0;
+  // 119 samples per second, delivered 8 at a time.
+  std::size_t pending = 0;
+  for (int ms = 1; ms <= 5000; ++ms) {
+    if ((ms * 119) / 1000 != ((ms - 1) * 119) / 1000) ++pending;
+    if (pending >= 8 || ms % 70 == 0) { meter.add(pending, static_cast<std::uint32_t>(ms)); pending = 0; t = ms; }
+  }
+  (void)t;
+  TEST_ASSERT_FLOAT_WITHIN(3.0f, 119.0f, meter.rate());
+}
+
+void test_heart_rate_uses_the_measured_sample_rate() {
+  // A 86 bpm pulse sampled at 119 Hz: assuming 100 Hz would report ~72 bpm.
+  float samples[256];
+  for (int i = 0; i < 256; ++i) samples[i] = std::sin(2.0f * 3.14159265f * (86.0f / 60.0f) * (static_cast<float>(i) / 119.0f));
+  TEST_ASSERT_FLOAT_WITHIN(3.0f, 86.0f, syncfit::estimateHeartRateBpm(samples, 256, 119.0f));
+  TEST_ASSERT_FLOAT_WITHIN(3.0f, 72.3f, syncfit::estimateHeartRateBpm(samples, 256, 100.0f));
+}

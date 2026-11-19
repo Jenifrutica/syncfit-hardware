@@ -134,6 +134,7 @@ void sensorTask(void*) {
   syncfit::MovingAverage<8> ppg_smoother;
   syncfit::PeakDetector peak_detector;
   syncfit::MedianFilter<21> hr_filter;  // ~2 s at the 100 ms state cadence
+  syncfit::SampleRateMeter rate_meter;  // real MAX30102 rate (nominal 100 sps)
   syncfit::RrMetrics rr_metrics;
   syncfit::RingBuffer<float, config::kPpgWindowSize> window;
 
@@ -167,6 +168,14 @@ void sensorTask(void*) {
     }
 #endif
 
+    if (rate_meter.add(sample_count, now)) {
+      static std::uint32_t last_rate_log_ms = 0;
+      if (now - last_rate_log_ms >= 10000) {
+        last_rate_log_ms = now;
+        Serial.printf("[ppg] rate=%.1f Hz\n", rate_meter.rate());
+      }
+    }
+
     if (finger_present) last_finger_ms = now;
     // Keep the last valid reading for a moment: FIFO reads can occasionally
     // return no samples even while the finger is still on the sensor.
@@ -187,7 +196,7 @@ void sensorTask(void*) {
       // A FIFO read can return several samples at once; give each one its
       // real 10 ms timestamp so RR intervals are not quantised to the task tick.
       const std::uint32_t sample_ms =
-          now - static_cast<std::uint32_t>(sample_count - 1 - i) * 10u;
+          now - static_cast<std::uint32_t>((sample_count - 1 - i) * (1000.0f / rate_meter.rate()));
       if (peak_detector.update(smoothed, sample_ms)) {
         if (last_peak_ms != 0) rr_metrics.addRr(sample_ms - last_peak_ms);
         last_peak_ms = sample_ms;
@@ -243,7 +252,7 @@ void sensorTask(void*) {
         hr_filter.reset();
       } else {
         const float autocorr_hr =
-            estimateHeartRateBpm(g_state.ppg, g_state.ppg_count);
+            estimateHeartRateBpm(g_state.ppg, g_state.ppg_count, rate_meter.rate());
         if (autocorr_hr > 0.0f) hr_filter.push(autocorr_hr);
       }
       const float filtered_hr = hr_filter.value();

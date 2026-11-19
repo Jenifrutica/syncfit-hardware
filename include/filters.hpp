@@ -160,9 +160,11 @@ class PeakDetector {
 // Peak detectors can count the dicrotic notch as a second beat; autocorrelation
 // locks onto the dominant repetition period instead, which is much more stable
 // at rest. Returns 0 when the window is too short or the correlation is weak.
+// `sample_rate_hz` must be the MEASURED rate: the MAX30102 internal clock can
+// run several percent off its nominal 100 sps, and the bpm scales with it.
 inline float estimateHeartRateBpm(const float* samples, std::size_t count,
-                                  int sample_rate_hz = 100) {
-  if (samples == nullptr || count < 64 || sample_rate_hz <= 0) return 0.0f;
+                                  float sample_rate_hz = 100.0f) {
+  if (samples == nullptr || count < 64 || sample_rate_hz <= 0.0f) return 0.0f;
 
   float mean = 0.0f;
   for (std::size_t i = 0; i < count; ++i) mean += samples[i];
@@ -179,9 +181,9 @@ inline float estimateHeartRateBpm(const float* samples, std::size_t count,
   // The check-in is a resting measurement: 45–150 bpm avoids the 40/197
   // octave errors that a noisy dicrotic notch can create.
   const std::size_t min_lag =
-      static_cast<std::size_t>(sample_rate_hz * 60 / 150);  // 150 bpm
+      static_cast<std::size_t>(sample_rate_hz * 60.0f / 150.0f);  // 150 bpm
   std::size_t max_lag =
-      static_cast<std::size_t>(sample_rate_hz * 60 / 45);  // 45 bpm
+      static_cast<std::size_t>(sample_rate_hz * 60.0f / 45.0f);  // 45 bpm
   if (max_lag >= count) max_lag = count - 1;
   if (max_lag <= min_lag + 1) return 0.0f;
 
@@ -219,7 +221,7 @@ inline float estimateHeartRateBpm(const float* samples, std::size_t count,
 
   const float period_samples = static_cast<float>(best_lag) + offset;
   if (period_samples <= 0.0f) return 0.0f;
-  return clampf(60.0f * static_cast<float>(sample_rate_hz) / period_samples,
+  return clampf(60.0f * sample_rate_hz / period_samples,
                 30.0f, 220.0f);
 }
 
@@ -283,6 +285,47 @@ class RrMetrics {
   std::array<std::uint32_t, kCapacity> buffer_{};
   std::size_t index_ = 0;
   std::size_t count_ = 0;
+};
+
+// Measures the real sample rate of a stream: count samples over wall-clock
+// windows of `window_ms` and smooth the result. Starts at the nominal rate.
+class SampleRateMeter {
+ public:
+  explicit SampleRateMeter(float nominal_hz = 100.0f, std::uint32_t window_ms = 5000)
+      : rate_(nominal_hz), window_ms_(window_ms) {}
+
+  // Returns true when a new window closed (rate() was updated).
+  bool add(std::size_t samples, std::uint32_t now_ms) {
+    if (!started_) {
+      started_ = true;
+      start_ms_ = now_ms;
+      count_ = 0;
+      return false;
+    }
+    count_ += samples;
+    const std::uint32_t elapsed = now_ms - start_ms_;
+    if (elapsed < window_ms_) return false;
+    const float measured = 1000.0f * static_cast<float>(count_) / static_cast<float>(elapsed);
+    // Ignore windows that lost samples (FIFO read stalls) or are absurd.
+    if (measured > 40.0f && measured < 450.0f) {
+      rate_ = windows_ == 0 ? measured : rate_ * 0.7f + measured * 0.3f;
+      ++windows_;
+    }
+    start_ms_ = now_ms;
+    count_ = 0;
+    return true;
+  }
+
+  float rate() const { return rate_; }
+  std::size_t windows() const { return windows_; }
+
+ private:
+  float rate_;
+  std::uint32_t window_ms_;
+  bool started_ = false;
+  std::uint32_t start_ms_ = 0;
+  std::size_t count_ = 0;
+  std::size_t windows_ = 0;
 };
 
 }  // namespace syncfit
