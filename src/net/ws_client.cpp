@@ -8,7 +8,7 @@ void WsClient::begin(const char* host, std::uint16_t port, const char* path, boo
   });
   socket_.setReconnectInterval(5000);
   // Generous pong timeout: TLS over campus Wi-Fi can stall a few seconds.
-  socket_.enableHeartbeat(15000, 8000, 3);
+  socket_.enableHeartbeat(20000, 10000, 3);
 
   if (secure) {
     socket_.beginSSL(host, port, path);

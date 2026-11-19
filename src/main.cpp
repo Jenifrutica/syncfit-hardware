@@ -12,6 +12,9 @@
 
 #include <Arduino.h>
 #include <WiFi.h>
+#include <HTTPClient.h>
+#include <WiFiClientSecure.h>
+#include <sys/time.h>
 #include <esp_system.h>
 #include <time.h>
 
@@ -27,6 +30,7 @@
 #include "drivers/mlx90614.hpp"
 #include "filters.hpp"
 #include "force_baseline.hpp"
+#include "http_date.hpp"
 #include "net/ws_client.hpp"
 #include "provisioning.hpp"
 #include "ring_buffer.hpp"
@@ -93,7 +97,7 @@ void connectWifi() {
 
   if (WiFi.status() == WL_CONNECTED) {
     Serial.printf("[wifi] connected: %s\n", WiFi.localIP().toString().c_str());
-    configTime(0, 0, "pool.ntp.org", "time.nist.gov");
+    configTime(0, 0, "pool.ntp.org", "time.google.com", "time.cloudflare.com");
   } else {
     Serial.println("[wifi] not connected; telemetry will wait");
   }
@@ -430,9 +434,43 @@ void telemetryTask(void*) {
   }
 }
 
+// Host of the telemetry API, reused as an HTTPS clock when NTP is blocked.
+String g_clock_host;
+
+bool clockIsSet() { return time(nullptr) >= 1700000000; }
+
+// Campus networks often block NTP (UDP 123). Any HTTPS answer from our API
+// carries a `Date` header: use it to set the clock (second precision is
+// plenty for frame timestamps). Blocking, so only called while the clock is unset.
+bool setClockFromHttps() {
+  if (g_clock_host.isEmpty()) return false;
+  WiFiClientSecure client;
+  client.setInsecure();  // only the Date header is read; no data is trusted
+  HTTPClient http;
+  http.setTimeout(8000);
+  if (!http.begin(client, String("https://") + g_clock_host + "/api/v1/health")) return false;
+  const char* keys[] = {"Date"};
+  http.collectHeaders(keys, 1);
+  const int code = http.GET();
+  std::int64_t epoch = 0;
+  const bool ok = code > 0 && syncfit::parseHttpDate(http.header("Date").c_str(), epoch);
+  http.end();
+  if (!ok) {
+    Serial.printf("[clock] https fallback failed (code %d)\n", code);
+    return false;
+  }
+  timeval tv = {static_cast<time_t>(epoch), 0};
+  settimeofday(&tv, nullptr);
+  Serial.printf("[clock] set from HTTPS Date: %lld\n", static_cast<long long>(epoch));
+  return true;
+}
+
 void networkTask(void*) {
   std::uint32_t last_reconnect_ms = 0;
   std::uint32_t last_force_ms = 0;
+  bool ntp_started = false;
+  std::uint32_t wifi_up_ms = 0;
+  std::uint32_t last_clock_try_ms = 0;
   char force_buffer[96];
   syncfit::ForceSendGate force_gate;
   TickType_t last_wake = xTaskGetTickCount();
@@ -448,20 +486,40 @@ void networkTask(void*) {
       WiFi.reconnect();
     }
 
+    // Clock: start NTP whenever Wi-Fi comes up (not only during setup), and
+    // fall back to the API's HTTPS Date header if NTP stays silent.
+    if (wifi_connected) {
+      if (!ntp_started) {
+        configTime(0, 0, "pool.ntp.org", "time.google.com", "time.cloudflare.com");
+        ntp_started = true;
+        wifi_up_ms = now;
+      }
+      if (!clockIsSet() && now - wifi_up_ms > 10000 && now - last_clock_try_ms > 15000) {
+        last_clock_try_ms = now;
+        setClockFromHttps();
+      }
+    } else {
+      ntp_started = false;
+    }
+
     g_ws_client.loop();
     g_status_led.setCloud(g_ws_client.connected());
 
+    bool sent_frame = false;
     if (g_tx_ready) {
       xSemaphoreTake(g_tx_mutex, portMAX_DELAY);
       if (g_tx_ready && g_ws_client.connected() && g_ws_client.send(g_tx_buffer)) {
         g_tx_ready = false;
+        sent_frame = true;
       }
       xSemaphoreGive(g_tx_mutex);
     }
 
     // Fast force channel: up to every 100 ms while the force changes, 1 Hz
     // keep-alive when idle (the full frame takes 2.56 s).
-    if (g_ws_client.connected() && now - last_force_ms >= config::kForceSendIntervalMs) {
+    // Never in the same pass as the 2.56 s frame: back-to-back TLS writes
+    // starve loop() and the pong is missed.
+    if (!sent_frame && g_ws_client.connected() && now - last_force_ms >= config::kForceSendIntervalMs) {
       last_force_ms = now;
       float force_kg = 0.0f;
       float loss_pct = 0.0f;
@@ -471,7 +529,7 @@ void networkTask(void*) {
       force_kg = g_state.force_kg;
       loss_pct = g_state.force_loss_pct;
       xSemaphoreGive(g_state_mutex);
-      if (valid && force_gate.shouldSend(force_kg, loss_pct, now) &&
+      if (valid && force_gate.shouldSend(force_kg, loss_pct, now, 200) &&
           syncfit::buildForceJson(force_kg, loss_pct, force_buffer, sizeof(force_buffer))) {
         g_ws_client.send(force_buffer);
       }
@@ -521,6 +579,7 @@ void setup() {
   g_status_led.setError(g_sensor_error);
 
   connectWifi();
+  g_clock_host = cfg.ws_host;
   if (!cfg.ws_host.isEmpty()) {
     g_ws_client.begin(cfg.ws_host.c_str(), cfg.ws_port, cfg.ws_path.c_str(),
                       cfg.ws_secure);

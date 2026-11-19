@@ -22,6 +22,7 @@ void test_rejects_empty_or_oversized_windows();
 void test_rejects_small_buffer();
 void test_builds_fast_force_message();
 void test_force_gate_sends_changes_and_keepalive_only();
+void test_parses_http_date_header();
 void test_builds_fast_force_message();
 
 void setUp() {}
@@ -50,5 +51,6 @@ int main(int, char**) {
   RUN_TEST(test_rejects_small_buffer);
   RUN_TEST(test_builds_fast_force_message);
   RUN_TEST(test_force_gate_sends_changes_and_keepalive_only);
+  RUN_TEST(test_parses_http_date_header);
   return UNITY_END();
 }

@@ -87,3 +87,16 @@ void test_force_gate_sends_changes_and_keepalive_only() {
   TEST_ASSERT_TRUE(gate.shouldSend(3.02f, 0.2f, 1300));   // keep-alive after 1 s
   TEST_ASSERT_TRUE(gate.shouldSend(3.02f, 1.0f, 1450));   // loss moved >= 0.5 %
 }
+
+#include "http_date.hpp"
+
+void test_parses_http_date_header() {
+  std::int64_t epoch = 0;
+  TEST_ASSERT_TRUE(syncfit::parseHttpDate("Wed, 19 Nov 2026 14:03:21 GMT", epoch));
+  TEST_ASSERT_EQUAL_INT64(1795097001LL, epoch);
+  TEST_ASSERT_TRUE(syncfit::parseHttpDate("Thu, 01 Jan 2026 00:00:00 GMT", epoch));
+  TEST_ASSERT_EQUAL_INT64(1767225600LL, epoch);
+  TEST_ASSERT_FALSE(syncfit::parseHttpDate("garbage", epoch));
+  TEST_ASSERT_FALSE(syncfit::parseHttpDate("Wed, 19 Foo 2026 14:03:21 GMT", epoch));
+  TEST_ASSERT_FALSE(syncfit::parseHttpDate(nullptr, epoch));
+}
