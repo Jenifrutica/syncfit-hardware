@@ -50,8 +50,9 @@ syncfit::StatusLed g_status_led(pins::kStatusLed);
 syncfit::WsClient g_ws_client;
 
 syncfit::AppState g_state;
-// Set at boot and whenever the WebSocket (re)connects: the force task zeroes
-// the platform as soon as it is at rest.
+// Set at boot: the force task zeroes a small drift as soon as the platform is
+// at rest. Not on reconnects (the campus Wi-Fi drops often and a resting hand
+// would become the new zero).
 volatile bool g_autotare_request = true;
 SemaphoreHandle_t g_state_mutex = nullptr;
 SemaphoreHandle_t g_tx_mutex = nullptr;
@@ -260,10 +261,9 @@ void sensorTask(void*) {
         if (autocorr_hr > 0.0f) hr_filter.push(autocorr_hr);
       }
       const float filtered_hr = hr_filter.value();
-      g_state.heart_rate_bpm =
-          filtered_hr > 0.0f
-              ? filtered_hr
-              : (finger_active ? rr_metrics.heartRateBpm() : 0.0f);
+      // No fallback to the peak detector: it counts the dicrotic notch as a
+      // second beat (double pulse). Until a real estimate exists show "—".
+      g_state.heart_rate_bpm = filtered_hr > 0.0f ? filtered_hr : 0.0f;
       g_state.finger_present = finger_active;
       xSemaphoreGive(g_state_mutex);
     }
@@ -376,7 +376,8 @@ void forceTask(void*) {
 #endif
 
 #if !SYNCFIT_MOCK_SENSORS
-    if (force_ok && auto_tare.push(force_kg, now)) {
+    // Only a small drift is zeroed: a hand resting on the platform is a load.
+    if (force_ok && std::fabs(force_kg) < 1.5f && auto_tare.push(force_kg, now)) {
       const float drift = force_kg;
       if (g_hx711.tare(10)) {
         g_force_filter.reset();
@@ -536,11 +537,7 @@ void networkTask(void*) {
     }
 
     g_ws_client.loop();
-    // Auto-zero on every (re)connection to the server.
-    static bool was_connected = false;
-    const bool ws_up = g_ws_client.connected();
-    if (ws_up && !was_connected) g_autotare_request = true;
-    was_connected = ws_up;
+
     g_status_led.setCloud(g_ws_client.connected());
 
     bool sent_frame = false;
