@@ -26,6 +26,8 @@ void test_parses_http_date_header();
 void test_sample_rate_meter_tracks_the_real_rate();
 void test_heart_rate_uses_the_measured_sample_rate();
 void test_auto_tare_waits_for_rest_and_fires_once();
+void test_heart_rate_ignores_the_dicrotic_notch_octave();
+void test_heart_rate_rejects_motion_without_a_real_peak();
 void test_auto_tare_ignores_heavy_static_load_and_times_out();
 void test_builds_fast_force_message();
 
@@ -59,6 +61,8 @@ int main(int, char**) {
   RUN_TEST(test_sample_rate_meter_tracks_the_real_rate);
   RUN_TEST(test_heart_rate_uses_the_measured_sample_rate);
   RUN_TEST(test_auto_tare_waits_for_rest_and_fires_once);
+  RUN_TEST(test_heart_rate_ignores_the_dicrotic_notch_octave);
+  RUN_TEST(test_heart_rate_rejects_motion_without_a_real_peak);
   RUN_TEST(test_auto_tare_ignores_heavy_static_load_and_times_out);
   return UNITY_END();
 }

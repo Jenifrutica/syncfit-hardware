@@ -137,7 +137,7 @@ void sensorTask(void*) {
   // smooths above ~6 Hz without attenuating the 1–2 Hz pulse.
   syncfit::MovingAverage<8> ppg_smoother;
   syncfit::PeakDetector peak_detector;
-  syncfit::MedianFilter<21> hr_filter;  // ~2 s at the 100 ms state cadence
+  syncfit::MedianFilter<51> hr_filter;  // ~5 s at the 100 ms state cadence: one bad window cannot move it
   syncfit::SampleRateMeter rate_meter;  // real MAX30102 rate (nominal 100 sps)
   syncfit::RrMetrics rr_metrics;
   syncfit::RingBuffer<float, config::kPpgWindowSize> window;
