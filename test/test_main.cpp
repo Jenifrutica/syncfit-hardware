@@ -21,6 +21,7 @@ void test_builds_valid_contract_shape_and_clamps_values();
 void test_rejects_empty_or_oversized_windows();
 void test_rejects_small_buffer();
 void test_builds_fast_force_message();
+void test_force_gate_sends_changes_and_keepalive_only();
 void test_builds_fast_force_message();
 
 void setUp() {}
@@ -48,5 +49,6 @@ int main(int, char**) {
   RUN_TEST(test_rejects_empty_or_oversized_windows);
   RUN_TEST(test_rejects_small_buffer);
   RUN_TEST(test_builds_fast_force_message);
+  RUN_TEST(test_force_gate_sends_changes_and_keepalive_only);
   return UNITY_END();
 }

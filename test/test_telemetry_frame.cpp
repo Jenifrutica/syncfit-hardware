@@ -76,3 +76,14 @@ void test_builds_fast_force_message() {
   char tiny[8] = {};
   TEST_ASSERT_FALSE(syncfit::buildForceJson(1.0f, 1.0f, tiny, sizeof(tiny)));
 }
+
+void test_force_gate_sends_changes_and_keepalive_only() {
+  syncfit::ForceSendGate gate;
+  TEST_ASSERT_TRUE(gate.shouldSend(0.10f, 0.0f, 0));      // first value
+  TEST_ASSERT_FALSE(gate.shouldSend(0.11f, 0.0f, 150));   // tiny change, no keep-alive yet
+  TEST_ASSERT_FALSE(gate.shouldSend(3.00f, 0.0f, 50));    // big change but < 100 ms
+  TEST_ASSERT_TRUE(gate.shouldSend(3.00f, 0.0f, 200));    // big change
+  TEST_ASSERT_FALSE(gate.shouldSend(3.02f, 0.2f, 900));   // idle
+  TEST_ASSERT_TRUE(gate.shouldSend(3.02f, 0.2f, 1300));   // keep-alive after 1 s
+  TEST_ASSERT_TRUE(gate.shouldSend(3.02f, 1.0f, 1450));   // loss moved >= 0.5 %
+}

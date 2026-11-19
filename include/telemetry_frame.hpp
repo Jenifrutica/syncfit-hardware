@@ -163,4 +163,30 @@ inline bool buildForceJson(float force_kg, float loss_pct, char* out, std::size_
   return written > 0 && static_cast<std::size_t>(written) < capacity;
 }
 
+// Throttle for the fast force channel: send at most every `min_ms`, and only
+// when the force or the loss changed enough, plus a keep-alive every
+// `keepalive_ms`. An idle platform then costs ~1 msg/s instead of 10 msg/s,
+// which keeps the TLS socket healthy on slow networks.
+struct ForceSendGate {
+  float last_kg = -1000.0f;
+  float last_loss = -1000.0f;
+  std::uint32_t last_ms = 0;
+  bool sent_once = false;
+
+  bool shouldSend(float kg, float loss, std::uint32_t now_ms, std::uint32_t min_ms = 100,
+                  std::uint32_t keepalive_ms = 1000, float kg_step = 0.05f, float loss_step = 0.5f) {
+    const std::uint32_t elapsed = now_ms - last_ms;
+    if (sent_once && elapsed < min_ms) return false;
+    const float dkg = kg > last_kg ? kg - last_kg : last_kg - kg;
+    const float dloss = loss > last_loss ? loss - last_loss : last_loss - loss;
+    const bool changed = !sent_once || dkg >= kg_step || dloss >= loss_step;
+    if (!changed && elapsed < keepalive_ms) return false;
+    last_kg = kg;
+    last_loss = loss;
+    last_ms = now_ms;
+    sent_once = true;
+    return true;
+  }
+};
+
 }  // namespace syncfit
