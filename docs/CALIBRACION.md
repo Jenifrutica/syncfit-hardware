@@ -22,6 +22,10 @@ python3 tools/serial_cmd.py --wait 2 "SET WIFI <red>,<clave>" REBOOT
 python3 tools/serial_cmd.py --boot 8 STATUS   # wifi=1 ws=1
 ```
 
+> Redes de campus: pueden bloquear NTP (UDP 123). Desde `33f3e94` el firmware toma la
+> hora de la cabecera `Date` de la API (`[clock] set from HTTPS Date`); si no aparece ni
+> eso, no se envían frames (`[telemetry] waiting for NTP time`).
+
 ## 1. Firmware con canal rápido de fuerza
 
 ```bash
@@ -79,4 +83,5 @@ la ventana.
 ## 6. Temperatura
 
 Sensor a 2–5 cm del ojo izquierdo: la temperatura del frame debe quedar estable
-(±0.3 °C) durante 30 s.
+(±0.3 °C) durante 30 s. Los primeros ~15 s varía más (acomodo de la distancia):
+tomar la lectura después.
