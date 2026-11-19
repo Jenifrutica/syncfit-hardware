@@ -29,6 +29,7 @@
 #include "drivers/max30102.hpp"
 #include "drivers/mlx90614.hpp"
 #include "filters.hpp"
+#include "auto_tare.hpp"
 #include "force_baseline.hpp"
 #include "http_date.hpp"
 #include "net/ws_client.hpp"
@@ -49,6 +50,9 @@ syncfit::StatusLed g_status_led(pins::kStatusLed);
 syncfit::WsClient g_ws_client;
 
 syncfit::AppState g_state;
+// Set at boot and whenever the WebSocket (re)connects: the force task zeroes
+// the platform as soon as it is at rest.
+volatile bool g_autotare_request = true;
 SemaphoreHandle_t g_state_mutex = nullptr;
 SemaphoreHandle_t g_tx_mutex = nullptr;
 char g_tx_buffer[6144];
@@ -284,6 +288,7 @@ void sensorTask(void*) {
 void forceTask(void*) {
   std::uint32_t last_button_ms = 0;
   syncfit::ForceBaseline force_baseline;
+  syncfit::AutoTareGate auto_tare;  // 3 s still, < 6 kg, gives up after 60 s
   bool button_handled = false;
   bool last_button = false;
 
@@ -294,6 +299,11 @@ void forceTask(void*) {
 
     bool tare_requested = false;
     syncfit::provisioningConsumeTareRequest(tare_requested);
+    if (g_autotare_request) {
+      g_autotare_request = false;
+      auto_tare.arm(now);
+      Serial.println("[force] auto-tare armed: keep the platform still");
+    }
     float calibration_kg = 0.0f;
     bool calibration_requested = false;
     syncfit::provisioningConsumeCalibration(calibration_kg, calibration_requested);
@@ -361,6 +371,20 @@ void forceTask(void*) {
         Serial.printf("[force] raw=%ld ready=%d (sin calibrar)\n",
                       static_cast<long>(g_hx711.lastRaw()),
                       g_hx711.isReady() ? 1 : 0);
+      }
+    }
+#endif
+
+#if !SYNCFIT_MOCK_SENSORS
+    if (force_ok && auto_tare.push(force_kg, now)) {
+      const float drift = force_kg;
+      if (g_hx711.tare(10)) {
+        g_force_filter.reset();
+        force_baseline.reset();
+        syncfit::provisioningSaveCalibration(g_hx711.offset(), g_hx711.scale());
+        Serial.printf("[force] auto-tare ok (drift %.2f kg) offset=%ld\n", drift,
+                      static_cast<long>(g_hx711.offset()));
+        force_kg = 0.0f;
       }
     }
 #endif
@@ -512,6 +536,11 @@ void networkTask(void*) {
     }
 
     g_ws_client.loop();
+    // Auto-zero on every (re)connection to the server.
+    static bool was_connected = false;
+    const bool ws_up = g_ws_client.connected();
+    if (ws_up && !was_connected) g_autotare_request = true;
+    was_connected = ws_up;
     g_status_led.setCloud(g_ws_client.connected());
 
     bool sent_frame = false;
