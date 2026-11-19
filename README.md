@@ -74,9 +74,9 @@ C++ (ESP-IDF / Arduino Core), I2C / SPI, WebSocket client over Wi-Fi.
 
 ## Related repositories
 
-- [`syncfit-contracts`](../syncfit-contracts) — telemetry frame schema.
-- [`syncfit-backend`](../syncfit-backend) — WebSocket ingestion endpoint.
-- [`syncfit-simulator`](../syncfit-simulator) — replaces this layer during software development.
+- [`syncfit-contracts`](https://github.com/Jenifrutica/syncfit-contracts) — telemetry frame schema.
+- [`syncfit-backend`](https://github.com/Jenifrutica/syncfit-backend) — WebSocket ingestion endpoint.
+- [`syncfit-simulator`](https://github.com/Jenifrutica/syncfit-simulator) — replaces this layer during software development.
 
 All code, comments, documentation and commits in this repository are written in English.
 
