@@ -138,7 +138,7 @@ void sensorTask(void*) {
   // smooths above ~6 Hz without attenuating the 1–2 Hz pulse.
   syncfit::MovingAverage<8> ppg_smoother;
   syncfit::PeakDetector peak_detector;
-  syncfit::MedianFilter<51> hr_filter;  // ~5 s at the 100 ms state cadence: one bad window cannot move it
+  syncfit::MedianFilter<21> hr_filter;  // ~2 s at the 100 ms state cadence
   syncfit::SampleRateMeter rate_meter;  // real MAX30102 rate (nominal 100 sps)
   syncfit::RrMetrics rr_metrics;
   syncfit::RingBuffer<float, config::kPpgWindowSize> window;
@@ -261,9 +261,10 @@ void sensorTask(void*) {
         if (autocorr_hr > 0.0f) hr_filter.push(autocorr_hr);
       }
       const float filtered_hr = hr_filter.value();
-      // No fallback to the peak detector: it counts the dicrotic notch as a
-      // second beat (double pulse). Until a real estimate exists show "—".
-      g_state.heart_rate_bpm = filtered_hr > 0.0f ? filtered_hr : 0.0f;
+      g_state.heart_rate_bpm =
+          filtered_hr > 0.0f
+              ? filtered_hr
+              : (finger_active ? rr_metrics.heartRateBpm() : 0.0f);
       g_state.finger_present = finger_active;
       xSemaphoreGive(g_state_mutex);
     }

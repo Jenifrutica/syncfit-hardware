@@ -7,7 +7,7 @@ demo works even when the ESP32's Wi-Fi does not. Run it and leave it open:
 
     python3 tools/usb_bridge.py            # /dev/ttyUSB0 -> production
 """
-import argparse, asyncio, json, time
+import argparse, asyncio, glob, json, time
 
 import serial
 import websockets
@@ -16,7 +16,7 @@ WS = "wss://api.syncfit.jenilarper.dev/api/v1/ws/telemetry"
 
 
 async def run(port: str, url: str) -> None:
-    ser = serial.Serial(port, 115200, timeout=0.05)
+    ser = None
     sent = 0
     last_report = time.time()
     while True:
@@ -28,6 +28,9 @@ async def run(port: str, url: str) -> None:
                     async for _ in ws:
                         pass
 
+                dev = port or (sorted(glob.glob("/dev/ttyUSB*")) or ["/dev/ttyUSB0"])[0]
+                ser = serial.Serial(dev, 115200, timeout=0.05)
+                print(f"[bridge] reading {dev}", flush=True)
                 reader = asyncio.create_task(drain())
                 buf = b""
                 while not reader.done():
@@ -48,14 +51,16 @@ async def run(port: str, url: str) -> None:
                     if time.time() - last_report > 10:
                         print(f"[bridge] {sent} messages forwarded", flush=True)
                         last_report = time.time()
-        except Exception as exc:  # network hiccup: retry
+        except Exception as exc:  # network hiccup or USB replugged: retry
+            if ser is not None:
+                ser.close()
             print(f"[bridge] {type(exc).__name__}: {exc}; retrying in 2 s", flush=True)
             await asyncio.sleep(2)
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--port", default="/dev/ttyUSB0")
+    ap.add_argument("--port", default=None)
     ap.add_argument("--url", default=WS)
     a = ap.parse_args()
     asyncio.run(run(a.port, a.url))

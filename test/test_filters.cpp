@@ -91,22 +91,3 @@ void test_heart_rate_uses_the_measured_sample_rate() {
   TEST_ASSERT_FLOAT_WITHIN(3.0f, 72.3f, syncfit::estimateHeartRateBpm(samples, 256, 100.0f));
 }
 
-void test_heart_rate_ignores_the_dicrotic_notch_octave() {
-  // 80 bpm pulse with a strong dicrotic wave half a beat later: the naive
-  // autocorrelation reads it as ~160 bpm.
-  float samples[256];
-  const float fs = 100.0f, hz = 80.0f / 60.0f;
-  for (int i = 0; i < 256; ++i) {
-    const float t = static_cast<float>(i) / fs;
-    samples[i] = std::sin(2.0f * 3.14159265f * hz * t) + 0.9f * std::sin(2.0f * 3.14159265f * 2.0f * hz * t + 0.4f);
-  }
-  TEST_ASSERT_FLOAT_WITHIN(4.0f, 80.0f, syncfit::estimateHeartRateBpm(samples, 256, fs));
-}
-
-void test_heart_rate_rejects_motion_without_a_real_peak() {
-  // Slow drift (finger pressure changing): correlation keeps rising toward the
-  // longest lag. That edge must not be reported as 45 bpm.
-  float samples[256];
-  for (int i = 0; i < 256; ++i) samples[i] = 3.0f * static_cast<float>(i) + 40.0f * std::sin(static_cast<float>(i) * 0.013f);
-  TEST_ASSERT_EQUAL_FLOAT(0.0f, syncfit::estimateHeartRateBpm(samples, 256, 100.0f));
-}

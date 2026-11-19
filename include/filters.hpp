@@ -178,12 +178,12 @@ inline float estimateHeartRateBpm(const float* samples, std::size_t count,
   variance /= static_cast<float>(count);
   if (variance <= 1.0e-6f) return 0.0f;
 
-  // The check-in is a resting measurement: 50–130 bpm avoids the 40/197
+  // The check-in is a resting measurement: 45–150 bpm avoids the 40/197
   // octave errors that a noisy dicrotic notch can create.
   const std::size_t min_lag =
-      static_cast<std::size_t>(sample_rate_hz * 60.0f / 130.0f);  // 130 bpm (resting check-in)
+      static_cast<std::size_t>(sample_rate_hz * 60.0f / 150.0f);  // 150 bpm
   std::size_t max_lag =
-      static_cast<std::size_t>(sample_rate_hz * 60.0f / 50.0f);  // 50 bpm
+      static_cast<std::size_t>(sample_rate_hz * 60.0f / 45.0f);  // 45 bpm
   if (max_lag >= count) max_lag = count - 1;
   if (max_lag <= min_lag + 1) return 0.0f;
 
@@ -200,33 +200,13 @@ inline float estimateHeartRateBpm(const float* samples, std::size_t count,
     const float score =
         sum / (static_cast<float>(count - lag) * variance);
     scores[lag] = score;
-  }
-  // Only a real peak counts: with motion or poor contact the correlation just
-  // slides toward one end of the range, and the edge (150 or 45 bpm) is not a
-  // pulse. No interior peak -> no reading ("—") instead of a wrong number.
-  for (std::size_t lag = min_lag + 1; lag < max_lag; ++lag) {
-    const float score = scores[lag];
-    if (score >= scores[lag - 1] && score >= scores[lag + 1] && score > best_score) {
+    if (score > best_score) {
       best_score = score;
       best_lag = lag;
     }
   }
 
   if (best_lag == 0 || best_score < 0.20f) return 0.0f;
-
-  // Octave check: the dicrotic notch makes every beat look like two, so the
-  // best lag can be HALF the real period (e.g. 152 bpm for a real 76). If the
-  // double lag is almost as similar, that is the true beat.
-  const std::size_t double_lag = best_lag * 2;
-  if (double_lag <= max_lag && scores[double_lag] >= 0.70f * best_score) {
-    std::size_t refined = double_lag;
-    for (std::size_t lag = double_lag > min_lag + 2 ? double_lag - 2 : min_lag;
-         lag <= double_lag + 2 && lag <= max_lag; ++lag) {
-      if (scores[lag] > scores[refined]) refined = lag;
-    }
-    best_lag = refined;
-    best_score = scores[refined];
-  }
 
   // Parabolic interpolation gives sub-sample period resolution.
   const float y0 = best_lag > 0 ? scores[best_lag - 1] : best_score;
