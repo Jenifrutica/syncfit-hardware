@@ -1,5 +1,7 @@
 # SyncFit Hardware
 
+**Live app:** https://syncfit.jenilarper.dev
+
 Physical sensing layer and embedded firmware of SyncFit Edge. Captures biomechanical telemetry at the source and streams it over WebSocket.
 
 ## Purpose
@@ -145,3 +147,10 @@ esp32dev` after wiring; `pio test -e native` for host tests.
 - [x] **CI** (`pio test -e native` en cada PR).
 - [ ] Sesión de calibración guiada: ver [`docs/CALIBRACION.md`](docs/CALIBRACION.md) (`tools/serial_cmd.py`, `tools/live_watch.py`).
 - [ ] Repetibilidad mecánica: el cero se mueve ~0.20 kg tras cargar/descargar; hacer `TARE` antes de cada captura.
+
+## Data structures
+
+- `RingBuffer<float, N>`: circular window of PPG samples; the heart rate is estimated over it by autocorrelation.
+- `MedianFilter<51>`: ~5 s median of the heart rate, so a single bad window cannot move the shown value.
+- `MovingAverage<N>`, `DcBlocker`, `PeakDetector`, `RrMetrics`: signal conditioning and beat-to-beat (R-R) metrics.
+- `ForceBaseline`, `ForceSendGate`, `AutoTareGate`: small state machines for the force channel (personal reference, send-on-change and automatic zero on boot/reconnect).
