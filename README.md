@@ -143,4 +143,5 @@ esp32dev` after wiring; `pio test -e native` for host tests.
 - [ ] **Validación de contrato** automática en CI.
 - [ ] **Esquemático eléctrico** y **Format B** (banda con LiPo).
 - [ ] **CI** (`pio test`).
+- [ ] Sesión de calibración guiada: ver [`docs/CALIBRACION.md`](docs/CALIBRACION.md) (`tools/serial_cmd.py`, `tools/live_watch.py`).
 - [ ] Repetibilidad mecánica: el cero se mueve ~0.20 kg tras cargar/descargar; hacer `TARE` antes de cada captura.
