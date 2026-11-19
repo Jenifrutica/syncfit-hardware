@@ -16,6 +16,10 @@ dependencies.lock
 *.hex
 *.map
 
+# Python bytecode from the case/render scripts under hardware/case/
+__pycache__/
+*.py[cod]
+
 # Local secrets (Wi-Fi credentials, WebSocket URL)
 include/secrets.hpp
 
